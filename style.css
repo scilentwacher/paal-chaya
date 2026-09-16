@@ -24,8 +24,9 @@ body{
   overflow-x:hidden;
 }
 
+
 /* =========================================================
-   VINTAGE KERALA SCENE — V3
+   VINTAGE KERALA SCENE
    ========================================================= */
 
 .scene{
@@ -41,18 +42,21 @@ body{
       rgba(0,0,0,.42) 78%,
       rgba(0,0,0,.68) 100%
     ),
+
     linear-gradient(
       90deg,
       rgba(0,0,0,.50),
       rgba(25,15,8,.08) 48%,
       rgba(0,0,0,.36)
     ),
+
     linear-gradient(
       0deg,
       rgba(0,0,0,.42),
       transparent 50%,
       rgba(0,0,0,.18)
     ),
+
     url("vintage-kerala.jpg") center/cover no-repeat;
 
   filter:
@@ -66,8 +70,9 @@ body{
   animation:filmExposure 11s ease-in-out infinite;
 }
 
+
 /* =========================================================
-   WARM CHAYA-KADA LIGHT
+   WARM TEA SHOP LIGHT
    ========================================================= */
 
 .scene::before{
@@ -89,6 +94,7 @@ body{
   animation:chayaGlow 7s ease-in-out infinite alternate;
 }
 
+
 /* =========================================================
    DISTANT LIGHTNING
    ========================================================= */
@@ -107,6 +113,7 @@ body{
 
   animation:distantLightning 17s linear infinite;
 }
+
 
 /* =========================================================
    FILM EXPOSURE
@@ -139,9 +146,6 @@ body{
   }
 }
 
-/* =========================================================
-   WARM LIGHT MOVEMENT
-   ========================================================= */
 
 @keyframes chayaGlow{
 
@@ -161,9 +165,6 @@ body{
   }
 }
 
-/* =========================================================
-   OCCASIONAL LIGHTNING
-   ========================================================= */
 
 @keyframes distantLightning{
 
@@ -192,8 +193,9 @@ body{
   }
 }
 
+
 /* =========================================================
-   WARM ATMOSPHERIC GLOW
+   ATMOSPHERIC GLOW
    ========================================================= */
 
 body::before{
@@ -209,6 +211,7 @@ body::before{
       rgba(245,155,79,.18),
       transparent 22%
     ),
+
     radial-gradient(
       circle at 22% 65%,
       rgba(104,74,40,.10),
@@ -218,6 +221,189 @@ body::before{
   mix-blend-mode:screen;
 }
 
+
+/* =========================================================
+   RAIN — V3 REALISTIC DEPTH
+   ========================================================= */
+
+/*
+   The three existing rain elements now represent:
+
+   rain-a = foreground / heavy drops
+   rain-b = middle distance
+   rain-c = background mist/fine rain
+*/
+
+
+.rain{
+  position:fixed;
+  inset:-30%;
+  z-index:12;
+  pointer-events:none;
+
+  transform:rotate(8deg);
+
+  background-repeat:repeat;
+
+  mix-blend-mode:screen;
+
+  will-change:background-position,transform;
+}
+
+
+/* =========================================================
+   FOREGROUND RAIN
+   ========================================================= */
+
+.rain-a{
+
+  opacity:.27;
+
+  background-image:
+
+    /* long bright drops */
+    repeating-linear-gradient(
+      105deg,
+      transparent 0 17px,
+      rgba(224,231,231,.38) 18px,
+      rgba(224,231,231,.20) 19px,
+      transparent 20px 42px
+    ),
+
+    /* secondary thin drops */
+    repeating-linear-gradient(
+      105deg,
+      transparent 0 31px,
+      rgba(193,210,214,.20) 32px,
+      transparent 34px 67px
+    );
+
+  background-size:
+    44px 48px,
+    71px 79px;
+
+  animation:
+    heavyRain .48s linear infinite;
+}
+
+
+@keyframes heavyRain{
+
+  from{
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  to{
+    background-position:
+      -38px 145px,
+      -22px 105px;
+  }
+}
+
+
+/* =========================================================
+   MID-DISTANCE RAIN
+   ========================================================= */
+
+.rain-b{
+
+  opacity:.15;
+
+  background-image:
+
+    repeating-linear-gradient(
+      104deg,
+      transparent 0 22px,
+      rgba(207,221,223,.30) 23px,
+      rgba(207,221,223,.12) 24px,
+      transparent 25px 56px
+    ),
+
+    repeating-linear-gradient(
+      104deg,
+      transparent 0 41px,
+      rgba(218,225,222,.18) 42px,
+      transparent 44px 89px
+    );
+
+  background-size:
+    59px 68px,
+    91px 104px;
+
+  animation:
+    mediumRain .82s linear infinite;
+}
+
+
+@keyframes mediumRain{
+
+  from{
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  to{
+    background-position:
+      -30px 105px,
+      -17px 78px;
+  }
+}
+
+
+/* =========================================================
+   BACKGROUND / FINE RAIN
+   ========================================================= */
+
+.rain-c{
+
+  opacity:.09;
+
+  background-image:
+
+    repeating-linear-gradient(
+      103deg,
+      transparent 0 28px,
+      rgba(200,216,218,.22) 29px,
+      transparent 30px 73px
+    ),
+
+    repeating-linear-gradient(
+      103deg,
+      transparent 0 52px,
+      rgba(218,224,221,.13) 53px,
+      transparent 54px 112px
+    );
+
+  background-size:
+    82px 92px,
+    127px 139px;
+
+  filter:blur(.65px);
+
+  animation:
+    distantRain 1.25s linear infinite;
+}
+
+
+@keyframes distantRain{
+
+  from{
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  to{
+    background-position:
+      -22px 72px,
+      -13px 53px;
+  }
+}
+
+
 /* =========================================================
    EXTRA RAIN DEPTH
    ========================================================= */
@@ -225,37 +411,50 @@ body::before{
 body::after{
   content:"";
   position:fixed;
-  inset:-20%;
+  inset:-25%;
   z-index:11;
   pointer-events:none;
 
-  opacity:.10;
+  opacity:.085;
 
   background-image:
+
     repeating-linear-gradient(
       103deg,
       transparent 0 34px,
       rgba(226,220,202,.18) 35px,
       transparent 36px 72px
+    ),
+
+    repeating-linear-gradient(
+      103deg,
+      transparent 0 75px,
+      rgba(226,220,202,.10) 76px,
+      transparent 77px 150px
     );
 
-  background-size:72px 72px;
+  background-size:
+    72px 72px,
+    151px 151px;
 
-  animation:rainDepth 1.35s linear infinite;
+  animation:
+    rainDepth 1.4s linear infinite;
 
   mix-blend-mode:screen;
 }
 
+
 @keyframes rainDepth{
 
   from{
-    transform:translate3d(-22px,-30px,0);
+    transform:translate3d(-24px,-35px,0);
   }
 
   to{
-    transform:translate3d(22px,30px,0);
+    transform:translate3d(25px,38px,0);
   }
 }
+
 
 /* =========================================================
    VIGNETTE
@@ -275,6 +474,7 @@ body::after{
     );
 }
 
+
 /* =========================================================
    OLD PHOTOGRAPHIC GRAIN
    ========================================================= */
@@ -292,6 +492,7 @@ body::after{
 
   animation:grain .18s steps(2) infinite;
 }
+
 
 @keyframes grain{
 
@@ -316,57 +517,6 @@ body::after{
   }
 }
 
-/* =========================================================
-   LIVE RAIN
-   ========================================================= */
-
-.rain{
-  position:fixed;
-  inset:-20%;
-  z-index:12;
-  pointer-events:none;
-
-  opacity:.24;
-
-  transform:rotate(8deg);
-
-  background-image:
-    repeating-linear-gradient(
-      105deg,
-      transparent 0 11px,
-      rgba(210,224,228,.30) 12px,
-      transparent 13px 25px
-    );
-
-  background-size:36px 36px;
-
-  animation:rainfall .55s linear infinite;
-}
-
-.rain-b{
-  opacity:.13;
-
-  background-size:55px 55px;
-
-  animation-duration:.9s;
-}
-
-.rain-c{
-  opacity:.075;
-
-  background-size:80px 80px;
-
-  animation-duration:1.3s;
-
-  filter:blur(.7px);
-}
-
-@keyframes rainfall{
-
-  to{
-    background-position:-30px 100px;
-  }
-}
 
 /* =========================================================
    HEADER
@@ -397,6 +547,7 @@ body::after{
     );
 }
 
+
 .brand{
   display:flex;
   align-items:center;
@@ -407,6 +558,7 @@ body::after{
   text-decoration:none;
 }
 
+
 .brand-cup{
   font-size:36px;
 
@@ -415,6 +567,7 @@ body::after{
       0 0 8px rgba(231,165,91,.45)
     );
 }
+
 
 .brand strong{
   display:block;
@@ -429,10 +582,12 @@ body::after{
     2px 2px #130b08;
 }
 
+
 .brand small{
   font-style:italic;
   opacity:.82;
 }
+
 
 .era-badge{
   padding:9px 16px;
@@ -452,16 +607,19 @@ body::after{
     0 8px 30px rgba(0,0,0,.35);
 }
 
+
 .era-badge span,
 .era-badge b,
 .era-badge em{
   display:block;
 }
 
+
 .era-badge span{
   font-size:10px;
   letter-spacing:2px;
 }
+
 
 .era-badge b{
   font-family:"IM Fell English";
@@ -469,10 +627,12 @@ body::after{
   color:#d7ae6d;
 }
 
+
 .era-badge em{
   font-size:11px;
   opacity:.72;
 }
+
 
 .menu-btn{
   display:none;
@@ -492,6 +652,7 @@ body::after{
   font-size:21px;
 }
 
+
 /* =========================================================
    NAVIGATION
    ========================================================= */
@@ -510,6 +671,7 @@ body::after{
 
   gap:6px;
 }
+
 
 .nav-link{
   display:flex;
@@ -541,6 +703,7 @@ body::after{
   transition:.2s;
 }
 
+
 .nav-link:hover,
 .nav-link.active{
   color:#f2d49a;
@@ -555,6 +718,7 @@ body::after{
     0 0 18px rgba(208,151,78,.13);
 }
 
+
 /* =========================================================
    MAIN / HERO
    ========================================================= */
@@ -564,6 +728,7 @@ main{
 
   margin-left:260px;
 }
+
 
 .hero{
   min-height:100vh;
@@ -577,9 +742,11 @@ main{
   position:relative;
 }
 
+
 .hero-copy{
   max-width:620px;
 }
+
 
 .eyebrow{
   margin:0 0 10px;
@@ -591,12 +758,14 @@ main{
   letter-spacing:3px;
 }
 
+
 h1,
 h2,
 h3{
   font-family:"IM Fell English",Georgia,serif;
   font-weight:400;
 }
+
 
 h1{
   margin:0;
@@ -610,9 +779,11 @@ h1{
     0 0 24px rgba(232,157,82,.08);
 }
 
+
 h1 i{
   color:#e0bd82;
 }
+
 
 .hero-text{
   margin:28px 0;
@@ -626,6 +797,7 @@ h1 i{
   color:#dfcda7;
 }
 
+
 .hero-actions{
   display:flex;
 
@@ -635,6 +807,7 @@ h1 i{
 
   flex-wrap:wrap;
 }
+
 
 .wood-btn,
 .paper-btn,
@@ -662,9 +835,11 @@ h1 i{
   transition:.22s;
 }
 
+
 .wood-btn{
   padding:12px 18px;
 }
+
 
 .wood-btn:hover,
 .preset:hover,
@@ -678,11 +853,13 @@ h1 i{
     inset 0 0 18px rgba(210,160,87,.08);
 }
 
+
 .wood-btn.primary{
   font-size:17px;
 
   padding:14px 22px;
 }
+
 
 .paper-link{
   color:#e2c997;
@@ -693,6 +870,7 @@ h1 i{
 
   font-size:18px;
 }
+
 
 .shop-note{
   position:absolute;
@@ -716,6 +894,7 @@ h1 i{
     0 12px 25px rgba(0,0,0,.4);
 }
 
+
 .shop-note span{
   display:block;
 
@@ -723,6 +902,7 @@ h1 i{
 
   color:#e6bd79;
 }
+
 
 .shop-note b{
   display:block;
@@ -732,6 +912,7 @@ h1 i{
   margin-top:6px;
 }
 
+
 .shop-note small{
   display:block;
 
@@ -739,6 +920,7 @@ h1 i{
 
   opacity:.72;
 }
+
 
 /* =========================================================
    CONTENT SECTIONS
@@ -752,9 +934,11 @@ h1 i{
   position:relative;
 }
 
+
 .section-heading{
   margin-bottom:28px;
 }
+
 
 .section-heading h2{
   font-size:clamp(42px,6vw,68px);
@@ -762,11 +946,17 @@ h1 i{
   margin:0 0 8px;
 }
 
+
 .section-heading p:last-child{
   margin:0;
 
   color:#cbb88e;
 }
+
+
+/* =========================================================
+   WOOD PANELS
+   ========================================================= */
 
 .wood-panel,
 .timer-panel,
@@ -786,9 +976,11 @@ h1 i{
     inset 0 0 30px rgba(0,0,0,.25);
 }
 
+
 .mixer{
   padding:22px;
 }
+
 
 .panel-title{
   display:flex;
@@ -805,17 +997,20 @@ h1 i{
   padding-bottom:13px;
 }
 
+
 .panel-title span{
   font-family:"IM Fell English";
 
   font-size:23px;
 }
 
+
 .panel-title small{
   opacity:.68;
 
   text-align:right;
 }
+
 
 .sound-grid{
   display:grid;
@@ -826,6 +1021,7 @@ h1 i{
 
   margin:20px 0;
 }
+
 
 .sound-row{
   display:grid;
@@ -845,11 +1041,13 @@ h1 i{
     1px solid rgba(213,164,94,.15);
 }
 
+
 .sound-row span{
   font-family:"IM Fell English";
 
   font-size:16px;
 }
+
 
 .sound-row b{
   font-size:11px;
@@ -859,11 +1057,13 @@ h1 i{
   color:#d8b271;
 }
 
+
 input[type=range]{
   width:100%;
 
   accent-color:#c99b59;
 }
+
 
 .mixer-actions{
   display:flex;
@@ -872,6 +1072,7 @@ input[type=range]{
 
   flex-wrap:wrap;
 }
+
 
 .preset-strip{
   display:flex;
@@ -890,6 +1091,7 @@ input[type=range]{
     1px dashed rgba(215,169,96,.25);
 }
 
+
 .preset-strip>span{
   font-size:10px;
 
@@ -898,11 +1100,13 @@ input[type=range]{
   color:#c79c60;
 }
 
+
 .preset{
   padding:8px 11px;
 
   font-size:12px;
 }
+
 
 .preset.selected{
   outline:
@@ -910,6 +1114,7 @@ input[type=range]{
 
   background:#6a3f22;
 }
+
 
 .quote-card{
   margin:35px auto 0;
@@ -935,6 +1140,7 @@ input[type=range]{
     1px solid rgba(218,171,99,.45);
 }
 
+
 .timer-panel{
   margin-top:30px;
 
@@ -949,11 +1155,13 @@ input[type=range]{
   gap:25px;
 }
 
+
 .timer-panel h3{
   font-size:30px;
 
   margin:0;
 }
+
 
 .timer-display{
   margin-top:8px;
@@ -965,6 +1173,7 @@ input[type=range]{
   color:#e2b66e;
 }
 
+
 .timer-buttons{
   display:flex;
 
@@ -974,6 +1183,7 @@ input[type=range]{
 
   justify-content:flex-end;
 }
+
 
 .paper-btn{
   padding:9px 12px;
@@ -986,6 +1196,7 @@ input[type=range]{
 
   font-size:12px;
 }
+
 
 /* =========================================================
    EXPLORE
@@ -1005,6 +1216,7 @@ input[type=range]{
 
   transform:rotate(-.4deg);
 }
+
 
 .search-paper input,
 .search-paper select{
@@ -1026,9 +1238,11 @@ input[type=range]{
   font:inherit;
 }
 
+
 .search-paper select{
   flex:0 0 190px;
 }
+
 
 .places{
   display:grid;
@@ -1039,6 +1253,7 @@ input[type=range]{
 
   margin-top:25px;
 }
+
 
 .place-card{
   padding:23px;
@@ -1055,11 +1270,13 @@ input[type=range]{
     0 10px 25px rgba(0,0,0,.3);
 }
 
+
 .place-card h3{
   font-size:28px;
 
   margin:20px 0 10px;
 }
+
 
 .place-card p{
   line-height:1.65;
@@ -1067,9 +1284,11 @@ input[type=range]{
   color:#cfbd95;
 }
 
+
 .place-card small{
   opacity:.58;
 }
+
 
 .stamp{
   font-size:9px;
@@ -1084,6 +1303,7 @@ input[type=range]{
   color:#cfa96b;
 }
 
+
 /* =========================================================
    ORMA
    ========================================================= */
@@ -1096,6 +1316,7 @@ input[type=range]{
   border-bottom:
     2px solid #8b6135;
 }
+
 
 .era{
   cursor:pointer;
@@ -1119,6 +1340,7 @@ input[type=range]{
   transition:.22s;
 }
 
+
 .era:hover{
   transform:translateY(-2px);
 
@@ -1126,11 +1348,13 @@ input[type=range]{
     0 8px 20px rgba(0,0,0,.25);
 }
 
+
 .era.active{
   background:#6b4325;
 
   color:#f1d59b;
 }
+
 
 .memory-room{
   margin-top:20px;
@@ -1145,6 +1369,7 @@ input[type=range]{
 
   align-items:center;
 }
+
 
 .radio,
 .cassette,
@@ -1165,6 +1390,7 @@ input[type=range]{
     0 14px 30px rgba(0,0,0,.42);
 }
 
+
 .radio{
   background:
     linear-gradient(
@@ -1180,11 +1406,13 @@ input[type=range]{
     1px solid #8d673e;
 }
 
+
 .radio span{
   font-size:11px;
 
   letter-spacing:3px;
 }
+
 
 .radio strong{
   font:62px "IM Fell English";
@@ -1192,11 +1420,13 @@ input[type=range]{
   color:#d4aa67;
 }
 
+
 .radio small{
   font-size:9px;
 
   letter-spacing:2px;
 }
+
 
 .cassette{
   background:#2a211b;
@@ -1206,6 +1436,7 @@ input[type=range]{
 
   position:relative;
 }
+
 
 .cassette:before{
   content:"ORMA • SIDE A";
@@ -1227,6 +1458,7 @@ input[type=range]{
   font:14px "IM Fell English";
 }
 
+
 .reel{
   width:58px;
 
@@ -1247,6 +1479,7 @@ input[type=range]{
   margin:45px 10px 0;
 }
 
+
 .old-note{
   padding:25px;
 
@@ -1257,18 +1490,21 @@ input[type=range]{
   transform:rotate(2deg);
 }
 
+
 .old-note p{
   font:italic 28px "IM Fell English";
 
   margin:0;
 }
 
+
 .old-note small{
   margin-top:20px;
 }
 
+
 /* =========================================================
-   MEMORIES / OWNER / FOOTER
+   MEMORIES
    ========================================================= */
 
 .memory-form{
@@ -1278,6 +1514,7 @@ input[type=range]{
 
   max-width:650px;
 }
+
 
 .memory-form input,
 .memory-form textarea{
@@ -1300,10 +1537,12 @@ input[type=range]{
   outline:none;
 }
 
+
 .memory-form input:focus,
 .memory-form textarea:focus{
   border-color:#c99b59;
 }
+
 
 .memory-list{
   display:grid;
@@ -1312,6 +1551,7 @@ input[type=range]{
 
   margin-top:25px;
 }
+
 
 .memory{
   padding:18px;
@@ -1324,9 +1564,15 @@ input[type=range]{
     4px 7px 15px rgba(0,0,0,.3);
 }
 
+
 .memory p{
   line-height:1.55;
 }
+
+
+/* =========================================================
+   OWNER
+   ========================================================= */
 
 .owner-card{
   padding:35px;
@@ -1334,19 +1580,27 @@ input[type=range]{
   max-width:700px;
 }
 
+
 .owner-card h2{
   font-size:50px;
 
   margin:0 0 10px;
 }
 
+
 .owner-card p{
   line-height:1.7;
 }
 
+
 .owner-card .paper-btn{
   margin-right:8px;
 }
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 footer{
   padding:45px 30px 70px;
@@ -1365,19 +1619,23 @@ footer{
   color:#cbb78d;
 }
 
+
 footer strong{
   font:28px "IM Fell English";
 }
 
+
 footer span{
   font-style:italic;
 }
+
 
 footer small{
   letter-spacing:2px;
 
   font-size:9px;
 }
+
 
 /* =========================================================
    MOBILE
@@ -1389,13 +1647,16 @@ footer small{
     padding:12px 16px;
   }
 
+
   .era-badge{
     display:none;
   }
 
+
   .menu-btn{
     display:block;
   }
+
 
   .side-nav{
     display:none;
@@ -1414,9 +1675,11 @@ footer small{
     padding:8px;
   }
 
+
   .side-nav .nav-link{
     padding:11px;
   }
+
 
   main{
     width:100%;
@@ -1424,25 +1687,32 @@ footer small{
     margin:0;
   }
 
-  /* =======================================================
-     MOBILE HERO — FIXED
-     ======================================================= */
+
+  /* =====================================================
+     MOBILE HERO
+     ===================================================== */
 
   .hero{
-    padding:135px 20px 45px;
+    padding:
+      125px
+      20px
+      55px
+      20px;
 
     min-height:100vh;
 
-    display:flex;
+    display:flex !important;
 
-    flex-direction:column;
+    flex-direction:column !important;
 
-    justify-content:flex-end;
+    justify-content:flex-end !important;
 
-    align-items:flex-start;
+    align-items:flex-start !important;
   }
 
-  /* Show more of the actual Kerala tea-shop scene */
+
+  /* Reveal actual Kerala scene */
+
   .scene{
     background-position:58% center;
 
@@ -1457,7 +1727,9 @@ footer small{
     transform:scale(1.015);
   }
 
-  /* Warm mobile atmosphere */
+
+  /* Mobile warm light */
+
   .scene::before{
     background:
       radial-gradient(
@@ -1468,16 +1740,16 @@ footer small{
       );
   }
 
-  /* Foreground readability */
+
+  /* Readability layer */
+
   .hero::after{
     content:"";
 
     position:absolute;
 
     left:0;
-
     right:0;
-
     bottom:0;
 
     height:48%;
@@ -1494,51 +1766,119 @@ footer small{
       );
   }
 
+
+  /* =====================================================
+     HERO COPY
+     ===================================================== */
+
   .hero-copy{
+    width:100% !important;
+
+    max-width:100% !important;
+
     position:relative;
 
     z-index:2;
 
+    display:flex !important;
+
+    flex-direction:column !important;
+
+    align-items:flex-start !important;
+  }
+
+
+  .hero-copy h1{
     width:100%;
 
-    max-width:620px;
+    max-width:100%;
   }
+
 
   .hero-text{
+    width:100%;
+
     font-size:19px;
-
-    line-height:1.55;
   }
 
-  /*
-     IMPORTANT:
-     Keep the shop note below the hero text/actions
-     instead of allowing it to sit beside the heading.
-  */
-  .shop-note{
-    position:relative;
 
-    right:auto;
+  .hero-actions{
+    width:100%;
 
-    bottom:auto;
+    display:flex;
 
-    width:fit-content;
+    gap:12px;
 
-    max-width:260px;
+    align-items:center;
 
-    margin:28px 0 0 auto;
-
-    z-index:3;
+    flex-wrap:wrap;
   }
+
+
+  /* =====================================================
+     SHOP NOTE — MOBILE
+     ===================================================== */
+
+  .hero-copy .shop-note{
+
+    position:relative !important;
+
+    top:auto !important;
+    right:auto !important;
+    bottom:auto !important;
+    left:auto !important;
+
+    width:fit-content !important;
+
+    max-width:260px !important;
+
+    margin:
+      30px
+      0
+      0
+      auto !important;
+
+    align-self:flex-end !important;
+
+    transform:
+      rotate(-2deg) !important;
+
+    z-index:5 !important;
+  }
+
+
+  /* =====================================================
+     SECTION
+     ===================================================== */
 
   .section{
     padding:75px 20px;
   }
 
+
+  /* Fine rain slightly softer on phones */
+
   body::after{
-    opacity:.08;
+    opacity:.07;
   }
+
+
+  .rain-a{
+    opacity:.22;
+  }
+
+
+  .rain-b{
+    opacity:.12;
+  }
+
+
+  .rain-c{
+    opacity:.075;
+  }
+
 }
+
 
 /* =========================================================
    SMALL MOBILE
@@ -1550,9 +1890,11 @@ footer small{
     font-size:25px;
   }
 
+
   .brand small{
     font-size:10px;
   }
+
 
   .sound-grid,
   .places,
@@ -1560,17 +1902,21 @@ footer small{
     grid-template-columns:1fr;
   }
 
+
   .sound-row{
     grid-template-columns:90px 1fr 45px;
   }
+
 
   .search-paper{
     flex-direction:column;
   }
 
+
   .search-paper select{
     flex-basis:auto;
   }
+
 
   .timer-panel{
     flex-direction:column;
@@ -1578,13 +1924,56 @@ footer small{
     align-items:flex-start;
   }
 
+
   .timer-buttons{
     justify-content:flex-start;
   }
 
-  .shop-note{
-    max-width:245px;
+
+  .hero{
+    padding:
+      125px
+      20px
+      55px;
   }
+
+
+  h1{
+    font-size:52px !important;
+
+    line-height:.91 !important;
+  }
+
+
+  .hero-text{
+    font-size:18px;
+
+    line-height:1.55;
+
+    margin:24px 0;
+  }
+
+
+  .wood-btn.primary{
+    font-size:16px;
+
+    padding:13px 18px;
+  }
+
+
+  .paper-link{
+    font-size:17px;
+  }
+
+
+  .hero-copy .shop-note{
+    max-width:245px !important;
+
+    margin-top:30px !important;
+
+    align-self:flex-end !important;
+  }
+
 
   footer{
     flex-direction:column;
@@ -1592,15 +1981,8 @@ footer small{
     align-items:flex-start;
   }
 
-  /* Better mobile hero typography */
-  h1{
-    font-size:52px;
-
-    line-height:.91;
-
-    max-width:100%;
-  }
 }
+
 
 /* =========================================================
    REDUCED MOTION
@@ -1617,114 +1999,6 @@ footer small{
   .rain-b,
   .rain-c{
     animation:none !important;
-  }
-}
-
-/* =========================================================
-   PAAL CHAYA — MOBILE HERO FINAL FIX
-   ========================================================= */
-
-@media (max-width: 900px){
-
-  .hero{
-    display:flex !important;
-    flex-direction:column !important;
-    justify-content:flex-end !important;
-    align-items:flex-start !important;
-  }
-
-  .hero-copy{
-    width:100% !important;
-    max-width:100% !important;
-    display:flex !important;
-    flex-direction:column !important;
-    align-items:flex-start !important;
-  }
-
-  .hero-copy h1{
-    width:100% !important;
-    max-width:100% !important;
-  }
-
-  .hero-text{
-    width:100% !important;
-  }
-
-  .hero-actions{
-    width:100% !important;
-  }
-
-  /*
-   * IMPORTANT:
-   * The shop note must NOT be absolute on mobile.
-   */
-  .hero-copy .shop-note{
-    position:relative !important;
-
-    top:auto !important;
-    right:auto !important;
-    bottom:auto !important;
-    left:auto !important;
-
-    width:fit-content !important;
-    max-width:260px !important;
-
-    margin:28px 0 0 auto !important;
-
-    transform:rotate(-2deg) !important;
-
-    z-index:5 !important;
-  }
-
-}
-
-
-/* =========================================================
-   SMALL PHONE
-   ========================================================= */
-
-@media (max-width:650px){
-
-  .hero{
-    padding:
-      125px
-      20px
-      55px
-      20px !important;
-  }
-
-  .hero-copy{
-    width:100% !important;
-  }
-
-  h1{
-    font-size:52px !important;
-    line-height:.91 !important;
-  }
-
-  .hero-text{
-    font-size:18px !important;
-    line-height:1.55 !important;
-    margin:24px 0 !important;
-  }
-
-  .hero-actions{
-    gap:12px !important;
-  }
-
-  .wood-btn.primary{
-    font-size:16px !important;
-    padding:13px 18px !important;
-  }
-
-  .paper-link{
-    font-size:17px !important;
-  }
-
-  .hero-copy .shop-note{
-    max-width:245px !important;
-    margin-top:30px !important;
-    align-self:flex-end !important;
   }
 
 }
