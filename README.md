@@ -18,4 +18,3 @@ Next integrations:
 - Licensed/original nostalgia content
 
 Use GitHub Pages to deploy the static prototype.
-
