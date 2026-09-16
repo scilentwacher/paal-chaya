@@ -1,9 +1,22 @@
-/* ================================
-   PAAL CHAYA — AUDIO ENGINE
-================================ */
+/* =========================================
+   PAAL CHAYA — COMPLETE SCRIPT
+   Audio + Presets + Timer + Search + Memories
+========================================= */
 
-const sounds = {};
-const vals = {
+
+/* =========================================
+   1. AUDIO ENGINE
+========================================= */
+
+const audioNames = [
+  "rain",
+  "thunder",
+  "crickets",
+  "fire",
+  "train"
+];
+
+const volumes = {
   rain: 55,
   thunder: 25,
   crickets: 40,
@@ -11,163 +24,284 @@ const vals = {
   train: 10
 };
 
-let playing = false;
-let muted = false;
+const sounds = {};
 
-/* Load audio files from ROOT of repository */
-Object.keys(vals).forEach(n => {
-  const audio = new Audio(`${n}.wav`);
+let audioPlaying = false;
+let audioMuted = false;
+
+
+/* Load audio files from repository ROOT */
+
+audioNames.forEach(name => {
+
+  const audio = new Audio(`${name}.wav`);
+
   audio.loop = true;
   audio.preload = "auto";
-  audio.volume = vals[n] / 100 * 0.72;
-  sounds[n] = audio;
+
+  audio.volume = volumes[name] / 100 * 0.72;
+
+  sounds[name] = audio;
+
 });
 
-function setStatus(text) {
-  const status = document.getElementById("audioStatus");
-  if (status) status.textContent = text;
+
+/* =========================================
+   AUDIO STATUS
+========================================= */
+
+function setAudioStatus(message) {
+
+  const status =
+    document.getElementById("audioStatus");
+
+  if (status) {
+    status.textContent = message;
+  }
+
 }
 
-/* ================================
+
+/* =========================================
    START AUDIO
-================================ */
+========================================= */
 
 async function startAudio() {
+
   try {
-    await Promise.all(
-      Object.keys(sounds).map(n => sounds[n].play())
+
+    /*
+      Start every audio track.
+      Mobile browsers require this to happen
+      after a user interaction.
+    */
+
+    for (const name of audioNames) {
+
+      sounds[name].muted = audioMuted;
+
+      await sounds[name].play();
+
+    }
+
+    audioPlaying = true;
+
+    const masterButton =
+      document.getElementById("masterBtn");
+
+    if (masterButton) {
+      masterButton.textContent = "⏸ Stop";
+    }
+
+    setAudioStatus(
+      "🎧 Ambience playing"
     );
 
-    playing = true;
-    muted = false;
-
-    document.querySelectorAll(".preset").forEach(b => {
-      b.classList.remove("selected");
-    });
-
-    const masterBtn = document.getElementById("masterBtn");
-    const muteBtn = document.getElementById("muteBtn");
-
-    if (masterBtn) masterBtn.textContent = "⏸ Stop";
-    if (muteBtn) muteBtn.textContent = "🔇 Mute";
-
-    setStatus("🎧 Ambience playing");
   } catch (error) {
-    console.error("Audio error:", error);
-    setStatus("⚠️ Tap Test Sound to start audio");
+
+    console.error(
+      "Audio playback error:",
+      error
+    );
+
+    setAudioStatus(
+      "⚠️ Tap Test Sound to start audio"
+    );
+
   }
+
 }
 
-/* ================================
+
+/* =========================================
    STOP AUDIO
-================================ */
+========================================= */
 
 function stopAudio() {
-  Object.keys(sounds).forEach(n => {
-    sounds[n].pause();
-    sounds[n].currentTime = 0;
+
+  audioNames.forEach(name => {
+
+    sounds[name].pause();
+
+    sounds[name].currentTime = 0;
+
   });
 
-  playing = false;
+  audioPlaying = false;
 
-  const masterBtn = document.getElementById("masterBtn");
+  const masterButton =
+    document.getElementById("masterBtn");
 
-  if (masterBtn) {
-    masterBtn.textContent = "▶ Start";
+  if (masterButton) {
+    masterButton.textContent = "▶ Start";
   }
 
-  setStatus("Audio stopped");
+  setAudioStatus(
+    "Audio stopped"
+  );
+
 }
 
-/* ================================
+
+/* =========================================
    START / STOP BUTTON
-================================ */
+========================================= */
 
-const masterBtn = document.getElementById("masterBtn");
+const masterButton =
+  document.getElementById("masterBtn");
 
-masterBtn?.addEventListener("click", () => {
-  if (playing) {
-    stopAudio();
-  } else {
-    startAudio();
+masterButton?.addEventListener(
+  "click",
+  () => {
+
+    if (audioPlaying) {
+
+      stopAudio();
+
+    } else {
+
+      startAudio();
+
+    }
+
   }
-});
+);
 
-/* ================================
+
+/* =========================================
    TEST SOUND
-================================ */
+========================================= */
 
-const testBtn = document.getElementById("testBtn");
+const testButton =
+  document.getElementById("testBtn");
 
-testBtn?.addEventListener("click", async () => {
-  try {
-    const testAudio = new Audio("rain.wav");
-    testAudio.volume = 0.9;
+testButton?.addEventListener(
+  "click",
+  async () => {
 
-    await testAudio.play();
+    try {
 
-    setStatus("🔊 Rain test sound playing");
+      const testAudio =
+        new Audio("rain.wav");
 
-  } catch (error) {
-    console.error(error);
-    setStatus("⚠️ Browser blocked audio. Tap again.");
+      testAudio.volume = 0.9;
+
+      await testAudio.play();
+
+      setAudioStatus(
+        "🔊 Rain test sound playing"
+      );
+
+    } catch (error) {
+
+      console.error(
+        "Test audio error:",
+        error
+      );
+
+      setAudioStatus(
+        "⚠️ Audio could not start. Tap again."
+      );
+
+    }
+
   }
-});
+);
 
-/* ================================
+
+/* =========================================
    MUTE / UNMUTE
-================================ */
+========================================= */
 
-const muteBtn = document.getElementById("muteBtn");
+const muteButton =
+  document.getElementById("muteBtn");
 
-muteBtn?.addEventListener("click", () => {
+muteButton?.addEventListener(
+  "click",
+  () => {
 
-  muted = !muted;
+    audioMuted = !audioMuted;
 
-  Object.keys(sounds).forEach(n => {
-    sounds[n].muted = muted;
-  });
+    audioNames.forEach(name => {
 
-  if (muteBtn) {
-    muteBtn.textContent = muted
-      ? "🔊 Unmute"
-      : "🔇 Mute";
+      sounds[name].muted = audioMuted;
+
+    });
+
+    if (audioMuted) {
+
+      muteButton.textContent =
+        "🔊 Unmute";
+
+      setAudioStatus(
+        "🔇 Audio muted"
+      );
+
+    } else {
+
+      muteButton.textContent =
+        "🔇 Mute";
+
+      setAudioStatus(
+        "🎧 Ambience playing"
+      );
+
+    }
+
   }
+);
 
-  setStatus(muted ? "🔇 Audio muted" : "🎧 Ambience playing");
-});
 
-/* ================================
-   SOUND SLIDERS
-================================ */
+/* =========================================
+   2. SOUND SLIDERS
+========================================= */
 
-document.querySelectorAll(".sound-slider").forEach(slider => {
+document
+  .querySelectorAll(".sound-slider")
+  .forEach(slider => {
 
-  slider.addEventListener("input", () => {
+    slider.addEventListener(
+      "input",
+      () => {
 
-    const name = slider.dataset.sound;
-    const value = Number(slider.value);
+        const name =
+          slider.dataset.sound;
 
-    vals[name] = value;
+        const value =
+          Number(slider.value);
 
-    if (sounds[name]) {
-      sounds[name].volume =
-        muted ? 0 : value / 100 * 0.72;
-    }
+        volumes[name] = value;
 
-    const output = document.getElementById(name + "Out");
+        if (sounds[name]) {
 
-    if (output) {
-      output.textContent = value + "%";
-    }
+          sounds[name].volume =
+            audioMuted
+              ? 0
+              : value / 100 * 0.72;
+
+        }
+
+        const output =
+          document.getElementById(
+            name + "Out"
+          );
+
+        if (output) {
+
+          output.textContent =
+            value + "%";
+
+        }
+
+      }
+    );
+
   });
 
-});
 
-
-/* ================================
-   PRESETS
-================================ */
+/* =========================================
+   3. PRESETS
+========================================= */
 
 const presets = {
 
@@ -238,128 +372,222 @@ const presets = {
 };
 
 
-/* ================================
+/* =========================================
    PRESET BUTTONS
-================================ */
+========================================= */
 
-document.querySelectorAll(".preset").forEach(button => {
+document
+  .querySelectorAll(".preset")
+  .forEach(button => {
 
-  button.addEventListener("click", () => {
+    button.addEventListener(
+      "click",
+      () => {
 
-    document
-      .querySelectorAll(".preset")
-      .forEach(b => b.classList.remove("selected"));
+        /*
+          Remove previous selection
+        */
 
-    button.classList.add("selected");
+        document
+          .querySelectorAll(".preset")
+          .forEach(b => {
 
-    const preset = presets[button.dataset.preset];
+            b.classList.remove(
+              "selected"
+            );
 
-    if (!preset) return;
+          });
 
-    Object.entries(preset).forEach(([name, value]) => {
 
-      const slider =
-        document.querySelector(`[data-sound="${name}"]`);
+        button.classList.add(
+          "selected"
+        );
 
-      if (slider) {
-        slider.value = value;
 
-        vals[name] = value;
+        const preset =
+          presets[
+            button.dataset.preset
+          ];
 
-        const output =
-          document.getElementById(name + "Out");
+        if (!preset) return;
 
-        if (output) {
-          output.textContent = value + "%";
+
+        /*
+          Apply preset volumes
+        */
+
+        Object.entries(preset)
+          .forEach(
+            ([name, value]) => {
+
+              volumes[name] = value;
+
+
+              const slider =
+                document.querySelector(
+                  `[data-sound="${name}"]`
+                );
+
+              if (slider) {
+
+                slider.value =
+                  value;
+
+              }
+
+
+              const output =
+                document.getElementById(
+                  name + "Out"
+                );
+
+              if (output) {
+
+                output.textContent =
+                  value + "%";
+
+              }
+
+
+              if (sounds[name]) {
+
+                sounds[name].volume =
+                  audioMuted
+                    ? 0
+                    : value / 100 * 0.72;
+
+              }
+
+            }
+          );
+
+
+        /*
+          Automatically start ambience
+        */
+
+        if (!audioPlaying) {
+
+          startAudio();
+
         }
 
-        if (sounds[name]) {
-          sounds[name].volume =
-            muted ? 0 : value / 100 * 0.72;
-        }
       }
-
-    });
-
-    if (!playing) {
-      startAudio();
-    }
+    );
 
   });
 
-});
+
+/* =========================================
+   4. MOBILE MENU
+========================================= */
+
+const menuButton =
+  document.getElementById("menuBtn");
+
+const navigation =
+  document.getElementById("nav");
 
 
-/* ================================
-   MENU
-================================ */
+menuButton?.addEventListener(
+  "click",
+  () => {
 
-const menuBtn = document.getElementById("menuBtn");
-const nav = document.getElementById("nav");
+    const isOpen =
+      navigation.style.display === "flex";
 
-menuBtn?.addEventListener("click", () => {
+    navigation.style.display =
+      isOpen
+        ? ""
+        : "flex";
 
-  const open = nav.style.display === "flex";
+    menuButton.setAttribute(
+      "aria-expanded",
+      String(!isOpen)
+    );
 
-  nav.style.display = open ? "" : "flex";
+  }
+);
 
-  menuBtn.setAttribute(
-    "aria-expanded",
-    String(!open)
-  );
 
-});
+navigation
+  ?.querySelectorAll("a")
+  .forEach(link => {
 
-nav?.querySelectorAll("a").forEach(a => {
+    link.addEventListener(
+      "click",
+      () => {
 
-  a.addEventListener("click", () => {
+        if (window.innerWidth <= 800) {
 
-    if (innerWidth <= 800) {
-      nav.style.display = "";
-    }
+          navigation.style.display =
+            "";
+
+        }
+
+      }
+    );
 
   });
 
-});
 
-
-/* ================================
-   SEARCH & FILTER
-================================ */
+/* =========================================
+   5. SEARCH & CATEGORY FILTER
+========================================= */
 
 const searchInput =
-  document.getElementById("searchInput");
+  document.getElementById(
+    "searchInput"
+  );
 
-const filter =
-  document.getElementById("categoryFilter");
+const categoryFilter =
+  document.getElementById(
+    "categoryFilter"
+  );
+
 
 function filterPlaces() {
 
-  const q =
-    (searchInput?.value || "").toLowerCase();
+  const query =
+    (
+      searchInput?.value || ""
+    ).toLowerCase();
 
-  const cat =
-    filter?.value || "all";
 
-  document.querySelectorAll(".place-card")
+  const category =
+    categoryFilter?.value ||
+    "all";
+
+
+  document
+    .querySelectorAll(".place-card")
     .forEach(card => {
 
       const name =
-        card.dataset.name.toLowerCase();
+        (
+          card.dataset.name ||
+          ""
+        ).toLowerCase();
+
 
       const text =
         card.textContent.toLowerCase();
 
-      const matchesSearch =
-        name.includes(q) ||
-        text.includes(q);
 
-      const matchesCategory =
-        cat === "all" ||
-        card.dataset.category === cat;
+      const searchMatch =
+        name.includes(query) ||
+        text.includes(query);
+
+
+      const categoryMatch =
+        category === "all" ||
+        card.dataset.category ===
+          category;
+
 
       card.style.display =
-        matchesSearch && matchesCategory
+        searchMatch &&
+        categoryMatch
           ? "block"
           : "none";
 
@@ -367,209 +595,393 @@ function filterPlaces() {
 
 }
 
+
 searchInput?.addEventListener(
   "input",
   filterPlaces
 );
 
-filter?.addEventListener(
+
+categoryFilter?.addEventListener(
   "change",
   filterPlaces
 );
 
 
-/* ================================
-   TIMER
-================================ */
+/* =========================================
+   6. FOCUS / SLEEP TIMER
+========================================= */
 
 let timerId = null;
-let remaining = 0;
 
-const display =
-  document.getElementById("timerDisplay");
+let remainingSeconds = 0;
+
+
+const timerDisplay =
+  document.getElementById(
+    "timerDisplay"
+  );
+
 
 function renderTimer() {
 
-  if (!display) return;
+  if (!timerDisplay) return;
+
 
   const minutes =
-    Math.floor(remaining / 60);
+    Math.floor(
+      remainingSeconds / 60
+    );
+
 
   const seconds =
-    remaining % 60;
+    remainingSeconds % 60;
 
-  display.textContent =
+
+  timerDisplay.textContent =
     `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
 }
 
 
-document.querySelectorAll(".timer").forEach(button => {
+/*
+  IMPORTANT:
+  Only buttons containing data-min
+  are treated as timer buttons.
+*/
 
-  button.addEventListener("click", () => {
+document
+  .querySelectorAll(".timer[data-min]")
+  .forEach(button => {
 
-    clearInterval(timerId);
-
-    remaining =
-      Number(button.dataset.min) * 60;
-
-    renderTimer();
-
-    timerId = setInterval(() => {
-
-      remaining--;
-
-      renderTimer();
-
-      if (remaining <= 0) {
+    button.addEventListener(
+      "click",
+      () => {
 
         clearInterval(timerId);
 
-        stopAudio();
 
-        alert("Focus session complete ☕");
+        remainingSeconds =
+          Number(
+            button.dataset.min
+          ) * 60;
+
+
+        renderTimer();
+
+
+        timerId =
+          setInterval(
+            () => {
+
+              remainingSeconds--;
+
+              renderTimer();
+
+
+              if (
+                remainingSeconds <= 0
+              ) {
+
+                clearInterval(
+                  timerId
+                );
+
+                remainingSeconds =
+                  0;
+
+                renderTimer();
+
+
+                /*
+                  Stop ambience when
+                  session finishes.
+                */
+
+                if (audioPlaying) {
+
+                  stopAudio();
+
+                }
+
+
+                alert(
+                  "Focus session complete ☕"
+                );
+
+              }
+
+            },
+            1000
+          );
 
       }
-
-    }, 1000);
+    );
 
   });
 
-});
 
-
-/* ================================
+/* =========================================
    TIMER RESET
-================================ */
+========================================= */
 
 const timerReset =
-  document.getElementById("timerReset");
-
-timerReset?.addEventListener("click", () => {
-
-  clearInterval(timerId);
-
-  remaining = 0;
-
-  renderTimer();
-
-});
+  document.getElementById(
+    "timerReset"
+  );
 
 
-/* ================================
-   ORMA ERA BUTTONS
-================================ */
+timerReset?.addEventListener(
+  "click",
+  () => {
 
-document.querySelectorAll(".era").forEach(button => {
+    clearInterval(timerId);
 
-  button.addEventListener("click", () => {
+    remainingSeconds = 0;
 
-    document
-      .querySelectorAll(".era")
-      .forEach(x => x.classList.remove("active"));
+    renderTimer();
 
-    button.classList.add("active");
+  }
+);
+
+
+/* =========================================
+   7. ORMA ERA BUTTONS
+========================================= */
+
+document
+  .querySelectorAll(".era")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(".era")
+          .forEach(
+            item => {
+
+              item.classList.remove(
+                "active"
+              );
+
+            }
+          );
+
+
+        button.classList.add(
+          "active"
+        );
+
+      }
+    );
 
   });
 
-});
 
+/* =========================================
+   8. MEMORY SYSTEM
+========================================= */
 
-/* ================================
-   MEMORY SYSTEM
-================================ */
-
-const form =
-  document.getElementById("memoryForm");
-
-const list =
-  document.getElementById("memoryList");
-
-let memories =
-  JSON.parse(
-    localStorage.getItem("paalChayaMemories") || "[]"
+const memoryForm =
+  document.getElementById(
+    "memoryForm"
   );
 
+const memoryList =
+  document.getElementById(
+    "memoryList"
+  );
+
+
+let memories = [];
+
+try {
+
+  memories =
+    JSON.parse(
+      localStorage.getItem(
+        "paalChayaMemories"
+      ) || "[]"
+    );
+
+  if (!Array.isArray(memories)) {
+
+    memories = [];
+
+  }
+
+} catch (error) {
+
+  memories = [];
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
 function escapeHtml(value) {
 
   return String(value).replace(
     /[&<>"']/g,
-    character => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    }[character])
+    character => {
+
+      const entities = {
+
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+
+      };
+
+      return entities[character];
+
+    }
   );
 
 }
 
+
+/* =========================================
+   DISPLAY MEMORIES
+========================================= */
 
 function renderMemories() {
 
-  if (!list) return;
+  if (!memoryList) return;
 
-  list.innerHTML =
-    memories.map(memory => `
 
-      <article class="memory">
+  memoryList.innerHTML =
+    memories
+      .map(memory => {
 
-        <strong>
-          ${escapeHtml(memory.title)}
-        </strong>
-
-        ${
+        const year =
           memory.year
-            ? ` · ${escapeHtml(memory.year)}`
-            : ""
-        }
+            ? ` · ${escapeHtml(
+                memory.year
+              )}`
+            : "";
 
-        <p>
-          ${escapeHtml(memory.text)}
-        </p>
 
-      </article>
+        return `
+          <article class="memory">
 
-    `).join("");
+            <strong>
+              ${escapeHtml(
+                memory.title
+              )}
+            </strong>
+
+            ${year}
+
+            <p>
+              ${escapeHtml(
+                memory.text
+              )}
+            </p>
+
+          </article>
+        `;
+
+      })
+      .join("");
 
 }
 
 
-form?.addEventListener("submit", event => {
+/* =========================================
+   SAVE MEMORY
+========================================= */
 
-  event.preventDefault();
+memoryForm?.addEventListener(
+  "submit",
+  event => {
 
-  const title =
-    document.getElementById("memoryTitle");
+    event.preventDefault();
 
-  const year =
-    document.getElementById("memoryYear");
 
-  const text =
-    document.getElementById("memoryText");
+    const titleInput =
+      document.getElementById(
+        "memoryTitle"
+      );
 
-  memories.unshift({
 
-    title: title.value,
+    const yearInput =
+      document.getElementById(
+        "memoryYear"
+      );
 
-    year: year.value,
 
-    text: text.value
+    const textInput =
+      document.getElementById(
+        "memoryText"
+      );
 
-  });
 
-  localStorage.setItem(
-    "paalChayaMemories",
-    JSON.stringify(memories)
-  );
+    if (
+      !titleInput ||
+      !textInput
+    ) {
 
-  form.reset();
+      return;
 
-  renderMemories();
+    }
 
-});
 
+    const memory = {
+
+      title:
+        titleInput.value.trim(),
+
+      year:
+        yearInput
+          ? yearInput.value.trim()
+          : "",
+
+      text:
+        textInput.value.trim()
+
+    };
+
+
+    if (
+      !memory.title ||
+      !memory.text
+    ) {
+
+      return;
+
+    }
+
+
+    memories.unshift(
+      memory
+    );
+
+
+    localStorage.setItem(
+      "paalChayaMemories",
+      JSON.stringify(memories)
+    );
+
+
+    memoryForm.reset();
+
+    renderMemories();
+
+  }
+);
+
+
+/* =========================================
+   INITIAL RENDER
+========================================= */
 
 renderMemories();
+
+renderTimer();
