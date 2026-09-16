@@ -1,165 +1,216 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#183c2b">
-  <meta name="description" content="Paal Chaya — a digital Kerala experience for ambience, local food discovery and nostalgia.">
-  <title>Paal Chaya – Digital Kerala</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#120d09">
+  <title>PAAL CHAYA — A Sip of Home</title>
+  <meta name="description" content="PAAL CHAYA — Experience Kerala, one chaya at a time.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<div class="scene"></div>
+<div class="vignette"></div>
+<div class="grain"></div>
+<div class="rain rain-a"></div>
+<div class="rain rain-b"></div>
+<div class="rain rain-c"></div>
+
 <header class="topbar">
-  <a class="brand" href="#home" aria-label="Paal Chaya home">
-    <span class="brand-mark">☕</span>
-    <span><strong>PAAL CHAYA</strong><small>പാൽ ചായ</small></span>
+  <a class="brand" href="#home">
+    <span class="brand-cup">☕</span>
+    <span>
+      <strong>PAAL CHAYA</strong>
+      <small>ഒരു ചായ... ഒരു ഓർമ്മ...</small>
+    </span>
   </a>
-  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false">☰</button>
-  <nav id="nav">
-    <a href="#experience">Experience</a>
-    <a href="#explore">Explore</a>
-    <a href="#orma">Orma</a>
-    <a href="#memories">Memories</a>
-    <a href="#owners">For Owners</a>
-  </nav>
+
+  <div class="era-badge">
+    <span>KOCHI, KERALA</span>
+    <b>1981</b>
+    <em>It's raining</em>
+  </div>
+
+  <button class="menu-btn" id="menuBtn" aria-expanded="false">☰</button>
 </header>
 
-<main id="home">
-  <section class="hero">
-    <div>
-      <p class="eyebrow">കേൾക്കാം • കണ്ടെത്താം • ഓർക്കാം</p>
-      <h1>Experience Kerala,<br><span>One Chaya at a Time.</span></h1>
-      <p class="hero-copy">Listen to Kerala. Discover local food spots. Revisit the sounds, rooms and memories that feel like home.</p>
-      <div class="hero-actions">
-        <a class="btn primary" href="#experience">🎧 Start Experience</a>
-        <a class="btn ghost" href="#explore">🗺️ Explore Kerala</a>
-      </div>
-    </div>
-    <div class="hero-card">
-      <span class="cup">☕</span>
-      <p>ഇന്ന് ഒരു ചായ ആയാലോ?</p>
-      <small>Take a pause. Stay a little longer.</small>
-    </div>
-  </section>
+<div class="layout">
+  <aside class="side-nav" id="nav">
+    <a class="nav-link active" href="#home">⌂ <span>Home</span></a>
+    <a class="nav-link" href="#experience">♬ <span>Experience</span></a>
+    <a class="nav-link" href="#explore">▣ <span>Explore</span></a>
+    <a class="nav-link" href="#orma">◫ <span>Orma</span></a>
+    <a class="nav-link" href="#memories">✎ <span>Memories</span></a>
+    <a class="nav-link" href="#owners">ⓘ <span>For Owners</span></a>
+  </aside>
 
-  <section id="experience" class="section">
-    <div class="section-head">
-      <div><p class="eyebrow">🎧 EXPERIENCE</p><h2>Hear Kerala</h2></div>
-      <p>Mix your own ambience.</p>
-    </div>
-    <div class="experience-grid">
-      <div class="panel mixer">
-        <h3>Ambient Sound Mixer</h3>
-        <div class="slider-row"><label>🌧️ Rain</label><input type="range" data-sound="Rain" value="55"></div>
-        <div class="slider-row"><label>⛈️ Thunder</label><input type="range" data-sound="Thunder" value="25"></div>
-        <div class="slider-row"><label>🦗 Crickets</label><input type="range" data-sound="Crickets" value="40"></div>
-        <div class="slider-row"><label>🔥 Fire</label><input type="range" data-sound="Fire" value="15"></div>
-        <div class="slider-row"><label>🚆 Train</label><input type="range" data-sound="Train" value="10"></div>
-        <div class="mixer-note">Audio files can be connected later using original/licensed recordings.</div>
-      </div>
-      <div class="panel">
-        <h3>Presets</h3>
-        <div class="chips">
-          <button class="preset">🌧️ Mazha</button>
-          <button class="preset">☕ Chaya Time</button>
-          <button class="preset">🌴 Village Morning</button>
-          <button class="preset">🌙 Midnight Kerala</button>
-          <button class="preset">📚 Study</button>
-          <button class="preset">😴 Sleep</button>
-          <button class="preset">🌊 Beach</button>
-          <button class="preset">🚆 Train Journey</button>
-        </div>
-        <div class="timer-box">
-          <strong>Focus / Sleep Timer</strong>
-          <div class="timer-controls">
-            <button class="timer" data-min="25">25 min</button>
-            <button class="timer" data-min="50">50 min</button>
-            <button class="timer" data-min="90">90 min</button>
-          </div>
-          <div id="timerDisplay">00:00</div>
+  <main>
+
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow">KERALA • MONSOON • 1981</p>
+        <h1>Rain, Chaya<br><i>and stories.</i></h1>
+        <p class="hero-text">Some places feel like home.<br>Some evenings never really leave us.</p>
+        <div class="hero-actions">
+          <a class="wood-btn primary" href="#experience">▶ Start Experience</a>
+          <a class="paper-link" href="#orma">Open Orma →</a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section id="explore" class="section alt">
-    <div class="section-head">
-      <div><p class="eyebrow">🗺️ EXPLORE</p><h2>Find Kerala</h2></div>
-      <p>Discover chaya kada, thattu kada, cafés and food.</p>
-    </div>
-    <div class="searchbar">
-      <input id="searchInput" type="search" placeholder="Search place, food or area…">
-      <select id="categoryFilter">
-        <option value="all">All categories</option>
-        <option value="chaya">Chaya Kada</option>
-        <option value="thattu">Thattu Kada</option>
-        <option value="cafe">Cafe</option>
-        <option value="restaurant">Restaurant</option>
-      </select>
-    </div>
-    <div class="cards" id="placeCards">
-      <article class="place-card" data-name="Rain Chaya Kada" data-category="chaya">
-        <span class="tag">Chaya Kada</span><h3>Rain Chaya Kada</h3><p>Sample listing • Kozhikode</p><b>₹</b>
-      </article>
-      <article class="place-card" data-name="Naadan Thattu" data-category="thattu">
-        <span class="tag">Thattu Kada</span><h3>Naadan Thattu</h3><p>Sample listing • Thiruvananthapuram</p><b>₹</b>
-      </article>
-      <article class="place-card" data-name="Paal Cafe" data-category="cafe">
-        <span class="tag">Cafe</span><h3>Paal Cafe</h3><p>Sample listing • Kochi</p><b>₹₹</b>
-      </article>
-      <article class="place-card" data-name="Village Meals" data-category="restaurant">
-        <span class="tag">Restaurant</span><h3>Village Meals</h3><p>Sample listing • Alappuzha</p><b>₹₹</b>
-      </article>
-    </div>
-    <div class="feature-strip">
-      <div>📍 <strong>Near Me</strong><span>GPS-powered discovery</span></div>
-      <div>💰 <strong>₹100 Explorer</strong><span>See what fits your budget</span></div>
-      <div>✓ <strong>Verified Spots</strong><span>Community & owner verification</span></div>
-    </div>
-  </section>
+      <div class="shop-note">
+        <span>പാൽ ചായ</span>
+        <b>ചൂട് • പലഹാരം • സംസാരം</b>
+        <small>Old chaya kada — somewhere in Kerala</small>
+      </div>
+    </section>
 
-  <section id="orma" class="section">
-    <div class="section-head">
-      <div><p class="eyebrow">🕰️ ORMA</p><h2>Remember Kerala</h2></div>
-      <p>Step into another time.</p>
-    </div>
-    <div class="era-tabs">
-      <button class="era active">1980s</button><button class="era">1990s</button><button class="era">2000s</button><button class="era">2010s</button>
-    </div>
-    <div class="rooms">
-      <div class="room"><span>📺</span><h3>Old TV Room</h3><p>Television glow, fan noise and evening conversations.</p></div>
-      <div class="room"><span>📻</span><h3>Radio Room</h3><p>Original/licensed radio-style stories and broadcasts.</p></div>
-      <div class="room"><span>📼</span><h3>Cassette Room</h3><p>Recreate the feeling of choosing a tape.</p></div>
-      <div class="room"><span>🏠</span><h3>Ammumma’s House</h3><p>Rain outside, tea inside, memories everywhere.</p></div>
-      <div class="room"><span>🚌</span><h3>Last Bus Home</h3><p>Road noise, conductor calls and a window seat.</p></div>
-      <div class="room"><span>🚉</span><h3>Railway Station</h3><p>Announcements, footsteps and a waiting platform.</p></div>
-    </div>
-  </section>
+    <section class="section experience" id="experience">
+      <div class="section-heading">
+        <p class="eyebrow">EXPERIENCE</p>
+        <h2>Hear Kerala.</h2>
+        <p>Build your own rainy evening.</p>
+      </div>
 
-  <section id="memories" class="section alt">
-    <div class="section-head">
-      <div><p class="eyebrow">❤️ MEMORIES</p><h2>Save Your Orma</h2></div>
-      <p>Your memories can stay private or become part of the community.</p>
-    </div>
-    <form id="memoryForm" class="memory-form">
-      <input id="memoryTitle" required placeholder="Memory title">
-      <input id="memoryYear" type="number" placeholder="Year">
-      <textarea id="memoryText" required placeholder="Write a short memory…"></textarea>
-      <button class="btn primary" type="submit">Save Memory</button>
-    </form>
-    <div id="memoryList" class="memory-list"></div>
-  </section>
+      <div class="wood-panel mixer">
+        <div class="panel-title">
+          <span>AMBIENT SOUNDS</span>
+          <small id="audioStatus">Ready — tap Start Experience</small>
+        </div>
 
-  <section id="owners" class="owner-section">
-    <div><p class="eyebrow">👨‍🍳 FOR OWNERS</p><h2>Put your spot on the map.</h2><p>Add your chaya kada, thattu kada, restaurant, bakery or café. Future versions can support claiming, verification, menus, prices and analytics.</p></div>
-    <a class="btn light" href="#owners">Add Your Spot</a>
-  </section>
-</main>
+        <div class="sound-grid">
+          <label class="sound-row"><span>🌧 Rain</span><input class="sound-slider" data-sound="rain" type="range" min="0" max="100" value="55"><b class="volume-value">55%</b></label>
+          <label class="sound-row"><span>⚡ Thunder</span><input class="sound-slider" data-sound="thunder" type="range" min="0" max="100" value="25"><b class="volume-value">25%</b></label>
+          <label class="sound-row"><span>🦗 Crickets</span><input class="sound-slider" data-sound="crickets" type="range" min="0" max="100" value="40"><b class="volume-value">40%</b></label>
+          <label class="sound-row"><span>🔥 Fire</span><input class="sound-slider" data-sound="fire" type="range" min="0" max="100" value="15"><b class="volume-value">15%</b></label>
+          <label class="sound-row"><span>🚆 Train</span><input class="sound-slider" data-sound="train" type="range" min="0" max="100" value="10"><b class="volume-value">10%</b></label>
+        </div>
 
-<footer>
-  <strong>PAAL CHAYA • പാൽ ചായ</strong>
-  <span>Experience Kerala, One Chaya at a Time.</span>
-</footer>
+        <div class="mixer-actions">
+          <button class="wood-btn" id="masterBtn">▶ Start</button>
+          <button class="wood-btn" id="testBtn">🧪 Test Rain</button>
+          <button class="wood-btn" id="muteBtn">🔇 Mute</button>
+        </div>
+
+        <div class="preset-strip">
+          <span>PRESETS</span>
+          <button class="preset" data-preset="monsoon">🌧 Monsoon</button>
+          <button class="preset" data-preset="night">🌙 Night</button>
+          <button class="preset" data-preset="chaya">☕ Chaya Kada</button>
+          <button class="preset" data-preset="journey">🚆 Train Journey</button>
+        </div>
+      </div>
+
+      <div class="quote-card">“Rain, Chaya and stories that never end.”</div>
+
+      <div class="timer-panel">
+        <div>
+          <p class="eyebrow">FOCUS / POMODORO</p>
+          <h3>Stay a while.</h3>
+          <div class="timer-display" id="timerDisplay">00:00</div>
+        </div>
+        <div class="timer-buttons">
+          <button class="paper-btn timer" data-min="25">25 min</button>
+          <button class="paper-btn timer" data-min="45">45 min</button>
+          <button class="paper-btn timer" data-min="60">60 min</button>
+          <button class="paper-btn" id="resetTimer">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section explore" id="explore">
+      <div class="section-heading">
+        <p class="eyebrow">EXPLORE</p>
+        <h2>Find your chaya.</h2>
+        <p>Old streets, small shops and places worth remembering.</p>
+      </div>
+
+      <div class="search-paper">
+        <input id="searchInput" type="search" placeholder="Search a place, dish or town…">
+        <select id="categoryFilter">
+          <option value="all">All places</option>
+          <option value="chaya">Chaya Kada</option>
+          <option value="thattu">Thattu Kada</option>
+          <option value="cafe">Cafe</option>
+          <option value="food">Street Food</option>
+        </select>
+      </div>
+
+      <div class="places">
+        <article class="place-card" data-name="old railway chaya kada" data-category="chaya">
+          <span class="stamp">CHAYA</span><h3>Old Railway Chaya Kada</h3>
+          <p>Strong tea, rain on the roof and a train somewhere nearby.</p><small>Kerala • Fictional prototype</small>
+        </article>
+        <article class="place-card" data-name="monsoon thattu kada" data-category="thattu">
+          <span class="stamp">THATTU</span><h3>Monsoon Thattu Kada</h3>
+          <p>Porotta, egg curry and the sound of rain on tin sheets.</p><small>Kerala • Fictional prototype</small>
+        </article>
+        <article class="place-card" data-name="evening coffee room" data-category="cafe">
+          <span class="stamp">COFFEE</span><h3>Evening Coffee Room</h3>
+          <p>A quiet corner for newspapers, conversations and old songs.</p><small>Kerala • Fictional prototype</small>
+        </article>
+        <article class="place-card" data-name="bajji corner" data-category="food">
+          <span class="stamp">SNACKS</span><h3>Bajji Corner</h3>
+          <p>Hot pazham pori and parippuvada on a wet evening.</p><small>Kerala • Fictional prototype</small>
+        </article>
+      </div>
+    </section>
+
+    <section class="section orma" id="orma">
+      <div class="section-heading">
+        <p class="eyebrow">ORMA • ഓർമ്മ</p>
+        <h2>Open an old evening.</h2>
+        <p>Choose a year and let the atmosphere change.</p>
+      </div>
+
+      <div class="era-board">
+        <button class="era active" data-era="1981">1981</button>
+        <button class="era" data-era="1985">1985</button>
+        <button class="era" data-era="1990">1990</button>
+        <button class="era" data-era="1995">1995</button>
+      </div>
+
+      <div class="memory-room">
+        <div class="radio"><span>FM</span><strong>98.3</strong><small>EVENING PROGRAMME</small></div>
+        <div class="cassette"><div class="reel"></div><div class="reel"></div><span>ORMA • SIDE A</span></div>
+        <div class="old-note"><p>“Some evenings<br>never really leave us.”</p><small>— PAAL CHAYA</small></div>
+      </div>
+    </section>
+
+    <section class="section memories" id="memories">
+      <div class="section-heading">
+        <p class="eyebrow">MEMORIES</p>
+        <h2>Leave something behind.</h2>
+        <p>Write a small memory. It stays on this device.</p>
+      </div>
+
+      <form class="memory-form" id="memoryForm">
+        <input id="memoryTitle" type="text" placeholder="Memory title">
+        <input id="memoryYear" type="text" placeholder="Year (optional)">
+        <textarea id="memoryText" rows="4" placeholder="Tell your story…"></textarea>
+        <button class="wood-btn" type="submit">Save Memory</button>
+      </form>
+      <div class="memory-list" id="memoryList"></div>
+    </section>
+
+    <section class="section owners" id="owners">
+      <div class="owner-card">
+        <p class="eyebrow">FOR OWNERS</p>
+        <h2>Is this your chaya kada?</h2>
+        <p>Add your spot, menu, prices and story to the PAAL CHAYA map.</p>
+        <button class="paper-btn" type="button">Add Your Spot</button>
+        <button class="paper-btn" type="button">Claim Business</button>
+      </div>
+    </section>
+
+    <footer>
+      <strong>PAAL CHAYA</strong>
+      <span>കേൾക്കാം • കണ്ടെത്താം • ഓർക്കാം</span>
+      <small>KERALA LIVES IN LITTLE MOMENTS</small>
+    </footer>
+  </main>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
