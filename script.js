@@ -1,30 +1,26 @@
 /* =========================================================
-   PAAL CHAYA
-   Main JavaScript
+   PAAL CHAYA — Main JavaScript
    ========================================================= */
 
-
-/* ================= MENU ================= */
+/* =========================
+   MOBILE MENU
+   ========================= */
 
 const menuBtn = document.getElementById("menuBtn");
 const nav = document.getElementById("nav");
 
 menuBtn?.addEventListener("click", () => {
-  const open = nav?.style.display === "flex";
+  const isOpen = nav?.style.display === "flex";
 
   if (nav) {
-    nav.style.display = open ? "" : "flex";
+    nav.style.display = isOpen ? "" : "flex";
   }
 
-  menuBtn.setAttribute(
-    "aria-expanded",
-    String(!open)
-  );
+  menuBtn.setAttribute("aria-expanded", String(!isOpen));
 });
 
-
-nav?.querySelectorAll("a").forEach((a) => {
-  a.addEventListener("click", () => {
+nav?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
     if (window.innerWidth <= 800 && nav) {
       nav.style.display = "";
     }
@@ -33,7 +29,7 @@ nav?.querySelectorAll("a").forEach((a) => {
 
 
 /* =========================================================
-   AUDIO ENGINE
+   PAAL CHAYA — AMBIENT SOUND MIXER
    ========================================================= */
 
 const audioNames = [
@@ -44,10 +40,7 @@ const audioNames = [
   "train"
 ];
 
-
-/* Default mixer volumes */
-
-const volumes = {
+const defaultVolumes = {
   rain: 55,
   thunder: 25,
   crickets: 40,
@@ -55,84 +48,61 @@ const volumes = {
   train: 10
 };
 
-
-/* Audio objects */
-
 const sounds = {};
-
-audioNames.forEach((name) => {
-
-  const audio = new Audio(`${name}.wav`);
-
-  audio.loop = true;
-  audio.preload = "auto";
-
-  /*
-    Keep the actual sound comfortable.
-    Slider controls the relative volume.
-  */
-
-  audio.volume =
-    (volumes[name] / 100) * 0.72;
-
-  sounds[name] = audio;
-
-});
-
-
 let audioPlaying = false;
 let audioMuted = false;
 
 
-/* ================= AUDIO ELEMENTS ================= */
+/* -------------------------
+   CREATE AUDIO OBJECTS
+   ------------------------- */
 
-const masterBtn =
-  document.getElementById("masterBtn");
+audioNames.forEach((name) => {
+  const audio = new Audio(`audio/${name}.wav`);
 
-const testBtn =
-  document.getElementById("testBtn");
+  audio.loop = true;
+  audio.preload = "auto";
+  audio.volume = (defaultVolumes[name] / 100) * 0.72;
 
-const muteBtn =
-  document.getElementById("muteBtn");
-
-const audioStatus =
-  document.getElementById("audioStatus");
+  sounds[name] = audio;
+});
 
 
-/* ================= STATUS ================= */
+/* -------------------------
+   ELEMENTS
+   ------------------------- */
+
+const audioStatus = document.getElementById("audioStatus");
+const masterBtn = document.getElementById("masterBtn");
+const testBtn = document.getElementById("testBtn");
+const muteBtn = document.getElementById("muteBtn");
+
+
+/* -------------------------
+   STATUS MESSAGE
+   ------------------------- */
 
 function setAudioStatus(message) {
-
   if (audioStatus) {
     audioStatus.textContent = message;
   }
-
 }
 
 
-/* ================= START AUDIO ================= */
+/* -------------------------
+   START AUDIO
+   ------------------------- */
 
 async function startAudio() {
-
   try {
-
-    /*
-      Browser audio must normally begin
-      from a user interaction.
-    */
-
     for (const name of audioNames) {
-
       sounds[name].muted = audioMuted;
 
       /*
-        Only play sounds whose slider is above 0.
-      */
-
-      if (sounds[name].volume > 0) {
-        await sounds[name].play();
-      }
-
+       * Calling play() after the user's button click
+       * satisfies normal mobile browser interaction rules.
+       */
+      await sounds[name].play();
     }
 
     audioPlaying = true;
@@ -141,36 +111,28 @@ async function startAudio() {
       masterBtn.textContent = "⏹ Stop";
     }
 
-    setAudioStatus(
-      "Playing Kerala ambience ☕"
-    );
+    setAudioStatus("Playing — Kerala ambience is active ☕");
 
   } catch (error) {
+    console.error("Audio start error:", error);
 
-    console.error(
-      "Audio playback error:",
-      error
-    );
+    audioPlaying = false;
 
     setAudioStatus(
-      "Audio could not start. Tap Test Rain."
+      "Could not start audio. Tap Start again."
     );
-
   }
-
 }
 
 
-/* ================= STOP AUDIO ================= */
+/* -------------------------
+   STOP AUDIO
+   ------------------------- */
 
 function stopAudio() {
-
   audioNames.forEach((name) => {
-
     sounds[name].pause();
-
     sounds[name].currentTime = 0;
-
   });
 
   audioPlaying = false;
@@ -179,666 +141,401 @@ function stopAudio() {
     masterBtn.textContent = "▶ Start";
   }
 
-  setAudioStatus(
-    "Stopped — tap Start Experience"
-  );
-
+  setAudioStatus("Ready — tap Start Experience");
 }
 
 
-/* ================= MASTER BUTTON ================= */
+/* -------------------------
+   START / STOP BUTTON
+   ------------------------- */
 
-masterBtn?.addEventListener(
-  "click",
-  async () => {
-
-    if (audioPlaying) {
-
-      stopAudio();
-
-    } else {
-
-      await startAudio();
-
-    }
-
+masterBtn?.addEventListener("click", () => {
+  if (audioPlaying) {
+    stopAudio();
+  } else {
+    startAudio();
   }
-);
+});
 
 
 /* =========================================================
    TEST RAIN
    ========================================================= */
 
-testBtn?.addEventListener(
-  "click",
-  async () => {
+testBtn?.addEventListener("click", async () => {
+  try {
+    /*
+     * IMPORTANT:
+     * Audio files are now inside /audio/
+     */
+    const test = new Audio("audio/rain.wav");
 
-    try {
+    test.volume = 0.9;
+    test.loop = false;
 
-      /*
-        Create a separate test audio.
-        This helps us verify whether rain.wav
-        itself can be played by the browser.
-      */
+    await test.play();
 
-      const test = new Audio("rain.wav");
+    setAudioStatus("Rain test playing 🌧️");
 
-      test.volume = 0.9;
-      test.loop = false;
+  } catch (error) {
+    console.error("Rain test error:", error);
 
-      await test.play();
-
-      setAudioStatus(
-        "✅ Rain audio is working"
-      );
-
-    } catch (error) {
-
-      console.error(
-        "Rain test failed:",
-        error
-      );
-
-      setAudioStatus(
-        "❌ Rain audio failed — check rain.wav"
-      );
-
-    }
-
+    setAudioStatus(
+      "Rain could not play. Please tap the button again."
+    );
   }
-);
+});
 
 
 /* =========================================================
    MUTE / UNMUTE
    ========================================================= */
 
-muteBtn?.addEventListener(
-  "click",
-  () => {
+muteBtn?.addEventListener("click", () => {
+  audioMuted = !audioMuted;
 
-    audioMuted = !audioMuted;
+  audioNames.forEach((name) => {
+    sounds[name].muted = audioMuted;
+  });
 
-    audioNames.forEach((name) => {
-      sounds[name].muted = audioMuted;
-    });
+  if (audioMuted) {
+    muteBtn.textContent = "🔊 Unmute";
+    setAudioStatus("Audio muted 🔇");
+  } else {
+    muteBtn.textContent = "🔇 Mute";
 
-
-    if (audioMuted) {
-
-      muteBtn.textContent = "🔊 Unmute";
-
-      setAudioStatus(
-        "🔇 Audio muted"
-      );
-
+    if (audioPlaying) {
+      setAudioStatus("Playing — Kerala ambience is active ☕");
     } else {
-
-      muteBtn.textContent = "🔇 Mute";
-
-      setAudioStatus(
-        audioPlaying
-          ? "🔊 Audio playing"
-          : "Ready — tap Start Experience"
-      );
-
+      setAudioStatus("Ready — tap Start Experience");
     }
-
   }
-);
+});
 
 
 /* =========================================================
    SOUND SLIDERS
    ========================================================= */
 
-document
-  .querySelectorAll(".sound-slider")
-  .forEach((slider) => {
+document.querySelectorAll(".sound-slider").forEach((slider) => {
 
-    const soundName =
-      slider.dataset.sound;
+  const soundName = slider.dataset.sound;
 
-    const output =
-      document.getElementById(
-        `${soundName}Out`
-      );
+  slider.addEventListener("input", () => {
 
+    const value = Number(slider.value);
 
-    function updateSound() {
-
-      const value =
-        Number(slider.value);
-
-      /*
-        Update displayed percentage.
-      */
-
-      if (output) {
-        output.textContent =
-          `${value}%`;
-      }
-
-
-      /*
-        Convert 0–100 slider value
-        into comfortable audio volume.
-      */
-
-      if (sounds[soundName]) {
-
-        sounds[soundName].volume =
-          (value / 100) * 0.72;
-
-      }
-
-
-      /*
-        If the mixer is already playing
-        and volume is increased from 0,
-        start that sound.
-      */
-
-      if (
-        audioPlaying &&
-        value > 0 &&
-        sounds[soundName]?.paused
-      ) {
-
-        sounds[soundName]
-          .play()
-          .catch((error) => {
-            console.error(
-              `${soundName} playback error:`,
-              error
-            );
-          });
-
-      }
-
+    if (sounds[soundName]) {
+      sounds[soundName].volume = (value / 100) * 0.72;
     }
 
-
-    slider.addEventListener(
-      "input",
-      updateSound
-    );
-
-
     /*
-      Initialize slider values.
-    */
+     * Update nearby percentage text if the HTML has one.
+     */
+    const valueDisplay =
+      slider.parentElement?.querySelector(".volume-value") ||
+      slider.parentElement?.querySelector(".slider-value");
 
-    updateSound();
-
+    if (valueDisplay) {
+      valueDisplay.textContent = `${value}%`;
+    }
   });
+
+});
 
 
 /* =========================================================
-   PRESETS
+   SOUND PRESETS
    ========================================================= */
 
 const presets = {
-
-  mazha: {
+  monsoon: {
     rain: 80,
     thunder: 35,
-    crickets: 20,
-    fire: 0,
-    train: 0
+    crickets: 25,
+    fire: 5,
+    train: 5
+  },
+
+  night: {
+    rain: 20,
+    thunder: 5,
+    crickets: 75,
+    fire: 20,
+    train: 5
   },
 
   chaya: {
-    rain: 20,
-    thunder: 0,
-    crickets: 25,
-    fire: 10,
-    train: 0
-  },
-
-  village: {
-    rain: 10,
-    thunder: 0,
-    crickets: 70,
-    fire: 5,
-    train: 0
-  },
-
-  midnight: {
-    rain: 25,
+    rain: 15,
     thunder: 5,
-    crickets: 65,
-    fire: 0,
-    train: 0
+    crickets: 20,
+    fire: 55,
+    train: 15
   },
 
-  study: {
-    rain: 45,
+  journey: {
+    rain: 20,
     thunder: 5,
     crickets: 15,
-    fire: 10,
-    train: 0
-  },
-
-  sleep: {
-    rain: 55,
-    thunder: 10,
-    crickets: 35,
     fire: 5,
-    train: 0
-  },
-
-  beach: {
-    rain: 0,
-    thunder: 0,
-    crickets: 25,
-    fire: 0,
-    train: 0
-  },
-
-  train: {
-    rain: 5,
-    thunder: 0,
-    crickets: 10,
-    fire: 0,
     train: 75
   }
-
 };
 
 
-/* Apply preset */
+function applyPreset(presetName) {
 
-function applyPreset(name) {
-
-  const preset =
-    presets[name];
+  const preset = presets[presetName];
 
   if (!preset) return;
 
+  Object.entries(preset).forEach(([name, value]) => {
 
-  audioNames.forEach((soundName) => {
+    if (sounds[name]) {
+      sounds[name].volume = (value / 100) * 0.72;
+    }
 
-    const value =
-      preset[soundName] ?? 0;
-
-
-    const slider =
-      document.querySelector(
-        `.sound-slider[data-sound="${soundName}"]`
-      );
-
-
-    const output =
-      document.getElementById(
-        `${soundName}Out`
-      );
-
+    const slider = document.querySelector(
+      `.sound-slider[data-sound="${name}"]`
+    );
 
     if (slider) {
       slider.value = value;
-    }
 
+      const valueDisplay =
+        slider.parentElement?.querySelector(".volume-value") ||
+        slider.parentElement?.querySelector(".slider-value");
 
-    if (output) {
-      output.textContent =
-        `${value}%`;
-    }
-
-
-    if (sounds[soundName]) {
-
-      sounds[soundName].volume =
-        (value / 100) * 0.72;
-
+      if (valueDisplay) {
+        valueDisplay.textContent = `${value}%`;
+      }
     }
 
   });
 
+  document.querySelectorAll(".preset").forEach((button) => {
+    button.classList.remove("selected");
+  });
 
-  /*
-    If audio is already playing,
-    apply the preset immediately.
-  */
-
-  if (audioPlaying) {
-
-    audioNames.forEach((soundName) => {
-
-      const value =
-        preset[soundName] ?? 0;
-
-      if (
-        value > 0 &&
-        sounds[soundName].paused
-      ) {
-
-        sounds[soundName]
-          .play()
-          .catch((error) => {
-            console.error(error);
-          });
-
-      }
-
-      if (value === 0) {
-
-        sounds[soundName].pause();
-
-      }
-
-    });
-
-  }
-
-
-  setAudioStatus(
-    `${name.charAt(0).toUpperCase() + name.slice(1)} preset selected ☕`
+  const selectedButton = document.querySelector(
+    `.preset[data-preset="${presetName}"]`
   );
 
+  selectedButton?.classList.add("selected");
+
+  setAudioStatus(`Preset applied: ${presetName}`);
 }
 
 
-/* Preset buttons */
+document.querySelectorAll(".preset").forEach((button) => {
 
-document
-  .querySelectorAll(".preset")
-  .forEach((button) => {
+  button.addEventListener("click", () => {
 
-    button.addEventListener(
-      "click",
-      async () => {
+    const presetName = button.dataset.preset;
 
-        document
-          .querySelectorAll(".preset")
-          .forEach((b) => {
-            b.classList.remove(
-              "selected"
-            );
-          });
-
-
-        button.classList.add(
-          "selected"
-        );
-
-
-        const presetName =
-          button.dataset.preset;
-
-        applyPreset(presetName);
-
-
-        /*
-          If not playing yet,
-          automatically start the ambience.
-        */
-
-        if (!audioPlaying) {
-          await startAudio();
-        }
-
-      }
-
-    );
+    applyPreset(presetName);
 
   });
 
+});
+
 
 /* =========================================================
-   SEARCH / EXPLORE
+   EXPLORE — SEARCH & CATEGORY FILTER
    ========================================================= */
 
-const searchInput =
-  document.getElementById(
-    "searchInput"
-  );
-
-const filter =
-  document.getElementById(
-    "categoryFilter"
-  );
+const searchInput = document.getElementById("searchInput");
+const categoryFilter = document.getElementById("categoryFilter");
 
 
 function filterPlaces() {
 
-  const q =
-    (searchInput?.value || "")
-      .toLowerCase();
+  const query = (searchInput?.value || "")
+    .trim()
+    .toLowerCase();
 
-  const cat =
-    filter?.value || "all";
+  const category = categoryFilter?.value || "all";
 
+  document.querySelectorAll(".place-card").forEach((card) => {
 
-  document
-    .querySelectorAll(".place-card")
-    .forEach((card) => {
+    const name =
+      (card.dataset.name || "").toLowerCase();
 
-      const name =
-        (
-          card.dataset.name || ""
-        ).toLowerCase();
+    const text =
+      (card.textContent || "").toLowerCase();
 
+    const cardCategory =
+      card.dataset.category || "";
 
-      const text =
-        (
-          card.textContent || ""
-        ).toLowerCase();
+    const matchesSearch =
+      !query ||
+      name.includes(query) ||
+      text.includes(query);
 
+    const matchesCategory =
+      category === "all" ||
+      cardCategory === category;
 
-      const category =
-        card.dataset.category;
-
-
-      const matchesSearch =
-        name.includes(q) ||
-        text.includes(q);
-
-
-      const matchesCategory =
-        cat === "all" ||
-        category === cat;
-
-
-      card.style.display =
-        matchesSearch &&
-        matchesCategory
-          ? "block"
-          : "none";
-
-    });
-
+    card.style.display =
+      matchesSearch && matchesCategory
+        ? ""
+        : "none";
+  });
 }
 
 
-searchInput?.addEventListener(
-  "input",
-  filterPlaces
-);
+searchInput?.addEventListener("input", filterPlaces);
 
-filter?.addEventListener(
+categoryFilter?.addEventListener(
   "change",
   filterPlaces
 );
 
 
 /* =========================================================
-   FOCUS / SLEEP TIMER
+   FOCUS / POMODORO TIMER
    ========================================================= */
 
 let timerId = null;
 let remaining = 0;
 
-
-const display =
-  document.getElementById(
-    "timerDisplay"
-  );
+const timerDisplay =
+  document.getElementById("timerDisplay");
 
 
 function renderTimer() {
 
-  if (!display) return;
-
+  if (!timerDisplay) return;
 
   const minutes =
-    Math.floor(
-      remaining / 60
-    );
-
+    Math.floor(Math.max(remaining, 0) / 60);
 
   const seconds =
-    remaining % 60;
+    Math.max(remaining, 0) % 60;
 
-
-  display.textContent =
+  timerDisplay.textContent =
     `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-
 }
 
 
-/* Timer buttons */
+function startTimer(minutes) {
 
-document
-  .querySelectorAll(".timer")
-  .forEach((button) => {
+  clearInterval(timerId);
 
-    /*
-      Ignore Reset button here.
-    */
+  remaining = Number(minutes) * 60;
 
-    if (!button.dataset.min) return;
+  renderTimer();
 
+  timerId = setInterval(() => {
 
-    button.addEventListener(
-      "click",
-      () => {
+    remaining--;
 
-        clearInterval(timerId);
+    renderTimer();
 
-
-        remaining =
-          Number(
-            button.dataset.min
-          ) * 60;
-
-
-        renderTimer();
-
-
-        timerId =
-          setInterval(
-            () => {
-
-              remaining--;
-
-              renderTimer();
-
-
-              if (remaining <= 0) {
-
-                clearInterval(
-                  timerId
-                );
-
-                remaining = 0;
-
-                renderTimer();
-
-
-                alert(
-                  "Focus session complete ☕"
-                );
-
-              }
-
-            },
-            1000
-          );
-
-      }
-
-    );
-
-  });
-
-
-/* Reset timer */
-
-document
-  .getElementById("timerReset")
-  ?.addEventListener(
-    "click",
-    () => {
+    if (remaining <= 0) {
 
       clearInterval(timerId);
-
       timerId = null;
 
       remaining = 0;
-
       renderTimer();
 
+      alert("Focus session complete ☕");
+
     }
-  );
+
+  }, 1000);
+}
+
+
+document.querySelectorAll(".timer").forEach((button) => {
+
+  button.addEventListener("click", () => {
+
+    const minutes =
+      Number(button.dataset.min);
+
+    if (minutes > 0) {
+      startTimer(minutes);
+    }
+
+  });
+
+});
+
+
+/* -------------------------
+   TIMER RESET
+   ------------------------- */
+
+const resetTimerBtn =
+  document.getElementById("resetTimer");
+
+resetTimerBtn?.addEventListener("click", () => {
+
+  clearInterval(timerId);
+
+  timerId = null;
+  remaining = 0;
+
+  renderTimer();
+
+});
 
 
 /* =========================================================
-   ORMA ERA BUTTONS
+   ORMA — TIME MACHINE / ERA BUTTONS
    ========================================================= */
 
-document
-  .querySelectorAll(".era")
-  .forEach((button) => {
+document.querySelectorAll(".era").forEach((button) => {
 
-    button.addEventListener(
-      "click",
-      () => {
+  button.addEventListener("click", () => {
 
-        document
-          .querySelectorAll(".era")
-          .forEach((b) => {
+    document.querySelectorAll(".era").forEach((item) => {
+      item.classList.remove("active");
+    });
 
-            b.classList.remove(
-              "active"
-            );
-
-          });
-
-
-        button.classList.add(
-          "active"
-        );
-
-      }
-    );
+    button.classList.add("active");
 
   });
+
+});
 
 
 /* =========================================================
    MEMORIES
    ========================================================= */
 
-const form =
-  document.getElementById(
-    "memoryForm"
+const memoryForm =
+  document.getElementById("memoryForm");
+
+const memoryList =
+  document.getElementById("memoryList");
+
+
+let memories = [];
+
+try {
+
+  memories = JSON.parse(
+    localStorage.getItem("paalChayaMemories") || "[]"
   );
 
-const list =
-  document.getElementById(
-    "memoryList"
-  );
+  if (!Array.isArray(memories)) {
+    memories = [];
+  }
+
+} catch (error) {
+
+  console.error("Memory loading error:", error);
+
+  memories = [];
+}
 
 
-let memories =
-  JSON.parse(
-    localStorage.getItem(
-      "paalChayaMemories"
-    ) || "[]"
-  );
-
+/* -------------------------
+   HTML ESCAPE
+   ------------------------- */
 
 function escapeHtml(value) {
 
@@ -847,119 +544,137 @@ function escapeHtml(value) {
     (character) => {
 
       const entities = {
-
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#039;"
-
       };
 
-      return entities[
-        character
-      ];
+      return entities[character];
 
     }
   );
-
 }
 
+
+/* -------------------------
+   RENDER MEMORIES
+   ------------------------- */
 
 function renderMemories() {
 
-  if (!list) return;
+  if (!memoryList) return;
+
+  if (!memories.length) {
+
+    memoryList.innerHTML =
+      `<p class="empty-memory">
+        No memories yet. Add your first Kerala memory ☕
+      </p>`;
+
+    return;
+  }
 
 
-  list.innerHTML =
-    memories
-      .map(
-        (memory) => `
+  memoryList.innerHTML = memories
+    .map((memory) => {
 
-          <article class="memory">
+      const title =
+        escapeHtml(memory.title || "Untitled memory");
 
-            <strong>
-              ${escapeHtml(memory.title)}
-            </strong>
+      const year =
+        memory.year
+          ? ` · ${escapeHtml(memory.year)}`
+          : "";
 
-            ${
-              memory.year
-                ? ` · ${escapeHtml(memory.year)}`
-                : ""
-            }
+      const text =
+        escapeHtml(memory.text || "");
 
-            <p>
-              ${escapeHtml(memory.text)}
-            </p>
+      return `
+        <article class="memory">
+          <strong>${title}</strong>${year}
+          <p>${text}</p>
+        </article>
+      `;
 
-          </article>
-
-        `
-      )
-      .join("");
-
+    })
+    .join("");
 }
 
 
-form?.addEventListener(
-  "submit",
-  (event) => {
+/* -------------------------
+   SAVE MEMORY
+   ------------------------- */
 
-    event.preventDefault();
+memoryForm?.addEventListener("submit", (event) => {
 
+  event.preventDefault();
 
-    const title =
-      document.getElementById(
-        "memoryTitle"
-      )?.value || "";
+  const titleInput =
+    document.getElementById("memoryTitle");
 
+  const yearInput =
+    document.getElementById("memoryYear");
 
-    const year =
-      document.getElementById(
-        "memoryYear"
-      )?.value || "";
-
-
-    const text =
-      document.getElementById(
-        "memoryText"
-      )?.value || "";
+  const textInput =
+    document.getElementById("memoryText");
 
 
-    memories.unshift({
+  const title =
+    titleInput?.value.trim() || "";
 
-      title,
-      year,
-      text
+  const year =
+    yearInput?.value.trim() || "";
 
-    });
-
-
-    localStorage.setItem(
-      "paalChayaMemories",
-      JSON.stringify(memories)
-    );
+  const text =
+    textInput?.value.trim() || "";
 
 
-    form.reset();
-
-    renderMemories();
-
+  if (!title && !text) {
+    return;
   }
-);
 
 
-renderMemories();
+  memories.unshift({
+    title,
+    year,
+    text,
+    createdAt: Date.now()
+  });
+
+
+  localStorage.setItem(
+    "paalChayaMemories",
+    JSON.stringify(memories)
+  );
+
+
+  memoryForm.reset();
+
+  renderMemories();
+
+});
 
 
 /* =========================================================
-   INITIAL AUDIO STATUS
+   INITIALIZE
    ========================================================= */
 
-setAudioStatus(
-  "Ready — tap Start Experience"
+renderMemories();
+
+renderTimer();
+
+console.log(
+  "PAAL CHAYA loaded successfully ☕"
 );
 
 console.log(
-  "☕ PAAL CHAYA audio engine loaded"
+  "Audio folder:",
+  "audio/"
+);
+
+console.log(
+  "Available sounds:",
+  audioNames
 );
