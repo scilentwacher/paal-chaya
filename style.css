@@ -1619,3 +1619,112 @@ footer small{
     animation:none !important;
   }
 }
+
+/* =========================================================
+   PAAL CHAYA — MOBILE HERO FINAL FIX
+   ========================================================= */
+
+@media (max-width: 900px){
+
+  .hero{
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:flex-end !important;
+    align-items:flex-start !important;
+  }
+
+  .hero-copy{
+    width:100% !important;
+    max-width:100% !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+  }
+
+  .hero-copy h1{
+    width:100% !important;
+    max-width:100% !important;
+  }
+
+  .hero-text{
+    width:100% !important;
+  }
+
+  .hero-actions{
+    width:100% !important;
+  }
+
+  /*
+   * IMPORTANT:
+   * The shop note must NOT be absolute on mobile.
+   */
+  .hero-copy .shop-note{
+    position:relative !important;
+
+    top:auto !important;
+    right:auto !important;
+    bottom:auto !important;
+    left:auto !important;
+
+    width:fit-content !important;
+    max-width:260px !important;
+
+    margin:28px 0 0 auto !important;
+
+    transform:rotate(-2deg) !important;
+
+    z-index:5 !important;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media (max-width:650px){
+
+  .hero{
+    padding:
+      125px
+      20px
+      55px
+      20px !important;
+  }
+
+  .hero-copy{
+    width:100% !important;
+  }
+
+  h1{
+    font-size:52px !important;
+    line-height:.91 !important;
+  }
+
+  .hero-text{
+    font-size:18px !important;
+    line-height:1.55 !important;
+    margin:24px 0 !important;
+  }
+
+  .hero-actions{
+    gap:12px !important;
+  }
+
+  .wood-btn.primary{
+    font-size:16px !important;
+    padding:13px 18px !important;
+  }
+
+  .paper-link{
+    font-size:17px !important;
+  }
+
+  .hero-copy .shop-note{
+    max-width:245px !important;
+    margin-top:30px !important;
+    align-self:flex-end !important;
+  }
+
+}
