@@ -2,215 +2,1004 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#120d09">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#120d09"
+  >
+
   <title>PAAL CHAYA — A Sip of Home</title>
-  <meta name="description" content="PAAL CHAYA — Experience Kerala, one chaya at a time.">
+
+  <meta
+    name="description"
+    content="PAAL CHAYA — Experience Kerala, one chaya at a time."
+  >
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- =====================================================
+     ATMOSPHERE
+     ===================================================== -->
+
 <div class="scene"></div>
+
 <div class="vignette"></div>
+
 <div class="grain"></div>
+
 <div class="rain rain-a"></div>
 <div class="rain rain-b"></div>
 <div class="rain rain-c"></div>
 
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
+
 <header class="topbar">
+
   <a class="brand" href="#home">
+
     <span class="brand-cup">☕</span>
+
     <span>
+
       <strong>PAAL CHAYA</strong>
-      <small>ഒരു ചായ... ഒരു ഓർമ്മ...</small>
+
+      <small>
+        ഒരു ചായ... ഒരു ഓർമ്മ...
+      </small>
+
     </span>
+
   </a>
 
+
   <div class="era-badge">
+
     <span>KOCHI, KERALA</span>
+
     <b>1981</b>
+
     <em>It's raining</em>
+
   </div>
 
-  <button class="menu-btn" id="menuBtn" aria-expanded="false">☰</button>
+
+  <button
+    class="menu-btn"
+    id="menuBtn"
+    aria-expanded="false"
+    aria-label="Open navigation menu"
+  >
+    ☰
+  </button>
+
 </header>
 
+
+<!-- =====================================================
+     MAIN LAYOUT
+     ===================================================== -->
+
 <div class="layout">
-  <aside class="side-nav" id="nav">
-    <a class="nav-link active" href="#home">⌂ <span>Home</span></a>
-    <a class="nav-link" href="#experience">♬ <span>Experience</span></a>
-    <a class="nav-link" href="#explore">▣ <span>Explore</span></a>
-    <a class="nav-link" href="#orma">◫ <span>Orma</span></a>
-    <a class="nav-link" href="#memories">✎ <span>Memories</span></a>
-    <a class="nav-link" href="#owners">ⓘ <span>For Owners</span></a>
+
+
+  <!-- ===================================================
+       SIDE NAVIGATION
+       =================================================== -->
+
+  <aside
+    class="side-nav"
+    id="nav"
+  >
+
+    <a
+      class="nav-link active"
+      href="#home"
+    >
+      ⌂
+      <span>Home</span>
+    </a>
+
+
+    <a
+      class="nav-link"
+      href="#experience"
+    >
+      ♬
+      <span>Experience</span>
+    </a>
+
+
+    <a
+      class="nav-link"
+      href="#explore"
+    >
+      ▣
+      <span>Explore</span>
+    </a>
+
+
+    <a
+      class="nav-link"
+      href="#orma"
+    >
+      ◫
+      <span>Orma</span>
+    </a>
+
+
+    <a
+      class="nav-link"
+      href="#memories"
+    >
+      ✎
+      <span>Memories</span>
+    </a>
+
+
+    <a
+      class="nav-link"
+      href="#owners"
+    >
+      ⓘ
+      <span>For Owners</span>
+    </a>
+
   </aside>
+
+
+  <!-- ===================================================
+       MAIN CONTENT
+       =================================================== -->
 
   <main>
 
-    <section class="hero" id="home">
+
+    <!-- =================================================
+         HOME / HERO
+         ================================================= -->
+
+    <section
+      class="hero"
+      id="home"
+    >
+
+      <!-- Hero content wrapper -->
       <div class="hero-copy">
-        <p class="eyebrow">KERALA • MONSOON • 1981</p>
-        <h1>Rain, Chaya<br><i>and stories.</i></h1>
-        <p class="hero-text">Some places feel like home.<br>Some evenings never really leave us.</p>
+
+
+        <!-- Era -->
+        <p class="eyebrow">
+          KERALA • MONSOON • 1981
+        </p>
+
+
+        <!-- Main title -->
+        <h1>
+          Rain, Chaya<br>
+          <i>and stories.</i>
+        </h1>
+
+
+        <!-- Description -->
+        <p class="hero-text">
+          Some places feel like home.<br>
+          Some evenings never really leave us.
+        </p>
+
+
+        <!-- Main actions -->
         <div class="hero-actions">
-          <a class="wood-btn primary" href="#experience">▶ Start Experience</a>
-          <a class="paper-link" href="#orma">Open Orma →</a>
+
+          <a
+            class="wood-btn primary"
+            href="#experience"
+          >
+            ▶ Start Experience
+          </a>
+
+
+          <a
+            class="paper-link"
+            href="#orma"
+          >
+            Open Orma →
+          </a>
+
         </div>
+
+
+        <!-- =================================================
+             SHOP NOTE
+
+             Kept INSIDE hero-copy so mobile layout naturally
+             places it underneath the hero content.
+             ================================================= -->
+
+        <div class="shop-note">
+
+          <span>
+            പാൽ ചായ
+          </span>
+
+          <b>
+            ചൂട് • പലഹാരം • സംസാരം
+          </b>
+
+          <small>
+            Old chaya kada — somewhere in Kerala
+          </small>
+
+        </div>
+
       </div>
 
-      <div class="shop-note">
-        <span>പാൽ ചായ</span>
-        <b>ചൂട് • പലഹാരം • സംസാരം</b>
-        <small>Old chaya kada — somewhere in Kerala</small>
-      </div>
     </section>
 
-    <section class="section experience" id="experience">
+
+
+    <!-- =================================================
+         EXPERIENCE
+         ================================================= -->
+
+    <section
+      class="section experience"
+      id="experience"
+    >
+
       <div class="section-heading">
-        <p class="eyebrow">EXPERIENCE</p>
-        <h2>Hear Kerala.</h2>
-        <p>Build your own rainy evening.</p>
+
+        <p class="eyebrow">
+          EXPERIENCE
+        </p>
+
+        <h2>
+          Hear Kerala.
+        </h2>
+
+        <p>
+          Build your own rainy evening.
+        </p>
+
       </div>
+
+
+      <!-- Ambient sound mixer -->
 
       <div class="wood-panel mixer">
+
         <div class="panel-title">
-          <span>AMBIENT SOUNDS</span>
-          <small id="audioStatus">Ready — tap Start Experience</small>
+
+          <span>
+            AMBIENT SOUNDS
+          </span>
+
+          <small id="audioStatus">
+            Ready — tap Start Experience
+          </small>
+
         </div>
+
 
         <div class="sound-grid">
-          <label class="sound-row"><span>🌧 Rain</span><input class="sound-slider" data-sound="rain" type="range" min="0" max="100" value="55"><b class="volume-value">55%</b></label>
-          <label class="sound-row"><span>⚡ Thunder</span><input class="sound-slider" data-sound="thunder" type="range" min="0" max="100" value="25"><b class="volume-value">25%</b></label>
-          <label class="sound-row"><span>🦗 Crickets</span><input class="sound-slider" data-sound="crickets" type="range" min="0" max="100" value="40"><b class="volume-value">40%</b></label>
-          <label class="sound-row"><span>🔥 Fire</span><input class="sound-slider" data-sound="fire" type="range" min="0" max="100" value="15"><b class="volume-value">15%</b></label>
-          <label class="sound-row"><span>🚆 Train</span><input class="sound-slider" data-sound="train" type="range" min="0" max="100" value="10"><b class="volume-value">10%</b></label>
+
+
+          <!-- Rain -->
+
+          <label class="sound-row">
+
+            <span>
+              🌧 Rain
+            </span>
+
+            <input
+              class="sound-slider"
+              data-sound="rain"
+              type="range"
+              min="0"
+              max="100"
+              value="55"
+            >
+
+            <b class="volume-value">
+              55%
+            </b>
+
+          </label>
+
+
+          <!-- Thunder -->
+
+          <label class="sound-row">
+
+            <span>
+              ⚡ Thunder
+            </span>
+
+            <input
+              class="sound-slider"
+              data-sound="thunder"
+              type="range"
+              min="0"
+              max="100"
+              value="25"
+            >
+
+            <b class="volume-value">
+              25%
+            </b>
+
+          </label>
+
+
+          <!-- Crickets -->
+
+          <label class="sound-row">
+
+            <span>
+              🦗 Crickets
+            </span>
+
+            <input
+              class="sound-slider"
+              data-sound="crickets"
+              type="range"
+              min="0"
+              max="100"
+              value="40"
+            >
+
+            <b class="volume-value">
+              40%
+            </b>
+
+          </label>
+
+
+          <!-- Fire -->
+
+          <label class="sound-row">
+
+            <span>
+              🔥 Fire
+            </span>
+
+            <input
+              class="sound-slider"
+              data-sound="fire"
+              type="range"
+              min="0"
+              max="100"
+              value="15"
+            >
+
+            <b class="volume-value">
+              15%
+            </b>
+
+          </label>
+
+
+          <!-- Train -->
+
+          <label class="sound-row">
+
+            <span>
+              🚆 Train
+            </span>
+
+            <input
+              class="sound-slider"
+              data-sound="train"
+              type="range"
+              min="0"
+              max="100"
+              value="10"
+            >
+
+            <b class="volume-value">
+              10%
+            </b>
+
+          </label>
+
         </div>
+
+
+        <!-- Mixer controls -->
 
         <div class="mixer-actions">
-          <button class="wood-btn" id="masterBtn">▶ Start</button>
-          <button class="wood-btn" id="testBtn">🧪 Test Rain</button>
-          <button class="wood-btn" id="muteBtn">🔇 Mute</button>
+
+          <button
+            class="wood-btn"
+            id="masterBtn"
+          >
+            ▶ Start
+          </button>
+
+
+          <button
+            class="wood-btn"
+            id="testBtn"
+          >
+            🧪 Test Rain
+          </button>
+
+
+          <button
+            class="wood-btn"
+            id="muteBtn"
+          >
+            🔇 Mute
+          </button>
+
         </div>
+
+
+        <!-- Presets -->
 
         <div class="preset-strip">
-          <span>PRESETS</span>
-          <button class="preset" data-preset="monsoon">🌧 Monsoon</button>
-          <button class="preset" data-preset="night">🌙 Night</button>
-          <button class="preset" data-preset="chaya">☕ Chaya Kada</button>
-          <button class="preset" data-preset="journey">🚆 Train Journey</button>
+
+          <span>
+            PRESETS
+          </span>
+
+
+          <button
+            class="preset"
+            data-preset="monsoon"
+          >
+            🌧 Monsoon
+          </button>
+
+
+          <button
+            class="preset"
+            data-preset="night"
+          >
+            🌙 Night
+          </button>
+
+
+          <button
+            class="preset"
+            data-preset="chaya"
+          >
+            ☕ Chaya Kada
+          </button>
+
+
+          <button
+            class="preset"
+            data-preset="journey"
+          >
+            🚆 Train Journey
+          </button>
+
         </div>
+
       </div>
 
-      <div class="quote-card">“Rain, Chaya and stories that never end.”</div>
+
+      <!-- Quote -->
+
+      <div class="quote-card">
+        “Rain, Chaya and stories that never end.”
+      </div>
+
+
+      <!-- Pomodoro -->
 
       <div class="timer-panel">
+
         <div>
-          <p class="eyebrow">FOCUS / POMODORO</p>
-          <h3>Stay a while.</h3>
-          <div class="timer-display" id="timerDisplay">00:00</div>
+
+          <p class="eyebrow">
+            FOCUS / POMODORO
+          </p>
+
+          <h3>
+            Stay a while.
+          </h3>
+
+          <div
+            class="timer-display"
+            id="timerDisplay"
+          >
+            00:00
+          </div>
+
         </div>
+
+
         <div class="timer-buttons">
-          <button class="paper-btn timer" data-min="25">25 min</button>
-          <button class="paper-btn timer" data-min="45">45 min</button>
-          <button class="paper-btn timer" data-min="60">60 min</button>
-          <button class="paper-btn" id="resetTimer">Reset</button>
+
+          <button
+            class="paper-btn timer"
+            data-min="25"
+          >
+            25 min
+          </button>
+
+
+          <button
+            class="paper-btn timer"
+            data-min="45"
+          >
+            45 min
+          </button>
+
+
+          <button
+            class="paper-btn timer"
+            data-min="60"
+          >
+            60 min
+          </button>
+
+
+          <button
+            class="paper-btn"
+            id="resetTimer"
+          >
+            Reset
+          </button>
+
         </div>
+
       </div>
+
     </section>
 
-    <section class="section explore" id="explore">
+
+
+    <!-- =================================================
+         EXPLORE
+         ================================================= -->
+
+    <section
+      class="section explore"
+      id="explore"
+    >
+
       <div class="section-heading">
-        <p class="eyebrow">EXPLORE</p>
-        <h2>Find your chaya.</h2>
-        <p>Old streets, small shops and places worth remembering.</p>
+
+        <p class="eyebrow">
+          EXPLORE
+        </p>
+
+        <h2>
+          Find your chaya.
+        </h2>
+
+        <p>
+          Old streets, small shops and places worth remembering.
+        </p>
+
       </div>
+
 
       <div class="search-paper">
-        <input id="searchInput" type="search" placeholder="Search a place, dish or town…">
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search a place, dish or town…"
+        >
+
+
         <select id="categoryFilter">
-          <option value="all">All places</option>
-          <option value="chaya">Chaya Kada</option>
-          <option value="thattu">Thattu Kada</option>
-          <option value="cafe">Cafe</option>
-          <option value="food">Street Food</option>
+
+          <option value="all">
+            All places
+          </option>
+
+          <option value="chaya">
+            Chaya Kada
+          </option>
+
+          <option value="thattu">
+            Thattu Kada
+          </option>
+
+          <option value="cafe">
+            Cafe
+          </option>
+
+          <option value="food">
+            Street Food
+          </option>
+
         </select>
+
       </div>
+
 
       <div class="places">
-        <article class="place-card" data-name="old railway chaya kada" data-category="chaya">
-          <span class="stamp">CHAYA</span><h3>Old Railway Chaya Kada</h3>
-          <p>Strong tea, rain on the roof and a train somewhere nearby.</p><small>Kerala • Fictional prototype</small>
+
+
+        <article
+          class="place-card"
+          data-name="old railway chaya kada"
+          data-category="chaya"
+        >
+
+          <span class="stamp">
+            CHAYA
+          </span>
+
+          <h3>
+            Old Railway Chaya Kada
+          </h3>
+
+          <p>
+            Strong tea, rain on the roof and a train somewhere nearby.
+          </p>
+
+          <small>
+            Kerala • Fictional prototype
+          </small>
+
         </article>
-        <article class="place-card" data-name="monsoon thattu kada" data-category="thattu">
-          <span class="stamp">THATTU</span><h3>Monsoon Thattu Kada</h3>
-          <p>Porotta, egg curry and the sound of rain on tin sheets.</p><small>Kerala • Fictional prototype</small>
+
+
+        <article
+          class="place-card"
+          data-name="monsoon thattu kada"
+          data-category="thattu"
+        >
+
+          <span class="stamp">
+            THATTU
+          </span>
+
+          <h3>
+            Monsoon Thattu Kada
+          </h3>
+
+          <p>
+            Porotta, egg curry and the sound of rain on tin sheets.
+          </p>
+
+          <small>
+            Kerala • Fictional prototype
+          </small>
+
         </article>
-        <article class="place-card" data-name="evening coffee room" data-category="cafe">
-          <span class="stamp">COFFEE</span><h3>Evening Coffee Room</h3>
-          <p>A quiet corner for newspapers, conversations and old songs.</p><small>Kerala • Fictional prototype</small>
+
+
+        <article
+          class="place-card"
+          data-name="evening coffee room"
+          data-category="cafe"
+        >
+
+          <span class="stamp">
+            COFFEE
+          </span>
+
+          <h3>
+            Evening Coffee Room
+          </h3>
+
+          <p>
+            A quiet corner for newspapers, conversations and old songs.
+          </p>
+
+          <small>
+            Kerala • Fictional prototype
+          </small>
+
         </article>
-        <article class="place-card" data-name="bajji corner" data-category="food">
-          <span class="stamp">SNACKS</span><h3>Bajji Corner</h3>
-          <p>Hot pazham pori and parippuvada on a wet evening.</p><small>Kerala • Fictional prototype</small>
+
+
+        <article
+          class="place-card"
+          data-name="bajji corner"
+          data-category="food"
+        >
+
+          <span class="stamp">
+            SNACKS
+          </span>
+
+          <h3>
+            Bajji Corner
+          </h3>
+
+          <p>
+            Hot pazham pori and parippuvada on a wet evening.
+          </p>
+
+          <small>
+            Kerala • Fictional prototype
+          </small>
+
         </article>
+
       </div>
+
     </section>
 
-    <section class="section orma" id="orma">
+
+
+    <!-- =================================================
+         ORMA
+         ================================================= -->
+
+    <section
+      class="section orma"
+      id="orma"
+    >
+
       <div class="section-heading">
-        <p class="eyebrow">ORMA • ഓർമ്മ</p>
-        <h2>Open an old evening.</h2>
-        <p>Choose a year and let the atmosphere change.</p>
+
+        <p class="eyebrow">
+          ORMA • ഓർമ്മ
+        </p>
+
+        <h2>
+          Open an old evening.
+        </h2>
+
+        <p>
+          Choose a year and let the atmosphere change.
+        </p>
+
       </div>
+
 
       <div class="era-board">
-        <button class="era active" data-era="1981">1981</button>
-        <button class="era" data-era="1985">1985</button>
-        <button class="era" data-era="1990">1990</button>
-        <button class="era" data-era="1995">1995</button>
+
+        <button
+          class="era active"
+          data-era="1981"
+        >
+          1981
+        </button>
+
+
+        <button
+          class="era"
+          data-era="1985"
+        >
+          1985
+        </button>
+
+
+        <button
+          class="era"
+          data-era="1990"
+        >
+          1990
+        </button>
+
+
+        <button
+          class="era"
+          data-era="1995"
+        >
+          1995
+        </button>
+
       </div>
+
 
       <div class="memory-room">
-        <div class="radio"><span>FM</span><strong>98.3</strong><small>EVENING PROGRAMME</small></div>
-        <div class="cassette"><div class="reel"></div><div class="reel"></div><span>ORMA • SIDE A</span></div>
-        <div class="old-note"><p>“Some evenings<br>never really leave us.”</p><small>— PAAL CHAYA</small></div>
+
+
+        <!-- Radio -->
+
+        <div class="radio">
+
+          <span>
+            FM
+          </span>
+
+          <strong>
+            98.3
+          </strong>
+
+          <small>
+            EVENING PROGRAMME
+          </small>
+
+        </div>
+
+
+        <!-- Cassette -->
+
+        <div class="cassette">
+
+          <div class="reel"></div>
+
+          <div class="reel"></div>
+
+          <span>
+            ORMA • SIDE A
+          </span>
+
+        </div>
+
+
+        <!-- Old note -->
+
+        <div class="old-note">
+
+          <p>
+            “Some evenings<br>
+            never really leave us.”
+          </p>
+
+          <small>
+            — PAAL CHAYA
+          </small>
+
+        </div>
+
       </div>
+
     </section>
 
-    <section class="section memories" id="memories">
+
+
+    <!-- =================================================
+         MEMORIES
+         ================================================= -->
+
+    <section
+      class="section memories"
+      id="memories"
+    >
+
       <div class="section-heading">
-        <p class="eyebrow">MEMORIES</p>
-        <h2>Leave something behind.</h2>
-        <p>Write a small memory. It stays on this device.</p>
+
+        <p class="eyebrow">
+          MEMORIES
+        </p>
+
+        <h2>
+          Leave something behind.
+        </h2>
+
+        <p>
+          Write a small memory. It stays on this device.
+        </p>
+
       </div>
 
-      <form class="memory-form" id="memoryForm">
-        <input id="memoryTitle" type="text" placeholder="Memory title">
-        <input id="memoryYear" type="text" placeholder="Year (optional)">
-        <textarea id="memoryText" rows="4" placeholder="Tell your story…"></textarea>
-        <button class="wood-btn" type="submit">Save Memory</button>
+
+      <form
+        class="memory-form"
+        id="memoryForm"
+      >
+
+        <input
+          id="memoryTitle"
+          type="text"
+          placeholder="Memory title"
+        >
+
+
+        <input
+          id="memoryYear"
+          type="text"
+          placeholder="Year (optional)"
+        >
+
+
+        <textarea
+          id="memoryText"
+          rows="4"
+          placeholder="Tell your story…"
+        ></textarea>
+
+
+        <button
+          class="wood-btn"
+          type="submit"
+        >
+          Save Memory
+        </button>
+
       </form>
-      <div class="memory-list" id="memoryList"></div>
+
+
+      <div
+        class="memory-list"
+        id="memoryList"
+      ></div>
+
     </section>
 
-    <section class="section owners" id="owners">
+
+
+    <!-- =================================================
+         FOR OWNERS
+         ================================================= -->
+
+    <section
+      class="section owners"
+      id="owners"
+    >
+
       <div class="owner-card">
-        <p class="eyebrow">FOR OWNERS</p>
-        <h2>Is this your chaya kada?</h2>
-        <p>Add your spot, menu, prices and story to the PAAL CHAYA map.</p>
-        <button class="paper-btn" type="button">Add Your Spot</button>
-        <button class="paper-btn" type="button">Claim Business</button>
+
+        <p class="eyebrow">
+          FOR OWNERS
+        </p>
+
+        <h2>
+          Is this your chaya kada?
+        </h2>
+
+        <p>
+          Add your spot, menu, prices and story to the PAAL CHAYA map.
+        </p>
+
+
+        <button
+          class="paper-btn"
+          type="button"
+        >
+          Add Your Spot
+        </button>
+
+
+        <button
+          class="paper-btn"
+          type="button"
+        >
+          Claim Business
+        </button>
+
       </div>
+
     </section>
+
+
+
+    <!-- =================================================
+         FOOTER
+         ================================================= -->
 
     <footer>
-      <strong>PAAL CHAYA</strong>
-      <span>കേൾക്കാം • കണ്ടെത്താം • ഓർക്കാം</span>
-      <small>KERALA LIVES IN LITTLE MOMENTS</small>
+
+      <strong>
+        PAAL CHAYA
+      </strong>
+
+      <span>
+        കേൾക്കാം • കണ്ടെത്താം • ഓർക്കാം
+      </span>
+
+      <small>
+        KERALA LIVES IN LITTLE MOMENTS
+      </small>
+
     </footer>
+
+
   </main>
+
 </div>
 
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
 <script src="script.js"></script>
+
 </body>
 </html>
