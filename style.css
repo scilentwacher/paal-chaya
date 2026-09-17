@@ -26,7 +26,7 @@ body{
 
 
 /* =========================================================
-   VINTAGE KERALA BACKGROUND
+   VINTAGE KERALA PHOTOGRAPH
    ========================================================= */
 
 .scene{
@@ -35,64 +35,50 @@ body{
   z-index:-5;
 
   background:
-    /* warm central tea-shop light */
-    radial-gradient(
-      ellipse at 60% 52%,
-      rgba(205,137,61,.20) 0%,
-      rgba(120,75,34,.10) 24%,
-      transparent 55%
-    ),
-
-    /* side darkness */
     linear-gradient(
       90deg,
-      rgba(0,0,0,.34),
-      rgba(18,10,6,.05) 48%,
+      rgba(0,0,0,.58),
+      rgba(12,7,4,.12) 42%,
+      rgba(0,0,0,.34)
+    ),
+
+    linear-gradient(
+      0deg,
+      rgba(0,0,0,.48),
+      rgba(0,0,0,.05) 48%,
       rgba(0,0,0,.28)
     ),
 
-    /* bottom cinematic shade */
-    linear-gradient(
-      0deg,
-      rgba(0,0,0,.36),
-      rgba(0,0,0,.02) 48%,
-      rgba(0,0,0,.14)
-    ),
-
-    url("vintage-kerala.jpg") center center / cover no-repeat;
+    url("vintage-kerala.jpg") center/cover no-repeat;
 
   filter:
-    saturate(.92)
-    sepia(.10)
-    contrast(1.02)
-    brightness(1.12);
+    saturate(.78)
+    sepia(.12)
+    contrast(1.06)
+    brightness(.91);
 
   transform:scale(1.025);
 
   animation:filmExposure 12s ease-in-out infinite;
-
-  will-change:filter,transform;
 }
 
 
 /* =========================================================
-   WARM TEA SHOP GLOW
+   WARM TEA SHOP LIGHT
    ========================================================= */
 
 .scene::before{
   content:"";
-
   position:absolute;
-  inset:-12%;
-
+  inset:-10%;
   pointer-events:none;
 
   background:
     radial-gradient(
-      ellipse at 61% 52%,
-      rgba(238,164,81,.22) 0%,
-      rgba(190,115,49,.10) 22%,
-      transparent 54%
+      ellipse at 72% 55%,
+      rgba(239,158,75,.24),
+      rgba(191,113,45,.10) 22%,
+      transparent 53%
     );
 
   mix-blend-mode:screen;
@@ -102,29 +88,23 @@ body{
 
 
 /* =========================================================
-   SOFT DISTANT LIGHTNING
+   SUBTLE LIGHTNING
    ========================================================= */
 
 .scene::after{
   content:"";
-
   position:absolute;
   inset:0;
-
   pointer-events:none;
 
   background:
-    radial-gradient(
-      ellipse at 60% 40%,
-      rgba(255,248,220,.65),
-      transparent 65%
-    );
+    rgba(235,232,216,.80);
 
   opacity:0;
 
   mix-blend-mode:screen;
 
-  animation:distantLightning 18s linear infinite;
+  animation:distantLightning 19s linear infinite;
 }
 
 
@@ -136,57 +116,49 @@ body{
 
   0%,100%{
     filter:
-      saturate(.92)
-      sepia(.10)
-      contrast(1.02)
-      brightness(1.10);
+      saturate(.78)
+      sepia(.12)
+      contrast(1.06)
+      brightness(.91);
   }
 
   45%{
     filter:
-      saturate(.94)
-      sepia(.11)
-      contrast(1.03)
-      brightness(1.14);
+      saturate(.80)
+      sepia(.13)
+      contrast(1.05)
+      brightness(.94);
   }
 
-  50%{
+  52%{
     filter:
-      saturate(.90)
-      sepia(.09)
-      contrast(1.02)
-      brightness(1.08);
-  }
-
-  55%{
-    filter:
-      saturate(.93)
+      saturate(.77)
       sepia(.11)
-      contrast(1.03)
-      brightness(1.12);
+      contrast(1.07)
+      brightness(.89);
   }
 }
 
 
 /* =========================================================
-   TEA SHOP LAMP BREATHING
+   TEA SHOP GLOW
    ========================================================= */
 
 @keyframes chayaGlow{
 
   0%{
-    opacity:.38;
+    opacity:.48;
     transform:scale(1);
   }
 
   50%{
-    opacity:.68;
-    transform:scale(1.035);
+    opacity:.76;
+    transform:scale(1.025);
   }
 
   100%{
-    opacity:.46;
-    transform:scale(1.015);
+    opacity:.55;
+    transform:scale(1.01);
   }
 }
 
@@ -197,85 +169,67 @@ body{
 
 @keyframes distantLightning{
 
-  0%,88%,100%{
+  0%,90%,100%{
     opacity:0;
   }
 
-  89.2%{
+  91%{
     opacity:.025;
   }
 
-  89.45%{
-    opacity:.11;
+  91.2%{
+    opacity:.12;
   }
 
-  89.7%{
-    opacity:.018;
+  91.4%{
+    opacity:.02;
   }
 
-  90.1%{
-    opacity:.065;
+  91.7%{
+    opacity:.07;
   }
 
-  90.5%{
+  92%{
     opacity:0;
   }
 }
 
 
 /* =========================================================
-   ATMOSPHERIC WARMTH
+   ATMOSPHERIC LIGHT
    ========================================================= */
 
 body::before{
   content:"";
-
   position:fixed;
   inset:0;
-
   z-index:-2;
-
   pointer-events:none;
 
   background:
     radial-gradient(
-      ellipse at 72% 50%,
-      rgba(244,157,76,.14),
-      transparent 25%
+      circle at 72% 55%,
+      rgba(244,157,79,.16),
+      transparent 23%
     ),
 
     radial-gradient(
-      ellipse at 24% 70%,
-      rgba(110,74,39,.09),
-      transparent 30%
+      circle at 20% 65%,
+      rgba(86,64,39,.10),
+      transparent 28%
     );
 
   mix-blend-mode:screen;
-
-  animation:ambientWarmth 9s ease-in-out infinite alternate;
-}
-
-@keyframes ambientWarmth{
-
-  from{
-    opacity:.65;
-  }
-
-  to{
-    opacity:.95;
-  }
 }
 
 
 /* =========================================================
-   RAIN SYSTEM
+   REALISTIC RAIN
    ========================================================= */
 
 .rain{
   position:fixed;
-
   inset:-30%;
-
   z-index:12;
 
   pointer-events:none;
@@ -286,7 +240,9 @@ body::before{
 
   mix-blend-mode:screen;
 
-  will-change:background-position;
+  will-change:
+    background-position,
+    transform;
 }
 
 
@@ -296,31 +252,31 @@ body::before{
 
 .rain-a{
 
-  opacity:.23;
+  opacity:.24;
 
   background-image:
 
     repeating-linear-gradient(
       105deg,
-      transparent 0 16px,
-      rgba(235,239,236,.38) 17px,
-      rgba(235,239,236,.18) 19px,
-      transparent 20px 43px
+      transparent 0 17px,
+      rgba(224,231,231,.38) 18px,
+      rgba(224,231,231,.18) 19px,
+      transparent 20px 42px
     ),
 
     repeating-linear-gradient(
       105deg,
-      transparent 0 30px,
-      rgba(204,220,222,.19) 31px,
-      transparent 33px 69px
+      transparent 0 31px,
+      rgba(193,210,214,.18) 32px,
+      transparent 34px 67px
     );
 
   background-size:
-    43px 49px,
-    73px 81px;
+    44px 48px,
+    71px 79px;
 
   animation:
-    heavyRain .52s linear infinite;
+    heavyRain .48s linear infinite;
 }
 
 
@@ -334,8 +290,8 @@ body::before{
 
   to{
     background-position:
-      -40px 150px,
-      -24px 110px;
+      -38px 145px,
+      -22px 105px;
   }
 }
 
@@ -353,24 +309,24 @@ body::before{
     repeating-linear-gradient(
       104deg,
       transparent 0 22px,
-      rgba(213,225,225,.27) 23px,
-      rgba(213,225,225,.10) 24px,
-      transparent 25px 58px
+      rgba(207,221,223,.28) 23px,
+      rgba(207,221,223,.11) 24px,
+      transparent 25px 56px
     ),
 
     repeating-linear-gradient(
       104deg,
-      transparent 0 43px,
-      rgba(225,230,225,.15) 44px,
-      transparent 46px 92px
+      transparent 0 41px,
+      rgba(218,225,222,.16) 42px,
+      transparent 44px 89px
     );
 
   background-size:
-    60px 70px,
-    94px 107px;
+    59px 68px,
+    91px 104px;
 
   animation:
-    mediumRain .86s linear infinite;
+    mediumRain .82s linear infinite;
 }
 
 
@@ -384,8 +340,8 @@ body::before{
 
   to{
     background-position:
-      -31px 110px,
-      -18px 80px;
+      -30px 105px,
+      -17px 78px;
   }
 }
 
@@ -402,26 +358,26 @@ body::before{
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 29px,
-      rgba(207,220,221,.20) 30px,
-      transparent 31px 75px
+      transparent 0 28px,
+      rgba(200,216,218,.20) 29px,
+      transparent 30px 73px
     ),
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 53px,
-      rgba(220,226,223,.12) 54px,
-      transparent 55px 115px
+      transparent 0 52px,
+      rgba(218,224,221,.12) 53px,
+      transparent 54px 112px
     );
 
   background-size:
-    84px 94px,
-    130px 142px;
+    82px 92px,
+    127px 139px;
 
-  filter:blur(.7px);
+  filter:blur(.65px);
 
   animation:
-    distantRain 1.3s linear infinite;
+    distantRain 1.25s linear infinite;
 }
 
 
@@ -435,8 +391,8 @@ body::before{
 
   to{
     background-position:
-      -23px 74px,
-      -14px 55px;
+      -22px 72px,
+      -13px 53px;
   }
 }
 
@@ -447,39 +403,36 @@ body::before{
 
 body::after{
   content:"";
-
   position:fixed;
-
   inset:-25%;
-
   z-index:11;
 
   pointer-events:none;
 
-  opacity:.065;
+  opacity:.07;
 
   background-image:
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 35px,
-      rgba(230,225,207,.17) 36px,
-      transparent 37px 74px
+      transparent 0 34px,
+      rgba(226,220,202,.18) 35px,
+      transparent 36px 72px
     ),
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 77px,
-      rgba(230,225,207,.09) 78px,
-      transparent 79px 154px
+      transparent 0 75px,
+      rgba(226,220,202,.10) 76px,
+      transparent 77px 150px
     );
 
   background-size:
-    74px 74px,
-    154px 154px;
+    72px 72px,
+    151px 151px;
 
   animation:
-    rainDepth 1.45s linear infinite;
+    rainDepth 1.4s linear infinite;
 
   mix-blend-mode:screen;
 }
@@ -488,11 +441,11 @@ body::after{
 @keyframes rainDepth{
 
   from{
-    transform:translate3d(-25px,-38px,0);
+    transform:translate3d(-24px,-35px,0);
   }
 
   to{
-    transform:translate3d(26px,40px,0);
+    transform:translate3d(25px,38px,0);
   }
 }
 
@@ -503,9 +456,7 @@ body::after{
 
 .vignette{
   position:fixed;
-
   inset:0;
-
   z-index:10;
 
   pointer-events:none;
@@ -513,27 +464,24 @@ body::after{
   background:
     radial-gradient(
       ellipse at center,
-      transparent 34%,
-      rgba(0,0,0,.25) 72%,
-      rgba(0,0,0,.55) 100%
+      transparent 35%,
+      rgba(0,0,0,.52) 100%
     );
 }
 
 
 /* =========================================================
-   OLD FILM GRAIN
+   FILM GRAIN
    ========================================================= */
 
 .grain{
   position:fixed;
-
   inset:-50%;
-
   z-index:15;
 
   pointer-events:none;
 
-  opacity:.055;
+  opacity:.065;
 
   background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
@@ -573,7 +521,6 @@ body::after{
 
 .topbar{
   position:fixed;
-
   top:0;
   left:0;
   right:0;
@@ -583,9 +530,7 @@ body::after{
   min-height:86px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
 
   padding:14px 28px;
@@ -593,8 +538,8 @@ body::after{
   background:
     linear-gradient(
       180deg,
-      rgba(8,5,4,.78),
-      rgba(8,5,4,.20),
+      rgba(8,5,4,.88),
+      rgba(8,5,4,.30),
       transparent
     );
 }
@@ -602,7 +547,6 @@ body::after{
 
 .brand{
   display:flex;
-
   align-items:center;
 
   gap:12px;
@@ -618,7 +562,7 @@ body::after{
 
   filter:
     drop-shadow(
-      0 0 9px rgba(231,165,91,.48)
+      0 0 8px rgba(231,165,91,.45)
     );
 }
 
@@ -672,23 +616,19 @@ body::after{
 
 .era-badge span{
   font-size:10px;
-
   letter-spacing:2px;
 }
 
 
 .era-badge b{
   font-family:"IM Fell English";
-
   font-size:23px;
-
   color:#d7ae6d;
 }
 
 
 .era-badge em{
   font-size:11px;
-
   opacity:.72;
 }
 
@@ -713,14 +653,13 @@ body::after{
 
 
 /* =========================================================
-   NAVIGATION
+   SIDE NAVIGATION
    ========================================================= */
 
 .side-nav{
   position:fixed;
 
   left:20px;
-
   top:120px;
 
   width:185px;
@@ -735,7 +674,6 @@ body::after{
 
 .nav-link{
   display:flex;
-
   align-items:center;
 
   gap:13px;
@@ -814,7 +752,7 @@ main{
 
   position:relative;
 
-  z-index:2;
+  z-index:3;
 }
 
 
@@ -846,7 +784,7 @@ h1{
   line-height:.9;
 
   text-shadow:
-    3px 4px 0 rgba(0,0,0,.48),
+    3px 4px 0 rgba(0,0,0,.55),
     0 0 24px rgba(232,157,82,.08);
 }
 
@@ -866,6 +804,9 @@ h1 i{
   line-height:1.55;
 
   color:#dfcda7;
+
+  text-shadow:
+    1px 2px 3px rgba(0,0,0,.65);
 }
 
 
@@ -940,8 +881,15 @@ h1 i{
   font-family:"IM Fell English";
 
   font-size:18px;
+
+  text-shadow:
+    1px 2px 3px rgba(0,0,0,.65);
 }
 
+
+/* =========================================================
+   SHOP NOTE
+   ========================================================= */
 
 .shop-note{
   position:absolute;
@@ -950,12 +898,12 @@ h1 i{
 
   bottom:85px;
 
-  max-width:280px;
+  width:280px;
 
-  padding:17px;
+  padding:19px;
 
   background:
-    rgba(33,20,12,.70);
+    rgba(26,15,9,.72);
 
   border:
     1px solid rgba(214,162,91,.50);
@@ -963,20 +911,39 @@ h1 i{
   transform:rotate(-2deg);
 
   box-shadow:
-    0 12px 25px rgba(0,0,0,.40);
+    0 12px 25px rgba(0,0,0,.45),
 
-  backdrop-filter:blur(1px);
+    inset 0 0 20px rgba(220,150,75,.04);
 
   z-index:4;
+
+  backdrop-filter:blur(1px);
+}
+
+
+.shop-note::before{
+  content:"";
+
+  position:absolute;
+
+  inset:5px;
+
+  border:
+    1px solid rgba(214,162,91,.10);
+
+  pointer-events:none;
 }
 
 
 .shop-note span{
   display:block;
 
-  font-size:24px;
+  font-size:25px;
 
   color:#e6bd79;
+
+  text-shadow:
+    0 2px 8px rgba(231,157,74,.20);
 }
 
 
@@ -985,7 +952,7 @@ h1 i{
 
   font-size:11px;
 
-  margin-top:6px;
+  margin-top:7px;
 }
 
 
@@ -994,7 +961,9 @@ h1 i{
 
   margin-top:10px;
 
-  opacity:.72;
+  opacity:.78;
+
+  line-height:1.45;
 }
 
 
@@ -1714,7 +1683,7 @@ footer small{
 
 
 /* =========================================================
-   MOBILE
+   TABLET / MOBILE
    ========================================================= */
 
 @media(max-width:900px){
@@ -1765,16 +1734,54 @@ footer small{
 
 
   /* =====================================================
+     MOBILE BACKGROUND
+     ===================================================== */
+
+  .scene{
+
+    background-position:
+      68% center;
+
+    background-size:
+      cover;
+
+    filter:
+      saturate(.76)
+      sepia(.12)
+      contrast(1.06)
+      brightness(.91);
+
+    transform:
+      scale(1.025);
+  }
+
+
+  .scene::before{
+
+    background:
+      radial-gradient(
+        ellipse at 73% 51%,
+        rgba(239,158,75,.25),
+        rgba(191,113,45,.09) 26%,
+        transparent 56%
+      );
+  }
+
+
+  /* =====================================================
      MOBILE HERO
      ===================================================== */
 
   .hero{
-    min-height:100svh;
+
+    min-height:
+      100svh;
 
     padding:
       125px
       20px
-      55px;
+      190px
+      20px;
 
     display:flex !important;
 
@@ -1783,56 +1790,15 @@ footer small{
     justify-content:flex-end !important;
 
     align-items:flex-start !important;
+
+    position:relative;
   }
 
 
-  /* =====================================================
-     MOBILE IMAGE POSITION
-     ===================================================== */
-
-  .scene{
-
-    /*
-     * THIS controls where vintage-kerala.jpg
-     * appears on mobile.
-     *
-     * Increase first value → image moves LEFT
-     * Decrease first value → image moves RIGHT
-     */
-
-    background-position:58% center;
-
-    background-size:cover;
-
-    filter:
-      saturate(.90)
-      sepia(.09)
-      contrast(1.02)
-      brightness(1.15);
-
-    transform:scale(1.02);
-  }
-
-
-  /* stronger warm area */
-
-  .scene::before{
-
-    background:
-      radial-gradient(
-        ellipse at 61% 52%,
-        rgba(220,150,72,.22),
-        rgba(164,96,40,.07) 30%,
-        transparent 60%
-      );
-  }
-
-
-  /* =====================================================
-     MOBILE READABILITY
-     ===================================================== */
+  /* Dark cinematic layer behind lower content */
 
   .hero::after{
+
     content:"";
 
     position:absolute;
@@ -1841,7 +1807,7 @@ footer small{
     right:0;
     bottom:0;
 
-    height:44%;
+    height:58%;
 
     z-index:-1;
 
@@ -1850,118 +1816,194 @@ footer small{
     background:
       linear-gradient(
         0deg,
-        rgba(4,2,1,.62),
-        rgba(4,2,1,.18) 58%,
+        rgba(5,3,2,.82),
+        rgba(5,3,2,.40) 42%,
         transparent
       );
   }
 
 
   .hero-copy{
+
     width:100% !important;
 
     max-width:100% !important;
 
     position:relative;
 
-    z-index:2;
-
-    display:flex !important;
-
-    flex-direction:column !important;
-
-    align-items:flex-start !important;
+    z-index:3;
   }
 
 
-  .hero-copy h1{
-    width:100%;
+  .eyebrow{
 
-    max-width:100%;
+    font-size:
+      10px;
+
+    letter-spacing:
+      2.6px;
+  }
+
+
+  h1{
+
+    font-size:
+      clamp(48px,13vw,66px) !important;
+
+    line-height:
+      .91 !important;
+
+    max-width:
+      390px;
+
+    text-shadow:
+      3px 4px 0 rgba(0,0,0,.65),
+      0 0 18px rgba(0,0,0,.35);
   }
 
 
   .hero-text{
-    width:100%;
 
-    font-size:19px;
+    font-size:
+      18px;
+
+    line-height:
+      1.55;
+
+    margin:
+      25px 0;
+
+    max-width:
+      390px;
   }
 
 
   .hero-actions{
+
     width:100%;
 
     display:flex;
 
-    gap:12px;
-
     align-items:center;
+
+    gap:12px;
 
     flex-wrap:wrap;
   }
 
 
+  .wood-btn.primary{
+
+    font-size:
+      16px;
+
+    padding:
+      13px 18px;
+  }
+
+
+  .paper-link{
+
+    font-size:
+      17px;
+  }
+
+
   /* =====================================================
-     MOBILE SHOP NOTE
+     IMPORTANT:
+     SHOP NOTE IS A SIBLING OF .hero-copy
      ===================================================== */
 
-  .hero-copy .shop-note{
+  .hero > .shop-note{
 
-    position:relative !important;
+    position:absolute !important;
 
     top:auto !important;
 
-    right:auto !important;
-
-    bottom:auto !important;
-
     left:auto !important;
 
-    width:fit-content !important;
+    right:16px !important;
 
-    max-width:260px !important;
+    bottom:28px !important;
 
-    margin:
-      30px
-      0
-      0
-      auto !important;
+    width:
+      245px !important;
 
-    align-self:flex-end !important;
+    max-width:
+      calc(100% - 32px) !important;
+
+    margin:0 !important;
+
+    padding:
+      15px !important;
 
     transform:
       rotate(-2deg) !important;
 
-    z-index:5 !important;
+    z-index:6 !important;
+  }
+
+
+  .shop-note span{
+
+    font-size:
+      23px;
+  }
+
+
+  .shop-note b{
+
+    font-size:
+      10px;
+  }
+
+
+  .shop-note small{
+
+    font-size:
+      12px;
+
+    line-height:
+      1.45;
   }
 
 
   /* =====================================================
-     MOBILE SECTIONS
+     SECTIONS
      ===================================================== */
 
   .section{
-    padding:75px 20px;
+
+    padding:
+      75px 20px;
   }
 
 
   body::after{
-    opacity:.065;
+
+    opacity:
+      .065;
   }
 
 
   .rain-a{
-    opacity:.20;
+
+    opacity:
+      .22;
   }
 
 
   .rain-b{
-    opacity:.115;
+
+    opacity:
+      .12;
   }
 
 
   .rain-c{
-    opacity:.07;
+
+    opacity:
+      .07;
   }
 
 }
@@ -1974,100 +2016,166 @@ footer small{
 @media(max-width:650px){
 
   .brand strong{
-    font-size:25px;
+
+    font-size:
+      25px;
   }
 
 
   .brand small{
-    font-size:10px;
+
+    font-size:
+      10px;
+  }
+
+
+  .brand-cup{
+
+    font-size:
+      34px;
+  }
+
+
+  .hero{
+
+    min-height:
+      100svh;
+
+    padding:
+      125px
+      20px
+      185px
+      20px;
+  }
+
+
+  .scene{
+
+    background-position:
+      69% center;
+
+    brightness:
+      1;
+  }
+
+
+  h1{
+
+    font-size:
+      51px !important;
+
+    line-height:
+      .91 !important;
+  }
+
+
+  .hero-text{
+
+    font-size:
+      17px;
+
+    line-height:
+      1.55;
+
+    margin:
+      23px 0;
+  }
+
+
+  .hero-actions{
+
+    gap:
+      10px;
+  }
+
+
+  .wood-btn.primary{
+
+    font-size:
+      15px;
+
+    padding:
+      12px 16px;
+  }
+
+
+  .paper-link{
+
+    font-size:
+      16px;
+  }
+
+
+  .hero > .shop-note{
+
+    right:
+      14px !important;
+
+    bottom:
+      24px !important;
+
+    width:
+      235px !important;
+
+    max-width:
+      calc(100% - 28px) !important;
   }
 
 
   .sound-grid,
   .places,
   .memory-room{
-    grid-template-columns:1fr;
+
+    grid-template-columns:
+      1fr;
   }
 
 
   .sound-row{
-    grid-template-columns:90px 1fr 45px;
+
+    grid-template-columns:
+      90px 1fr 45px;
   }
 
 
   .search-paper{
-    flex-direction:column;
+
+    flex-direction:
+      column;
   }
 
 
   .search-paper select{
-    flex-basis:auto;
+
+    flex-basis:
+      auto;
   }
 
 
   .timer-panel{
-    flex-direction:column;
 
-    align-items:flex-start;
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
   }
 
 
   .timer-buttons{
-    justify-content:flex-start;
-  }
 
-
-  .hero{
-    min-height:100svh;
-
-    padding:
-      125px
-      20px
-      55px;
-  }
-
-
-  h1{
-    font-size:52px !important;
-
-    line-height:.91 !important;
-  }
-
-
-  .hero-text{
-    font-size:18px;
-
-    line-height:1.55;
-
-    margin:24px 0;
-  }
-
-
-  .wood-btn.primary{
-    font-size:16px;
-
-    padding:13px 18px;
-  }
-
-
-  .paper-link{
-    font-size:17px;
-  }
-
-
-  .hero-copy .shop-note{
-    max-width:245px !important;
-
-    margin-top:30px !important;
-
-    align-self:flex-end !important;
+    justify-content:
+      flex-start;
   }
 
 
   footer{
-    flex-direction:column;
 
-    align-items:flex-start;
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
   }
 
 }
@@ -2077,31 +2185,56 @@ footer small{
    VERY SMALL PHONES
    ========================================================= */
 
-@media(max-width:380px){
+@media(max-width:390px){
 
   .brand strong{
-    font-size:22px;
+
+    font-size:
+      23px;
   }
+
 
   .brand-cup{
-    font-size:30px;
+
+    font-size:
+      31px;
   }
+
 
   h1{
-    font-size:47px !important;
+
+    font-size:
+      47px !important;
   }
 
-  .hero{
-    padding-left:16px;
-    padding-right:16px;
-  }
 
   .hero-text{
-    font-size:17px;
+
+    font-size:
+      16px;
   }
 
-  .shop-note{
-    max-width:230px !important;
+
+  .hero{
+
+    padding-left:
+      16px;
+
+    padding-right:
+      16px;
+
+    padding-bottom:
+      178px;
+  }
+
+
+  .hero > .shop-note{
+
+    right:
+      12px !important;
+
+    width:
+      225px !important;
   }
 
 }
@@ -2116,14 +2249,15 @@ footer small{
   .scene,
   .scene::before,
   .scene::after,
-  body::before,
   body::after,
   .grain,
   .rain,
   .rain-a,
   .rain-b,
   .rain-c{
-    animation:none !important;
+
+    animation:
+      none !important;
   }
 
 }
