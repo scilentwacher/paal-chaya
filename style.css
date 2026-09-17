@@ -26,7 +26,7 @@ body{
 
 
 /* =========================================================
-   VINTAGE KERALA PHOTOGRAPH
+   VINTAGE KERALA BACKGROUND
    ========================================================= */
 
 .scene{
@@ -35,50 +35,59 @@ body{
   z-index:-5;
 
   background:
+    radial-gradient(
+      circle at 62% 48%,
+      rgba(170,115,60,.17),
+      rgba(35,20,10,.06) 32%,
+      rgba(0,0,0,.34) 78%,
+      rgba(0,0,0,.58) 100%
+    ),
+
     linear-gradient(
       90deg,
-      rgba(0,0,0,.58),
-      rgba(12,7,4,.12) 42%,
-      rgba(0,0,0,.34)
+      rgba(0,0,0,.42),
+      rgba(25,15,8,.06) 50%,
+      rgba(0,0,0,.30)
     ),
 
     linear-gradient(
       0deg,
-      rgba(0,0,0,.48),
-      rgba(0,0,0,.05) 48%,
-      rgba(0,0,0,.28)
+      rgba(0,0,0,.36),
+      transparent 52%,
+      rgba(0,0,0,.14)
     ),
 
     url("vintage-kerala.jpg") center/cover no-repeat;
 
   filter:
-    saturate(.78)
-    sepia(.12)
-    contrast(1.06)
-    brightness(.91);
+    saturate(.88)
+    sepia(.13)
+    contrast(1.04)
+    brightness(1.08);
 
-  transform:scale(1.025);
+  transform:scale(1.02);
 
   animation:filmExposure 12s ease-in-out infinite;
 }
 
 
 /* =========================================================
-   WARM TEA SHOP LIGHT
+   WARM CHAYA SHOP GLOW
    ========================================================= */
 
 .scene::before{
   content:"";
   position:absolute;
   inset:-10%;
+
   pointer-events:none;
 
   background:
     radial-gradient(
-      ellipse at 72% 55%,
-      rgba(239,158,75,.24),
-      rgba(191,113,45,.10) 22%,
-      transparent 53%
+      ellipse at 62% 48%,
+      rgba(220,153,76,.18) 0%,
+      rgba(170,101,43,.07) 28%,
+      transparent 58%
     );
 
   mix-blend-mode:screen;
@@ -88,17 +97,23 @@ body{
 
 
 /* =========================================================
-   SUBTLE LIGHTNING
+   DISTANT LIGHTNING
    ========================================================= */
 
 .scene::after{
   content:"";
   position:absolute;
   inset:0;
+
   pointer-events:none;
 
   background:
-    rgba(235,232,216,.80);
+    radial-gradient(
+      ellipse at 65% 42%,
+      rgba(235,232,216,.60),
+      rgba(220,220,210,.10) 35%,
+      transparent 72%
+    );
 
   opacity:0;
 
@@ -116,48 +131,48 @@ body{
 
   0%,100%{
     filter:
-      saturate(.78)
-      sepia(.12)
-      contrast(1.06)
-      brightness(.91);
+      saturate(.88)
+      sepia(.13)
+      contrast(1.04)
+      brightness(1.07);
   }
 
   45%{
     filter:
-      saturate(.80)
-      sepia(.13)
-      contrast(1.05)
-      brightness(.94);
+      saturate(.90)
+      sepia(.14)
+      contrast(1.03)
+      brightness(1.10);
   }
 
-  52%{
+  50%{
     filter:
-      saturate(.77)
-      sepia(.11)
-      contrast(1.07)
-      brightness(.89);
+      saturate(.87)
+      sepia(.12)
+      contrast(1.05)
+      brightness(1.05);
   }
 }
 
 
 /* =========================================================
-   TEA SHOP GLOW
+   CHAYA GLOW
    ========================================================= */
 
 @keyframes chayaGlow{
 
   0%{
-    opacity:.48;
+    opacity:.45;
     transform:scale(1);
   }
 
   50%{
-    opacity:.76;
-    transform:scale(1.025);
+    opacity:.68;
+    transform:scale(1.02);
   }
 
   100%{
-    opacity:.55;
+    opacity:.53;
     transform:scale(1.01);
   }
 }
@@ -169,54 +184,57 @@ body{
 
 @keyframes distantLightning{
 
-  0%,90%,100%{
+  0%,88%,100%{
     opacity:0;
   }
 
-  91%{
-    opacity:.025;
+  89%{
+    opacity:.018;
   }
 
-  91.2%{
-    opacity:.12;
-  }
-
-  91.4%{
-    opacity:.02;
-  }
-
-  91.7%{
+  89.2%{
     opacity:.07;
   }
 
-  92%{
+  89.4%{
+    opacity:.015;
+  }
+
+  89.7%{
+    opacity:.045;
+  }
+
+  90.1%{
     opacity:0;
   }
 }
 
 
 /* =========================================================
-   ATMOSPHERIC LIGHT
+   ATMOSPHERIC GLOW
    ========================================================= */
 
 body::before{
   content:"";
+
   position:fixed;
   inset:0;
+
   z-index:-2;
+
   pointer-events:none;
 
   background:
     radial-gradient(
-      circle at 72% 55%,
-      rgba(244,157,79,.16),
+      circle at 76% 47%,
+      rgba(245,155,79,.15),
       transparent 23%
     ),
 
     radial-gradient(
-      circle at 20% 65%,
-      rgba(86,64,39,.10),
-      transparent 28%
+      circle at 22% 65%,
+      rgba(104,74,40,.08),
+      transparent 26%
     );
 
   mix-blend-mode:screen;
@@ -224,13 +242,12 @@ body::before{
 
 
 /* =========================================================
-   REALISTIC RAIN
+   RAIN
    ========================================================= */
 
 .rain{
   position:fixed;
   inset:-30%;
-  z-index:12;
 
   pointer-events:none;
 
@@ -240,9 +257,7 @@ body::before{
 
   mix-blend-mode:screen;
 
-  will-change:
-    background-position,
-    transform;
+  will-change:background-position;
 }
 
 
@@ -252,31 +267,34 @@ body::before{
 
 .rain-a{
 
-  opacity:.24;
+  z-index:12;
+
+  opacity:.10;
 
   background-image:
 
     repeating-linear-gradient(
       105deg,
-      transparent 0 17px,
-      rgba(224,231,231,.38) 18px,
-      rgba(224,231,231,.18) 19px,
-      transparent 20px 42px
+      transparent 0 19px,
+      rgba(224,231,231,.32) 20px,
+      rgba(224,231,231,.15) 21px,
+      transparent 22px 48px
     ),
 
     repeating-linear-gradient(
       105deg,
-      transparent 0 31px,
-      rgba(193,210,214,.18) 32px,
-      transparent 34px 67px
+      transparent 0 34px,
+      rgba(193,210,214,.16) 35px,
+      transparent 37px 72px
     );
 
   background-size:
-    44px 48px,
-    71px 79px;
+    48px 55px,
+    76px 84px;
 
   animation:
-    heavyRain .48s linear infinite;
+    heavyRain .62s linear infinite,
+    rainBreathing 7s ease-in-out infinite;
 }
 
 
@@ -297,36 +315,39 @@ body::before{
 
 
 /* =========================================================
-   MID RAIN
+   MID-DISTANCE RAIN
    ========================================================= */
 
 .rain-b{
 
-  opacity:.13;
+  z-index:11;
+
+  opacity:.055;
 
   background-image:
 
     repeating-linear-gradient(
       104deg,
-      transparent 0 22px,
-      rgba(207,221,223,.28) 23px,
-      rgba(207,221,223,.11) 24px,
-      transparent 25px 56px
+      transparent 0 24px,
+      rgba(207,221,223,.25) 25px,
+      rgba(207,221,223,.10) 26px,
+      transparent 27px 60px
     ),
 
     repeating-linear-gradient(
       104deg,
-      transparent 0 41px,
-      rgba(218,225,222,.16) 42px,
-      transparent 44px 89px
+      transparent 0 44px,
+      rgba(218,225,222,.14) 45px,
+      transparent 47px 94px
     );
 
   background-size:
-    59px 68px,
-    91px 104px;
+    63px 72px,
+    96px 108px;
 
   animation:
-    mediumRain .82s linear infinite;
+    mediumRain .92s linear infinite,
+    rainBreathing 10s ease-in-out infinite;
 }
 
 
@@ -347,37 +368,40 @@ body::before{
 
 
 /* =========================================================
-   DISTANT RAIN
+   BACKGROUND / FINE RAIN
    ========================================================= */
 
 .rain-c{
 
-  opacity:.075;
+  z-index:10;
+
+  opacity:.035;
 
   background-image:
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 28px,
-      rgba(200,216,218,.20) 29px,
-      transparent 30px 73px
+      transparent 0 30px,
+      rgba(200,216,218,.18) 31px,
+      transparent 32px 76px
     ),
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 52px,
-      rgba(218,224,221,.12) 53px,
-      transparent 54px 112px
+      transparent 0 55px,
+      rgba(218,224,221,.10) 56px,
+      transparent 57px 118px
     );
 
   background-size:
-    82px 92px,
-    127px 139px;
+    86px 96px,
+    132px 145px;
 
-  filter:blur(.65px);
+  filter:blur(.7px);
 
   animation:
-    distantRain 1.25s linear infinite;
+    distantRain 1.35s linear infinite,
+    rainBreathing 13s ease-in-out infinite;
 }
 
 
@@ -398,41 +422,44 @@ body::before{
 
 
 /* =========================================================
-   EXTRA RAIN DEPTH
+   EXTRA VERY FINE RAIN
    ========================================================= */
 
 body::after{
+
   content:"";
+
   position:fixed;
   inset:-25%;
-  z-index:11;
+
+  z-index:9;
 
   pointer-events:none;
 
-  opacity:.07;
+  opacity:.025;
 
   background-image:
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 34px,
-      rgba(226,220,202,.18) 35px,
-      transparent 36px 72px
+      transparent 0 35px,
+      rgba(226,220,202,.15) 36px,
+      transparent 37px 75px
     ),
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 75px,
-      rgba(226,220,202,.10) 76px,
-      transparent 77px 150px
+      transparent 0 76px,
+      rgba(226,220,202,.08) 77px,
+      transparent 78px 152px
     );
 
   background-size:
-    72px 72px,
-    151px 151px;
+    75px 75px,
+    155px 155px;
 
   animation:
-    rainDepth 1.4s linear infinite;
+    rainDepth 1.5s linear infinite;
 
   mix-blend-mode:screen;
 }
@@ -450,13 +477,27 @@ body::after{
 }
 
 
+@keyframes rainBreathing{
+
+  0%,100%{
+    opacity:1;
+  }
+
+  50%{
+    opacity:.72;
+  }
+}
+
+
 /* =========================================================
    VIGNETTE
    ========================================================= */
 
 .vignette{
+
   position:fixed;
   inset:0;
+
   z-index:10;
 
   pointer-events:none;
@@ -464,24 +505,26 @@ body::after{
   background:
     radial-gradient(
       ellipse at center,
-      transparent 35%,
-      rgba(0,0,0,.52) 100%
+      transparent 42%,
+      rgba(0,0,0,.50) 100%
     );
 }
 
 
 /* =========================================================
-   FILM GRAIN
+   OLD PHOTOGRAPHIC GRAIN
    ========================================================= */
 
 .grain{
+
   position:fixed;
   inset:-50%;
+
   z-index:15;
 
   pointer-events:none;
 
-  opacity:.065;
+  opacity:.06;
 
   background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
@@ -520,7 +563,9 @@ body::after{
    ========================================================= */
 
 .topbar{
+
   position:fixed;
+
   top:0;
   left:0;
   right:0;
@@ -530,6 +575,7 @@ body::after{
   min-height:86px;
 
   display:flex;
+
   align-items:center;
   justify-content:space-between;
 
@@ -538,15 +584,17 @@ body::after{
   background:
     linear-gradient(
       180deg,
-      rgba(8,5,4,.88),
-      rgba(8,5,4,.30),
+      rgba(8,5,4,.86),
+      rgba(8,5,4,.28),
       transparent
     );
 }
 
 
 .brand{
+
   display:flex;
+
   align-items:center;
 
   gap:12px;
@@ -558,6 +606,7 @@ body::after{
 
 
 .brand-cup{
+
   font-size:36px;
 
   filter:
@@ -568,6 +617,7 @@ body::after{
 
 
 .brand strong{
+
   display:block;
 
   font-family:"IM Fell English",serif;
@@ -582,6 +632,7 @@ body::after{
 
 
 .brand small{
+
   font-style:italic;
 
   opacity:.82;
@@ -589,6 +640,7 @@ body::after{
 
 
 .era-badge{
+
   padding:9px 16px;
 
   min-width:190px;
@@ -615,25 +667,33 @@ body::after{
 
 
 .era-badge span{
+
   font-size:10px;
+
   letter-spacing:2px;
 }
 
 
 .era-badge b{
+
   font-family:"IM Fell English";
+
   font-size:23px;
+
   color:#d7ae6d;
 }
 
 
 .era-badge em{
+
   font-size:11px;
+
   opacity:.72;
 }
 
 
 .menu-btn{
+
   display:none;
 
   cursor:pointer;
@@ -641,7 +701,7 @@ body::after{
   color:#ead19b;
 
   background:
-    rgba(48,28,17,.90);
+    rgba(48,28,17,.9);
 
   border:
     1px solid rgba(205,157,88,.55);
@@ -653,10 +713,11 @@ body::after{
 
 
 /* =========================================================
-   SIDE NAVIGATION
+   NAVIGATION
    ========================================================= */
 
 .side-nav{
+
   position:fixed;
 
   left:20px;
@@ -673,7 +734,9 @@ body::after{
 
 
 .nav-link{
+
   display:flex;
+
   align-items:center;
 
   gap:13px;
@@ -706,6 +769,7 @@ body::after{
 
 .nav-link:hover,
 .nav-link.active{
+
   color:#f2d49a;
 
   border-left-color:
@@ -724,6 +788,7 @@ body::after{
    ========================================================= */
 
 main{
+
   width:min(1050px,calc(100% - 280px));
 
   margin-left:260px;
@@ -735,6 +800,7 @@ main{
    ========================================================= */
 
 .hero{
+
   min-height:100vh;
 
   display:flex;
@@ -748,15 +814,17 @@ main{
 
 
 .hero-copy{
+
   max-width:620px;
 
   position:relative;
 
-  z-index:3;
+  z-index:4;
 }
 
 
 .eyebrow{
+
   margin:0 0 10px;
 
   color:#d3a766;
@@ -770,6 +838,7 @@ main{
 h1,
 h2,
 h3{
+
   font-family:"IM Fell English",Georgia,serif;
 
   font-weight:400;
@@ -777,6 +846,7 @@ h3{
 
 
 h1{
+
   margin:0;
 
   font-size:clamp(54px,7vw,94px);
@@ -784,17 +854,19 @@ h1{
   line-height:.9;
 
   text-shadow:
-    3px 4px 0 rgba(0,0,0,.55),
+    3px 4px 0 rgba(0,0,0,.52),
     0 0 24px rgba(232,157,82,.08);
 }
 
 
 h1 i{
+
   color:#e0bd82;
 }
 
 
 .hero-text{
+
   margin:28px 0;
 
   font-family:"IM Fell English",serif;
@@ -806,11 +878,12 @@ h1 i{
   color:#dfcda7;
 
   text-shadow:
-    1px 2px 3px rgba(0,0,0,.65);
+    1px 2px 5px rgba(0,0,0,.55);
 }
 
 
 .hero-actions{
+
   display:flex;
 
   gap:14px;
@@ -818,12 +891,17 @@ h1 i{
   align-items:center;
 
   flex-wrap:wrap;
+
+  position:relative;
+
+  z-index:6;
 }
 
 
 .wood-btn,
 .paper-btn,
 .preset{
+
   cursor:pointer;
 
   font:inherit;
@@ -849,6 +927,7 @@ h1 i{
 
 
 .wood-btn{
+
   padding:12px 18px;
 }
 
@@ -856,6 +935,7 @@ h1 i{
 .wood-btn:hover,
 .preset:hover,
 .paper-btn:hover{
+
   transform:translateY(-2px);
 
   filter:brightness(1.16);
@@ -867,6 +947,7 @@ h1 i{
 
 
 .wood-btn.primary{
+
   font-size:17px;
 
   padding:14px 22px;
@@ -874,6 +955,7 @@ h1 i{
 
 
 .paper-link{
+
   color:#e2c997;
 
   text-decoration:none;
@@ -883,7 +965,7 @@ h1 i{
   font-size:18px;
 
   text-shadow:
-    1px 2px 3px rgba(0,0,0,.65);
+    1px 2px 5px rgba(0,0,0,.65);
 }
 
 
@@ -892,78 +974,59 @@ h1 i{
    ========================================================= */
 
 .shop-note{
+
   position:absolute;
 
   right:30px;
 
   bottom:85px;
 
-  width:280px;
+  max-width:280px;
 
-  padding:19px;
+  padding:17px;
 
   background:
-    rgba(26,15,9,.72);
+    rgba(33,20,12,.78);
 
   border:
-    1px solid rgba(214,162,91,.50);
+    1px solid rgba(214,162,91,.5);
 
   transform:rotate(-2deg);
 
   box-shadow:
-    0 12px 25px rgba(0,0,0,.45),
+    0 12px 25px rgba(0,0,0,.48);
 
-    inset 0 0 20px rgba(220,150,75,.04);
-
-  z-index:4;
-
-  backdrop-filter:blur(1px);
-}
-
-
-.shop-note::before{
-  content:"";
-
-  position:absolute;
-
-  inset:5px;
-
-  border:
-    1px solid rgba(214,162,91,.10);
-
-  pointer-events:none;
+  z-index:5;
 }
 
 
 .shop-note span{
+
   display:block;
 
-  font-size:25px;
+  font-size:24px;
 
   color:#e6bd79;
-
-  text-shadow:
-    0 2px 8px rgba(231,157,74,.20);
 }
 
 
 .shop-note b{
+
   display:block;
 
   font-size:11px;
 
-  margin-top:7px;
+  margin-top:6px;
 }
 
 
 .shop-note small{
+
   display:block;
 
   margin-top:10px;
 
   opacity:.78;
-
-  line-height:1.45;
 }
 
 
@@ -972,6 +1035,7 @@ h1 i{
    ========================================================= */
 
 .section{
+
   min-height:70vh;
 
   padding:95px 30px;
@@ -981,11 +1045,13 @@ h1 i{
 
 
 .section-heading{
+
   margin-bottom:28px;
 }
 
 
 .section-heading h2{
+
   font-size:clamp(42px,6vw,68px);
 
   margin:0 0 8px;
@@ -993,6 +1059,7 @@ h1 i{
 
 
 .section-heading p:last-child{
+
   margin:0;
 
   color:#cbb88e;
@@ -1006,6 +1073,7 @@ h1 i{
 .wood-panel,
 .timer-panel,
 .owner-card{
+
   background:
     linear-gradient(
       135deg,
@@ -1023,11 +1091,13 @@ h1 i{
 
 
 .mixer{
+
   padding:22px;
 }
 
 
 .panel-title{
+
   display:flex;
 
   justify-content:space-between;
@@ -1044,6 +1114,7 @@ h1 i{
 
 
 .panel-title span{
+
   font-family:"IM Fell English";
 
   font-size:23px;
@@ -1051,6 +1122,7 @@ h1 i{
 
 
 .panel-title small{
+
   opacity:.68;
 
   text-align:right;
@@ -1058,6 +1130,7 @@ h1 i{
 
 
 .sound-grid{
+
   display:grid;
 
   grid-template-columns:1fr 1fr;
@@ -1069,6 +1142,7 @@ h1 i{
 
 
 .sound-row{
+
   display:grid;
 
   grid-template-columns:95px 1fr 48px;
@@ -1088,6 +1162,7 @@ h1 i{
 
 
 .sound-row span{
+
   font-family:"IM Fell English";
 
   font-size:16px;
@@ -1095,6 +1170,7 @@ h1 i{
 
 
 .sound-row b{
+
   font-size:11px;
 
   text-align:right;
@@ -1104,6 +1180,7 @@ h1 i{
 
 
 input[type=range]{
+
   width:100%;
 
   accent-color:#c99b59;
@@ -1111,6 +1188,7 @@ input[type=range]{
 
 
 .mixer-actions{
+
   display:flex;
 
   gap:10px;
@@ -1120,6 +1198,7 @@ input[type=range]{
 
 
 .preset-strip{
+
   display:flex;
 
   align-items:center;
@@ -1138,6 +1217,7 @@ input[type=range]{
 
 
 .preset-strip>span{
+
   font-size:10px;
 
   letter-spacing:2px;
@@ -1147,6 +1227,7 @@ input[type=range]{
 
 
 .preset{
+
   padding:8px 11px;
 
   font-size:12px;
@@ -1154,6 +1235,7 @@ input[type=range]{
 
 
 .preset.selected{
+
   outline:
     1px solid #e2b66e;
 
@@ -1162,6 +1244,7 @@ input[type=range]{
 
 
 .quote-card{
+
   margin:35px auto 0;
 
   max-width:520px;
@@ -1187,6 +1270,7 @@ input[type=range]{
 
 
 .timer-panel{
+
   margin-top:30px;
 
   padding:22px;
@@ -1202,6 +1286,7 @@ input[type=range]{
 
 
 .timer-panel h3{
+
   font-size:30px;
 
   margin:0;
@@ -1209,6 +1294,7 @@ input[type=range]{
 
 
 .timer-display{
+
   margin-top:8px;
 
   font-family:"IM Fell English";
@@ -1220,6 +1306,7 @@ input[type=range]{
 
 
 .timer-buttons{
+
   display:flex;
 
   gap:8px;
@@ -1231,6 +1318,7 @@ input[type=range]{
 
 
 .paper-btn{
+
   padding:9px 12px;
 
   color:#382317;
@@ -1248,6 +1336,7 @@ input[type=range]{
    ========================================================= */
 
 .search-paper{
+
   display:flex;
 
   gap:10px;
@@ -1265,6 +1354,7 @@ input[type=range]{
 
 .search-paper input,
 .search-paper select{
+
   min-width:0;
 
   flex:1;
@@ -1285,11 +1375,13 @@ input[type=range]{
 
 
 .search-paper select{
+
   flex:0 0 190px;
 }
 
 
 .places{
+
   display:grid;
 
   grid-template-columns:1fr 1fr;
@@ -1301,6 +1393,7 @@ input[type=range]{
 
 
 .place-card{
+
   padding:23px;
 
   min-height:190px;
@@ -1317,6 +1410,7 @@ input[type=range]{
 
 
 .place-card h3{
+
   font-size:28px;
 
   margin:20px 0 10px;
@@ -1324,6 +1418,7 @@ input[type=range]{
 
 
 .place-card p{
+
   line-height:1.65;
 
   color:#cfbd95;
@@ -1331,11 +1426,13 @@ input[type=range]{
 
 
 .place-card small{
+
   opacity:.58;
 }
 
 
 .stamp{
+
   font-size:9px;
 
   letter-spacing:2px;
@@ -1354,6 +1451,7 @@ input[type=range]{
    ========================================================= */
 
 .era-board{
+
   display:flex;
 
   max-width:620px;
@@ -1364,6 +1462,7 @@ input[type=range]{
 
 
 .era{
+
   cursor:pointer;
 
   flex:1;
@@ -1387,6 +1486,7 @@ input[type=range]{
 
 
 .era:hover{
+
   transform:translateY(-2px);
 
   box-shadow:
@@ -1395,6 +1495,7 @@ input[type=range]{
 
 
 .era.active{
+
   background:#6b4325;
 
   color:#f1d59b;
@@ -1402,6 +1503,7 @@ input[type=range]{
 
 
 .memory-room{
+
   margin-top:20px;
 
   min-height:300px;
@@ -1419,6 +1521,7 @@ input[type=range]{
 .radio,
 .cassette,
 .old-note{
+
   min-height:230px;
 
   display:flex;
@@ -1437,6 +1540,7 @@ input[type=range]{
 
 
 .radio{
+
   background:
     linear-gradient(
       145deg,
@@ -1453,6 +1557,7 @@ input[type=range]{
 
 
 .radio span{
+
   font-size:11px;
 
   letter-spacing:3px;
@@ -1460,6 +1565,7 @@ input[type=range]{
 
 
 .radio strong{
+
   font:62px "IM Fell English";
 
   color:#d4aa67;
@@ -1467,6 +1573,7 @@ input[type=range]{
 
 
 .radio small{
+
   font-size:9px;
 
   letter-spacing:2px;
@@ -1474,6 +1581,7 @@ input[type=range]{
 
 
 .cassette{
+
   background:#2a211b;
 
   border:
@@ -1484,6 +1592,7 @@ input[type=range]{
 
 
 .cassette:before{
+
   content:"ORMA • SIDE A";
 
   position:absolute;
@@ -1505,6 +1614,7 @@ input[type=range]{
 
 
 .reel{
+
   width:58px;
 
   height:58px;
@@ -1526,6 +1636,7 @@ input[type=range]{
 
 
 .old-note{
+
   padding:25px;
 
   background:#d8bf82;
@@ -1537,6 +1648,7 @@ input[type=range]{
 
 
 .old-note p{
+
   font:italic 28px "IM Fell English";
 
   margin:0;
@@ -1544,6 +1656,7 @@ input[type=range]{
 
 
 .old-note small{
+
   margin-top:20px;
 }
 
@@ -1553,6 +1666,7 @@ input[type=range]{
    ========================================================= */
 
 .memory-form{
+
   display:grid;
 
   gap:10px;
@@ -1563,6 +1677,7 @@ input[type=range]{
 
 .memory-form input,
 .memory-form textarea{
+
   width:100%;
 
   padding:13px;
@@ -1585,11 +1700,13 @@ input[type=range]{
 
 .memory-form input:focus,
 .memory-form textarea:focus{
+
   border-color:#c99b59;
 }
 
 
 .memory-list{
+
   display:grid;
 
   gap:12px;
@@ -1599,6 +1716,7 @@ input[type=range]{
 
 
 .memory{
+
   padding:18px;
 
   background:#d7c08b;
@@ -1611,6 +1729,7 @@ input[type=range]{
 
 
 .memory p{
+
   line-height:1.55;
 }
 
@@ -1620,6 +1739,7 @@ input[type=range]{
    ========================================================= */
 
 .owner-card{
+
   padding:35px;
 
   max-width:700px;
@@ -1627,6 +1747,7 @@ input[type=range]{
 
 
 .owner-card h2{
+
   font-size:50px;
 
   margin:0 0 10px;
@@ -1634,11 +1755,13 @@ input[type=range]{
 
 
 .owner-card p{
+
   line-height:1.7;
 }
 
 
 .owner-card .paper-btn{
+
   margin-right:8px;
 }
 
@@ -1648,6 +1771,7 @@ input[type=range]{
    ========================================================= */
 
 footer{
+
   padding:45px 30px 70px;
 
   display:flex;
@@ -1666,16 +1790,19 @@ footer{
 
 
 footer strong{
+
   font:28px "IM Fell English";
 }
 
 
 footer span{
+
   font-style:italic;
 }
 
 
 footer small{
+
   letter-spacing:2px;
 
   font-size:9px;
@@ -1683,27 +1810,31 @@ footer small{
 
 
 /* =========================================================
-   TABLET / MOBILE
+   MOBILE
    ========================================================= */
 
 @media(max-width:900px){
 
   .topbar{
+
     padding:12px 16px;
   }
 
 
   .era-badge{
+
     display:none;
   }
 
 
   .menu-btn{
+
     display:block;
   }
 
 
   .side-nav{
+
     display:none;
 
     top:76px;
@@ -1722,49 +1853,16 @@ footer small{
 
 
   .side-nav .nav-link{
+
     padding:11px;
   }
 
 
   main{
+
     width:100%;
 
     margin:0;
-  }
-
-
-  /* =====================================================
-     MOBILE BACKGROUND
-     ===================================================== */
-
-  .scene{
-
-    background-position:
-      68% center;
-
-    background-size:
-      cover;
-
-    filter:
-      saturate(.76)
-      sepia(.12)
-      contrast(1.06)
-      brightness(.91);
-
-    transform:
-      scale(1.025);
-  }
-
-
-  .scene::before{
-
-    background:
-      radial-gradient(
-        ellipse at 73% 51%,
-        rgba(239,158,75,.25),
-        rgba(191,113,45,.09) 26%,
-        transparent 56%
-      );
   }
 
 
@@ -1774,14 +1872,12 @@ footer small{
 
   .hero{
 
-    min-height:
-      100svh;
+    min-height:100svh;
 
     padding:
       125px
       20px
-      190px
-      20px;
+      55px;
 
     display:flex !important;
 
@@ -1795,33 +1891,43 @@ footer small{
   }
 
 
-  /* Dark cinematic layer behind lower content */
+  /* =====================================================
+     MOBILE BACKGROUND
+     ===================================================== */
 
-  .hero::after{
+  .scene{
 
-    content:"";
+    background-position:
+      58% center;
 
-    position:absolute;
+    background-size:
+      cover;
 
-    left:0;
-    right:0;
-    bottom:0;
+    filter:
+      saturate(.88)
+      sepia(.11)
+      contrast(1.03)
+      brightness(1.08);
 
-    height:58%;
+    transform:scale(1.015);
+  }
 
-    z-index:-1;
 
-    pointer-events:none;
+  .scene::before{
 
     background:
-      linear-gradient(
-        0deg,
-        rgba(5,3,2,.82),
-        rgba(5,3,2,.40) 42%,
-        transparent
+      radial-gradient(
+        ellipse at 60% 45%,
+        rgba(211,150,76,.18),
+        rgba(167,101,43,.05) 30%,
+        transparent 58%
       );
   }
 
+
+  /* =====================================================
+     HERO COPY
+     ===================================================== */
 
   .hero-copy{
 
@@ -1831,50 +1937,36 @@ footer small{
 
     position:relative;
 
-    z-index:3;
+    z-index:4;
+
+    display:flex !important;
+
+    flex-direction:column !important;
+
+    align-items:flex-start !important;
   }
 
 
-  .eyebrow{
+  .hero-copy h1{
 
-    font-size:
-      10px;
+    width:100%;
 
-    letter-spacing:
-      2.6px;
-  }
-
-
-  h1{
-
-    font-size:
-      clamp(48px,13vw,66px) !important;
-
-    line-height:
-      .91 !important;
-
-    max-width:
-      390px;
+    max-width:100%;
 
     text-shadow:
-      3px 4px 0 rgba(0,0,0,.65),
-      0 0 18px rgba(0,0,0,.35);
+      3px 4px 0 rgba(0,0,0,.62),
+      0 0 18px rgba(0,0,0,.30);
   }
 
 
   .hero-text{
 
-    font-size:
-      18px;
+    width:100%;
 
-    line-height:
-      1.55;
+    font-size:19px;
 
-    margin:
-      25px 0;
-
-    max-width:
-      390px;
+    text-shadow:
+      1px 2px 5px rgba(0,0,0,.78);
   }
 
 
@@ -1884,126 +1976,94 @@ footer small{
 
     display:flex;
 
-    align-items:center;
-
     gap:12px;
 
+    align-items:center;
+
     flex-wrap:wrap;
-  }
 
+    position:relative;
 
-  .wood-btn.primary{
-
-    font-size:
-      16px;
-
-    padding:
-      13px 18px;
-  }
-
-
-  .paper-link{
-
-    font-size:
-      17px;
+    z-index:6;
   }
 
 
   /* =====================================================
-     IMPORTANT:
-     SHOP NOTE IS A SIBLING OF .hero-copy
+     SHOP NOTE — IMPORTANT FIX
      ===================================================== */
 
-  .hero > .shop-note{
+  .shop-note{
 
-    position:absolute !important;
+    position:relative !important;
 
     top:auto !important;
 
+    right:auto !important;
+
+    bottom:auto !important;
+
     left:auto !important;
 
-    right:16px !important;
+    width:fit-content !important;
 
-    bottom:28px !important;
+    max-width:270px !important;
 
-    width:
-      245px !important;
+    margin:
+      28px
+      0
+      0
+      auto !important;
 
-    max-width:
-      calc(100% - 32px) !important;
-
-    margin:0 !important;
-
-    padding:
-      15px !important;
+    align-self:flex-end !important;
 
     transform:
       rotate(-2deg) !important;
 
-    z-index:6 !important;
-  }
+    z-index:7 !important;
 
-
-  .shop-note span{
-
-    font-size:
-      23px;
-  }
-
-
-  .shop-note b{
-
-    font-size:
-      10px;
-  }
-
-
-  .shop-note small{
-
-    font-size:
-      12px;
-
-    line-height:
-      1.45;
+    box-shadow:
+      0 12px 28px rgba(0,0,0,.58),
+      inset 0 0 20px rgba(190,125,57,.06);
   }
 
 
   /* =====================================================
-     SECTIONS
+     MOBILE SECTION
      ===================================================== */
 
   .section{
 
     padding:
-      75px 20px;
+      75px
+      20px;
   }
 
 
-  body::after{
-
-    opacity:
-      .065;
-  }
-
+  /* =====================================================
+     SOFTER RAIN ON MOBILE
+     ===================================================== */
 
   .rain-a{
 
-    opacity:
-      .22;
+    opacity:.085 !important;
   }
 
 
   .rain-b{
 
-    opacity:
-      .12;
+    opacity:.045 !important;
   }
 
 
   .rain-c{
 
-    opacity:
-      .07;
+    opacity:.03 !important;
+  }
+
+
+  body::after{
+
+    opacity:.02 !important;
   }
 
 }
@@ -2017,108 +2077,13 @@ footer small{
 
   .brand strong{
 
-    font-size:
-      25px;
+    font-size:25px;
   }
 
 
   .brand small{
 
-    font-size:
-      10px;
-  }
-
-
-  .brand-cup{
-
-    font-size:
-      34px;
-  }
-
-
-  .hero{
-
-    min-height:
-      100svh;
-
-    padding:
-      125px
-      20px
-      185px
-      20px;
-  }
-
-
-  .scene{
-
-    background-position:
-      69% center;
-
-    brightness:
-      1;
-  }
-
-
-  h1{
-
-    font-size:
-      51px !important;
-
-    line-height:
-      .91 !important;
-  }
-
-
-  .hero-text{
-
-    font-size:
-      17px;
-
-    line-height:
-      1.55;
-
-    margin:
-      23px 0;
-  }
-
-
-  .hero-actions{
-
-    gap:
-      10px;
-  }
-
-
-  .wood-btn.primary{
-
-    font-size:
-      15px;
-
-    padding:
-      12px 16px;
-  }
-
-
-  .paper-link{
-
-    font-size:
-      16px;
-  }
-
-
-  .hero > .shop-note{
-
-    right:
-      14px !important;
-
-    bottom:
-      24px !important;
-
-    width:
-      235px !important;
-
-    max-width:
-      calc(100% - 28px) !important;
+    font-size:10px;
   }
 
 
@@ -2126,117 +2091,136 @@ footer small{
   .places,
   .memory-room{
 
-    grid-template-columns:
-      1fr;
+    grid-template-columns:1fr;
   }
 
 
   .sound-row{
 
     grid-template-columns:
-      90px 1fr 45px;
+      90px
+      1fr
+      45px;
   }
 
 
   .search-paper{
 
-    flex-direction:
-      column;
+    flex-direction:column;
   }
 
 
   .search-paper select{
 
-    flex-basis:
-      auto;
+    flex-basis:auto;
   }
 
 
   .timer-panel{
 
-    flex-direction:
-      column;
+    flex-direction:column;
 
-    align-items:
-      flex-start;
+    align-items:flex-start;
   }
 
 
   .timer-buttons{
 
-    justify-content:
-      flex-start;
+    justify-content:flex-start;
+  }
+
+
+  .hero{
+
+    padding:
+      125px
+      20px
+      55px;
+  }
+
+
+  h1{
+
+    font-size:52px !important;
+
+    line-height:.91 !important;
+  }
+
+
+  .hero-text{
+
+    font-size:18px;
+
+    line-height:1.55;
+
+    margin:24px 0;
+  }
+
+
+  .wood-btn.primary{
+
+    font-size:16px;
+
+    padding:13px 18px;
+  }
+
+
+  .paper-link{
+
+    font-size:17px;
+  }
+
+
+  .shop-note{
+
+    max-width:245px !important;
+
+    margin:
+      26px
+      0
+      0
+      auto !important;
+
+    align-self:flex-end !important;
   }
 
 
   footer{
 
-    flex-direction:
-      column;
+    flex-direction:column;
 
-    align-items:
-      flex-start;
+    align-items:flex-start;
   }
 
 }
 
 
 /* =========================================================
-   VERY SMALL PHONES
+   LIGHTNING CLASS
    ========================================================= */
 
-@media(max-width:390px){
+body.lightning .scene::after{
 
-  .brand strong{
+  animation:none;
 
-    font-size:
-      23px;
-  }
+  opacity:.13;
 
+  background:
+    radial-gradient(
+      ellipse at 65% 45%,
+      rgba(245,242,225,.65),
+      rgba(220,220,210,.12) 35%,
+      transparent 70%
+    );
 
-  .brand-cup{
-
-    font-size:
-      31px;
-  }
-
-
-  h1{
-
-    font-size:
-      47px !important;
-  }
+  transition:
+    opacity .08s ease;
+}
 
 
-  .hero-text{
+body.lightning .vignette{
 
-    font-size:
-      16px;
-  }
-
-
-  .hero{
-
-    padding-left:
-      16px;
-
-    padding-right:
-      16px;
-
-    padding-bottom:
-      178px;
-  }
-
-
-  .hero > .shop-note{
-
-    right:
-      12px !important;
-
-    width:
-      225px !important;
-  }
-
+  opacity:.72;
 }
 
 
@@ -2256,223 +2240,6 @@ footer small{
   .rain-b,
   .rain-c{
 
-    animation:
-      none !important;
-  }
-
-}
-
-/* =========================================================
-   PAAL CHAYA — VINTAGE ATMOSPHERE V4
-   ========================================================= */
-
-/* Old photograph breathing effect */
-.scene{
-  animation:
-    filmExposure 11s ease-in-out infinite,
-    oldPhotoBreath 18s ease-in-out infinite;
-}
-
-@keyframes oldPhotoBreath{
-  0%,100%{
-    transform:scale(1.02);
-  }
-
-  50%{
-    transform:scale(1.028);
-  }
-}
-
-
-/* =========================================================
-   OLD KERALA LAMP FLICKER
-   ========================================================= */
-
-.scene::before{
-  animation:
-    chayaGlow 7s ease-in-out infinite alternate,
-    oldLampFlicker 5.5s ease-in-out infinite;
-}
-
-@keyframes oldLampFlicker{
-
-  0%,100%{
-    filter:brightness(1);
-  }
-
-  42%{
-    filter:brightness(1);
-  }
-
-  44%{
-    filter:brightness(.94);
-  }
-
-  45%{
-    filter:brightness(1.08);
-  }
-
-  47%{
-    filter:brightness(.98);
-  }
-
-  48%{
-    filter:brightness(1.04);
-  }
-
-  50%{
-    filter:brightness(1);
-  }
-}
-
-
-/* =========================================================
-   RAIN — NATURAL VARIATION
-   ========================================================= */
-
-.rain-a{
-  animation:
-    heavyRain .48s linear infinite,
-    rainBreathing 6s ease-in-out infinite;
-}
-
-.rain-b{
-  animation:
-    mediumRain .82s linear infinite,
-    rainBreathing 9s ease-in-out infinite;
-}
-
-.rain-c{
-  animation:
-    distantRain 1.25s linear infinite,
-    rainBreathing 12s ease-in-out infinite;
-}
-
-@keyframes rainBreathing{
-
-  0%,100%{
-    opacity:1;
-  }
-
-  50%{
-    opacity:.72;
-  }
-}
-
-
-/* =========================================================
-   LIGHTNING — OLD FILM STYLE
-   ========================================================= */
-
-body.lightning .scene::after{
-  animation:none;
-
-  opacity:.12;
-
-  background:
-    radial-gradient(
-      ellipse at 65% 45%,
-      rgba(245,242,225,.65),
-      rgba(220,220,210,.12) 35%,
-      transparent 70%
-    );
-
-  transition:opacity .08s ease;
-}
-
-body.lightning .vignette{
-  opacity:.72;
-}
-
-
-/* =========================================================
-   HERO — LET THE PHOTOGRAPH BREATHE
-   ========================================================= */
-
-@media(max-width:900px){
-
-  .hero{
-    padding-top:125px;
-    padding-bottom:65px;
-
-    /* slightly less artificial darkening */
-    background:
-      linear-gradient(
-        0deg,
-        rgba(4,2,1,.38),
-        transparent 58%
-      );
-  }
-
-  .hero-copy{
-    margin-top:auto;
-  }
-
-  .hero-copy h1{
-    text-shadow:
-      3px 4px 0 rgba(0,0,0,.58),
-      0 0 18px rgba(0,0,0,.30);
-  }
-
-  .hero-text{
-    text-shadow:
-      1px 2px 5px rgba(0,0,0,.75);
-  }
-
-  .hero-actions{
-    position:relative;
-    z-index:6;
-  }
-
-  .shop-note{
-    box-shadow:
-      0 12px 28px rgba(0,0,0,.58),
-      inset 0 0 20px rgba(190,125,57,.06);
-  }
-
-}
-
-
-/* =========================================================
-   SMALL PHONE
-   ========================================================= */
-
-@media(max-width:650px){
-
-  .hero{
-    min-height:100svh;
-  }
-
-  .hero-copy{
-    padding-top:40px;
-  }
-
-  .eyebrow{
-    letter-spacing:2.5px;
-  }
-
-  h1{
-    letter-spacing:-.5px;
-  }
-
-  .shop-note{
-    margin-top:26px !important;
-  }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-@media(prefers-reduced-motion:reduce){
-
-  .scene,
-  .scene::before,
-  .rain-a,
-  .rain-b,
-  .rain-c{
     animation:none !important;
   }
 
