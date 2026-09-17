@@ -1,491 +1,300 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:wght@400;700&display=swap');
 
-
 /* =========================================================
-   PAAL CHAYA — V4
-   VINTAGE KERALA / PERFORMANCE CSS
-   ========================================================= */
-
-
-/* =========================================================
-   ROOT
+   PAAL CHAYA
+   VINTAGE KERALA MONSOON — CLEAN V4
    ========================================================= */
 
 :root{
-
   --cream:#ead6a8;
   --paper:#d9bd82;
   --wood:#2b1a12;
   --gold:#c49a58;
   --glow:#e8a45e;
-
+  --dark:#090706;
 }
-
-
-/* =========================================================
-   RESET
-   ========================================================= */
 
 *{
   box-sizing:border-box;
 }
 
-
 html{
   scroll-behavior:smooth;
-  background:#090706;
 }
-
 
 body{
-
   margin:0;
-
   background:#090706;
-
   color:var(--cream);
-
-  font-family:
-    "Libre Baskerville",
-    Georgia,
-    serif;
-
+  font-family:"Libre Baskerville",Georgia,serif;
   overflow-x:hidden;
-
-  -webkit-font-smoothing:antialiased;
-
+  isolation:isolate;
 }
 
-
 /* =========================================================
-   VINTAGE KERALA BACKGROUND
+   VINTAGE PHOTO BACKGROUND
    ========================================================= */
 
 .scene{
-
   position:fixed;
-
   inset:0;
+  z-index:-10;
+  pointer-events:none;
 
-  z-index:-5;
-
-  background:
-
-    radial-gradient(
-      ellipse at 62% 48%,
-      rgba(170,115,60,.18),
-      rgba(35,20,10,.05) 35%,
-      rgba(0,0,0,.30) 78%,
-      rgba(0,0,0,.55) 100%
-    ),
-
+  background-image:
     linear-gradient(
       90deg,
-      rgba(0,0,0,.38),
-      rgba(25,15,8,.06) 50%,
-      rgba(0,0,0,.28)
+      rgba(5,3,2,.38),
+      rgba(20,10,5,.05) 48%,
+      rgba(5,3,2,.30)
     ),
-
     linear-gradient(
       0deg,
-      rgba(0,0,0,.34),
-      transparent 52%,
-      rgba(0,0,0,.12)
+      rgba(4,2,1,.42),
+      rgba(4,2,1,.04) 48%,
+      rgba(4,2,1,.22)
     ),
+    url("./vintage-kerala.jpg");
 
-    url("vintage-kerala.jpg")
-    center center /
-    cover
-    no-repeat;
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center center;
 
   filter:
-    saturate(.86)
+    saturate(.88)
     sepia(.12)
-    contrast(1.03)
-    brightness(1.06);
+    contrast(1.04)
+    brightness(.94);
 
-  transform:scale(1.015);
-
+  transform:translateZ(0) scale(1.01);
+  will-change:transform;
 }
 
-
-/* =========================================================
-   WARM CHAYA LIGHT
-   ========================================================= */
+/* Warm shop illumination */
 
 .scene::before{
-
   content:"";
-
   position:absolute;
-
   inset:0;
-
   pointer-events:none;
 
   background:
-
     radial-gradient(
-      ellipse at 63% 48%,
-      rgba(220,153,76,.18),
-      rgba(170,101,43,.06) 30%,
-      transparent 62%
+      ellipse at 69% 55%,
+      rgba(232,157,78,.25) 0%,
+      rgba(192,116,47,.10) 22%,
+      transparent 48%
     );
 
   mix-blend-mode:screen;
+  opacity:.85;
 
-  opacity:.72;
-
+  animation:lampGlow 6s ease-in-out infinite alternate;
 }
 
+@keyframes lampGlow{
+  0%{
+    opacity:.68;
+  }
+
+  50%{
+    opacity:.88;
+  }
+
+  100%{
+    opacity:.74;
+  }
+}
 
 /* =========================================================
-   SUBTLE ATMOSPHERIC LIGHT
+   VINTAGE COLOR WASH
    ========================================================= */
 
 body::before{
-
   content:"";
-
   position:fixed;
-
   inset:0;
-
-  z-index:-2;
-
+  z-index:-5;
   pointer-events:none;
 
   background:
-
-    radial-gradient(
-      circle at 76% 47%,
-      rgba(245,155,79,.10),
-      transparent 24%
-    ),
-
-    radial-gradient(
-      circle at 20% 68%,
-      rgba(104,74,40,.06),
-      transparent 28%
+    linear-gradient(
+      90deg,
+      rgba(18,9,4,.16),
+      transparent 45%,
+      rgba(30,14,5,.16)
     );
 
-  mix-blend-mode:screen;
-
+  mix-blend-mode:multiply;
 }
 
-
 /* =========================================================
-   RAIN BASE
+   REALISTIC RAIN — LIGHTWEIGHT
    ========================================================= */
 
 .rain{
-
   position:fixed;
-
-  inset:-25%;
-
+  inset:-30%;
   pointer-events:none;
 
-  transform:rotate(8deg);
+  transform:rotate(8deg) translateZ(0);
 
   background-repeat:repeat;
-
   mix-blend-mode:screen;
 
   will-change:background-position;
-
 }
 
-
-/* =========================================================
-   FOREGROUND RAIN
-   ========================================================= */
+/* Near rain */
 
 .rain-a{
-
   z-index:12;
-
   opacity:.075;
 
   background-image:
-
     repeating-linear-gradient(
       105deg,
-      transparent 0 20px,
-      rgba(224,231,231,.28) 21px,
-      rgba(224,231,231,.12) 22px,
-      transparent 23px 50px
-    ),
-
-    repeating-linear-gradient(
-      105deg,
-      transparent 0 35px,
-      rgba(193,210,214,.13) 36px,
-      transparent 38px 76px
+      transparent 0 30px,
+      rgba(220,225,224,.40) 31px,
+      rgba(220,225,224,.18) 33px,
+      transparent 34px 70px
     );
 
-  background-size:
-    52px 62px,
-    82px 92px;
+  background-size:70px 110px;
 
-  animation:
-    rainForeground .85s linear infinite;
-
+  animation:rainNear .75s linear infinite;
 }
 
+@keyframes rainNear{
+  from{
+    background-position:0 0;
+  }
 
-/* =========================================================
-   MID RAIN
-   ========================================================= */
+  to{
+    background-position:-45px 150px;
+  }
+}
+
+/* Mid-distance rain */
 
 .rain-b{
-
   z-index:11;
-
   opacity:.045;
 
   background-image:
-
     repeating-linear-gradient(
       104deg,
-      transparent 0 25px,
-      rgba(207,221,223,.22) 26px,
-      rgba(207,221,223,.08) 27px,
-      transparent 28px 64px
-    ),
-
-    repeating-linear-gradient(
-      104deg,
-      transparent 0 46px,
-      rgba(218,225,222,.11) 47px,
-      transparent 49px 98px
+      transparent 0 42px,
+      rgba(210,220,221,.30) 43px,
+      rgba(210,220,221,.10) 45px,
+      transparent 46px 95px
     );
 
-  background-size:
-    68px 78px,
-    104px 116px;
+  background-size:95px 130px;
 
-  animation:
-    rainMiddle 1.15s linear infinite;
-
+  animation:rainMid 1.05s linear infinite;
 }
 
+@keyframes rainMid{
+  from{
+    background-position:0 0;
+  }
 
-/* =========================================================
-   DISTANT RAIN
-   ========================================================= */
+  to{
+    background-position:-30px 115px;
+  }
+}
+
+/* Fine distant rain */
 
 .rain-c{
-
   z-index:10;
-
   opacity:.025;
 
   background-image:
-
     repeating-linear-gradient(
       103deg,
-      transparent 0 31px,
-      rgba(200,216,218,.15) 32px,
-      transparent 34px 80px
-    ),
-
-    repeating-linear-gradient(
-      103deg,
-      transparent 0 58px,
-      rgba(218,224,221,.08) 59px,
-      transparent 61px 125px
+      transparent 0 60px,
+      rgba(215,222,222,.22) 61px,
+      transparent 63px 125px
     );
 
-  background-size:
-    92px 105px,
-    142px 155px;
+  background-size:125px 155px;
 
-  filter:blur(.5px);
+  filter:blur(.45px);
 
-  animation:
-    rainDistant 1.55s linear infinite;
-
+  animation:rainFar 1.5s linear infinite;
 }
 
+@keyframes rainFar{
+  from{
+    background-position:0 0;
+  }
+
+  to{
+    background-position:-20px 80px;
+  }
+}
 
 /* =========================================================
-   RAIN ANIMATIONS
-   ========================================================= */
-
-@keyframes rainForeground{
-
-  from{
-
-    background-position:
-      0 0,
-      0 0;
-
-  }
-
-  to{
-
-    background-position:
-      -38px 150px,
-      -24px 112px;
-
-  }
-
-}
-
-
-@keyframes rainMiddle{
-
-  from{
-
-    background-position:
-      0 0,
-      0 0;
-
-  }
-
-  to{
-
-    background-position:
-      -30px 110px,
-      -18px 82px;
-
-  }
-
-}
-
-
-@keyframes rainDistant{
-
-  from{
-
-    background-position:
-      0 0,
-      0 0;
-
-  }
-
-  to{
-
-    background-position:
-      -22px 75px,
-      -14px 55px;
-
-  }
-
-}
-
-
-/* =========================================================
-   VERY LIGHT RAIN DEPTH
+   RAIN SPLASH / WET ATMOSPHERE
    ========================================================= */
 
 body::after{
-
   content:"";
-
   position:fixed;
-
-  inset:-20%;
-
+  inset:0;
   z-index:9;
-
   pointer-events:none;
 
-  opacity:.018;
-
-  background-image:
-
-    repeating-linear-gradient(
-      103deg,
-      transparent 0 38px,
-      rgba(226,220,202,.12) 39px,
-      transparent 40px 82px
+  background:
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(218,170,103,.08),
+      transparent 45%
     );
 
-  background-size:
-    90px 90px;
-
-  animation:
-    fineRain 1.8s linear infinite;
-
-  mix-blend-mode:screen;
-
+  opacity:.5;
 }
-
-
-@keyframes fineRain{
-
-  from{
-
-    transform:
-      translate3d(-20px,-30px,0);
-
-  }
-
-  to{
-
-    transform:
-      translate3d(22px,34px,0);
-
-  }
-
-}
-
 
 /* =========================================================
    VIGNETTE
    ========================================================= */
 
 .vignette{
-
   position:fixed;
-
   inset:0;
-
-  z-index:10;
-
+  z-index:13;
   pointer-events:none;
 
   background:
-
     radial-gradient(
       ellipse at center,
-      transparent 43%,
-      rgba(0,0,0,.48) 100%
+      transparent 38%,
+      rgba(0,0,0,.18) 65%,
+      rgba(0,0,0,.58) 100%
     );
-
 }
-
 
 /* =========================================================
    FILM GRAIN
    ========================================================= */
 
 .grain{
-
   position:fixed;
-
-  inset:-50%;
-
+  inset:-20%;
   z-index:15;
-
   pointer-events:none;
 
   opacity:.045;
 
   background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
 
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
-
-  animation:
-    grain .28s steps(2) infinite;
-
+  animation:grainMove .28s steps(2) infinite;
 }
 
-
-@keyframes grain{
-
+@keyframes grainMove{
   0%{
     transform:translate(0,0);
   }
@@ -505,18 +314,14 @@ body::after{
   100%{
     transform:translate(-1%,-1%);
   }
-
 }
-
 
 /* =========================================================
    HEADER
    ========================================================= */
 
 .topbar{
-
   position:fixed;
-
   top:0;
   left:0;
   right:0;
@@ -526,183 +331,116 @@ body::after{
   min-height:86px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
 
   padding:14px 28px;
 
   background:
-
     linear-gradient(
       180deg,
-      rgba(8,5,4,.88),
-      rgba(8,5,4,.30),
+      rgba(7,4,3,.86),
+      rgba(7,4,3,.30),
       transparent
     );
-
 }
 
-
 .brand{
-
   display:flex;
-
   align-items:center;
-
   gap:12px;
 
   color:var(--cream);
-
   text-decoration:none;
-
 }
 
-
 .brand-cup{
-
   font-size:36px;
 
   filter:
-
     drop-shadow(
-      0 0 8px
-      rgba(231,165,91,.42)
+      0 0 8px rgba(231,165,91,.45)
     );
-
 }
 
-
 .brand strong{
-
   display:block;
 
-  font-family:
-    "IM Fell English",
-    serif;
+  font-family:"IM Fell English",serif;
 
   font-size:31px;
-
   letter-spacing:2px;
 
   text-shadow:
     2px 2px #130b08;
-
 }
-
 
 .brand small{
-
   font-style:italic;
-
   opacity:.82;
-
 }
 
-
 .era-badge{
-
   padding:9px 16px;
-
   min-width:190px;
 
   text-align:center;
 
-  border:
-    1px solid
-    rgba(196,154,88,.55);
+  border:1px solid rgba(196,154,88,.55);
 
-  background:
-    rgba(30,17,10,.78);
+  background:rgba(30,17,10,.78);
 
   box-shadow:
-
-    inset 0 0 0 2px
-    rgba(0,0,0,.25),
-
-    0 8px 30px
-    rgba(0,0,0,.35);
-
+    inset 0 0 0 2px rgba(0,0,0,.25),
+    0 8px 30px rgba(0,0,0,.35);
 }
-
 
 .era-badge span,
 .era-badge b,
 .era-badge em{
-
   display:block;
-
 }
-
 
 .era-badge span{
-
   font-size:10px;
-
   letter-spacing:2px;
-
 }
-
 
 .era-badge b{
-
-  font-family:
-    "IM Fell English",
-    serif;
-
+  font-family:"IM Fell English",serif;
   font-size:23px;
-
   color:#d7ae6d;
-
 }
-
 
 .era-badge em{
-
   font-size:11px;
-
   opacity:.72;
-
 }
 
-
-/* =========================================================
-   MOBILE MENU BUTTON
-   ========================================================= */
-
 .menu-btn{
-
   display:none;
 
   cursor:pointer;
 
   color:#ead19b;
 
-  background:
-    rgba(48,28,17,.92);
+  background:rgba(48,28,17,.92);
 
-  border:
-    1px solid
-    rgba(205,157,88,.55);
+  border:1px solid rgba(205,157,88,.55);
 
   padding:9px 12px;
 
   font-size:21px;
-
 }
-
 
 /* =========================================================
    NAVIGATION
    ========================================================= */
 
 .side-nav{
-
   position:fixed;
 
   left:20px;
-
   top:120px;
 
   width:185px;
@@ -710,239 +448,147 @@ body::after{
   z-index:25;
 
   display:grid;
-
   gap:6px;
-
 }
 
-
 .nav-link{
-
   display:flex;
-
   align-items:center;
-
   gap:13px;
 
   padding:12px 14px;
 
   color:#d8c39b;
-
   text-decoration:none;
 
   background:
-
     linear-gradient(
       90deg,
       rgba(36,22,14,.90),
       rgba(22,14,10,.64)
     );
 
-  border:
-    1px solid
-    rgba(193,145,80,.24);
-
-  border-left:
-    3px solid
-    rgba(193,145,80,.15);
+  border:1px solid rgba(193,145,80,.24);
+  border-left:3px solid rgba(193,145,80,.15);
 
   box-shadow:
-    0 4px 14px
-    rgba(0,0,0,.35);
+    0 4px 14px rgba(0,0,0,.35);
 
   transition:
     transform .2s ease,
     color .2s ease,
     border-color .2s ease;
-
 }
-
 
 .nav-link:hover,
 .nav-link.active{
-
   color:#f2d49a;
 
-  border-left-color:
-    var(--gold);
+  border-left-color:var(--gold);
 
-  transform:
-    translateX(4px);
-
+  transform:translateX(4px);
 }
-
 
 /* =========================================================
    MAIN
    ========================================================= */
 
 main{
-
-  width:
-    min(
-      1050px,
-      calc(100% - 280px)
-    );
-
+  width:min(1050px,calc(100% - 280px));
   margin-left:260px;
-
 }
-
 
 /* =========================================================
    HERO
    ========================================================= */
 
 .hero{
-
-  min-height:100svh;
+  min-height:100vh;
 
   display:flex;
-
   align-items:flex-end;
 
-  padding:
-    150px
-    30px
-    70px;
+  padding:150px 30px 70px;
 
   position:relative;
-
 }
 
-
 .hero-copy{
-
   max-width:620px;
 
   position:relative;
-
-  z-index:4;
-
+  z-index:20;
 }
 
-
 .eyebrow{
-
-  margin:
-    0
-    0
-    10px;
+  margin:0 0 10px;
 
   color:#d3a766;
 
   font-size:11px;
-
   letter-spacing:3px;
-
 }
-
 
 h1,
 h2,
 h3{
-
-  font-family:
-    "IM Fell English",
-    Georgia,
-    serif;
-
+  font-family:"IM Fell English",Georgia,serif;
   font-weight:400;
-
 }
 
-
 h1{
-
   margin:0;
 
-  font-size:
-    clamp(
-      54px,
-      7vw,
-      94px
-    );
+  font-size:clamp(54px,7vw,94px);
 
   line-height:.9;
 
   text-shadow:
-
-    3px 4px 0
-    rgba(0,0,0,.52),
-
-    0 0 24px
-    rgba(232,157,82,.08);
-
+    3px 4px 0 rgba(0,0,0,.62),
+    0 0 24px rgba(232,157,82,.08);
 }
-
 
 h1 i{
-
   color:#e0bd82;
-
 }
 
-
 .hero-text{
+  margin:28px 0;
 
-  margin:
-    28px
-    0;
-
-  font-family:
-    "IM Fell English",
-    serif;
+  font-family:"IM Fell English",serif;
 
   font-size:22px;
-
   line-height:1.55;
 
   color:#dfcda7;
 
   text-shadow:
-    1px 2px 5px
-    rgba(0,0,0,.55);
-
+    1px 2px 5px rgba(0,0,0,.75);
 }
 
-
 .hero-actions{
-
   display:flex;
-
   gap:14px;
 
   align-items:center;
-
   flex-wrap:wrap;
 
   position:relative;
-
-  z-index:6;
-
+  z-index:22;
 }
-
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
 
 .wood-btn,
 .paper-btn,
 .preset{
-
   cursor:pointer;
 
   font:inherit;
 
-  border:
-    1px solid
-    rgba(219,174,102,.5);
+  border:1px solid rgba(219,174,102,.5);
 
   color:#ead6a8;
 
   background:
-
     linear-gradient(
       145deg,
       #56331e,
@@ -950,190 +596,109 @@ h1 i{
     );
 
   box-shadow:
-
-    inset 0 0 0 1px
-    rgba(255,255,255,.04),
-
-    0 6px 15px
-    rgba(0,0,0,.35);
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    0 6px 15px rgba(0,0,0,.35);
 
   transition:
     transform .2s ease,
-    filter .2s ease,
-    box-shadow .2s ease;
-
+    filter .2s ease;
 }
-
 
 .wood-btn{
-
-  padding:
-    12px
-    18px;
-
+  padding:12px 18px;
 }
-
 
 .wood-btn:hover,
 .preset:hover,
 .paper-btn:hover{
-
-  transform:
-    translateY(-2px);
-
-  filter:
-    brightness(1.12);
-
+  transform:translateY(-2px);
+  filter:brightness(1.12);
 }
-
 
 .wood-btn.primary{
-
   font-size:17px;
-
-  padding:
-    14px
-    22px;
-
+  padding:14px 22px;
 }
 
-
 .paper-link{
-
   color:#e2c997;
-
   text-decoration:none;
 
-  font-family:
-    "IM Fell English",
-    serif;
-
+  font-family:"IM Fell English",serif;
   font-size:18px;
 
   text-shadow:
-    1px 2px 5px
-    rgba(0,0,0,.65);
-
+    1px 2px 5px rgba(0,0,0,.65);
 }
-
 
 /* =========================================================
    SHOP NOTE
    ========================================================= */
 
 .shop-note{
-
   position:absolute;
 
   right:30px;
-
   bottom:85px;
 
   max-width:280px;
 
   padding:17px;
 
-  background:
-    rgba(33,20,12,.78);
+  background:rgba(33,20,12,.84);
 
-  border:
-    1px solid
-    rgba(214,162,91,.5);
+  border:1px solid rgba(214,162,91,.5);
 
-  transform:
-    rotate(-2deg);
+  transform:rotate(-2deg);
 
   box-shadow:
-    0 12px 25px
-    rgba(0,0,0,.48);
+    0 12px 25px rgba(0,0,0,.48);
 
-  z-index:5;
-
+  z-index:21;
 }
-
 
 .shop-note span{
-
   display:block;
-
   font-size:24px;
-
   color:#e6bd79;
-
 }
-
 
 .shop-note b{
-
   display:block;
-
   font-size:11px;
-
   margin-top:6px;
-
 }
-
 
 .shop-note small{
-
   display:block;
-
   margin-top:10px;
-
   opacity:.78;
-
+  line-height:1.45;
 }
 
-
 /* =========================================================
-   SECTIONS
+   CONTENT SECTIONS
    ========================================================= */
 
 .section{
-
   min-height:70vh;
-
-  padding:
-    95px
-    30px;
-
+  padding:95px 30px;
   position:relative;
-
 }
-
 
 .section-heading{
-
   margin-bottom:28px;
-
 }
-
 
 .section-heading h2{
-
-  font-size:
-    clamp(
-      42px,
-      6vw,
-      68px
-    );
-
-  margin:
-    0
-    0
-    8px;
-
+  font-size:clamp(42px,6vw,68px);
+  margin:0 0 8px;
 }
-
 
 .section-heading p:last-child{
-
   margin:0;
-
   color:#cbb88e;
-
 }
-
 
 /* =========================================================
    PANELS
@@ -1142,104 +707,60 @@ h1 i{
 .wood-panel,
 .timer-panel,
 .owner-card{
-
   background:
-
     linear-gradient(
       135deg,
       rgba(77,46,28,.91),
-      rgba(25,15,10,.91)
+      rgba(25,15,10,.93)
     );
 
-  border:
-    1px solid
-    rgba(214,166,95,.42);
+  border:1px solid rgba(214,166,95,.42);
 
   box-shadow:
-
-    0 18px 40px
-    rgba(0,0,0,.46),
-
-    inset 0 0 30px
-    rgba(0,0,0,.25);
-
+    0 18px 40px rgba(0,0,0,.46),
+    inset 0 0 30px rgba(0,0,0,.25);
 }
-
 
 .mixer{
-
   padding:22px;
-
 }
 
-
 .panel-title{
-
   display:flex;
-
   justify-content:space-between;
 
   gap:15px;
-
   align-items:end;
 
-  border-bottom:
-    1px solid
-    rgba(218,170,97,.25);
+  border-bottom:1px solid rgba(218,170,97,.25);
 
   padding-bottom:13px;
-
 }
-
 
 .panel-title span{
-
-  font-family:
-    "IM Fell English",
-    serif;
-
+  font-family:"IM Fell English",serif;
   font-size:23px;
-
 }
-
 
 .panel-title small{
-
   opacity:.68;
-
   text-align:right;
-
 }
 
-
-/* =========================================================
-   SOUND GRID
-   ========================================================= */
-
 .sound-grid{
-
   display:grid;
 
-  grid-template-columns:
-    1fr 1fr;
+  grid-template-columns:1fr 1fr;
 
   gap:13px;
 
-  margin:
-    20px
-    0;
-
+  margin:20px 0;
 }
 
-
 .sound-row{
-
   display:grid;
 
-  grid-template-columns:
-    95px
-    1fr
-    48px;
+  grid-template-columns:95px 1fr 48px;
 
   align-items:center;
 
@@ -1247,122 +768,63 @@ h1 i{
 
   padding:12px;
 
-  background:
-    rgba(13,9,7,.38);
+  background:rgba(13,9,7,.38);
 
-  border:
-    1px solid
-    rgba(213,164,94,.15);
-
+  border:1px solid rgba(213,164,94,.15);
 }
-
 
 .sound-row span{
-
-  font-family:
-    "IM Fell English",
-    serif;
-
+  font-family:"IM Fell English",serif;
   font-size:16px;
-
 }
-
 
 .sound-row b{
-
   font-size:11px;
-
   text-align:right;
-
   color:#d8b271;
-
 }
 
-
-input[type="range"]{
-
+input[type=range]{
   width:100%;
-
   accent-color:#c99b59;
-
 }
-
 
 .mixer-actions{
-
   display:flex;
-
   gap:10px;
-
   flex-wrap:wrap;
-
 }
 
-
 .preset-strip{
-
   display:flex;
-
   align-items:center;
-
   gap:8px;
-
   flex-wrap:wrap;
 
   margin-top:18px;
-
   padding-top:15px;
 
-  border-top:
-    1px dashed
-    rgba(215,169,96,.25);
-
+  border-top:1px dashed rgba(215,169,96,.25);
 }
 
-
-.preset-strip > span{
-
+.preset-strip>span{
   font-size:10px;
-
   letter-spacing:2px;
-
   color:#c79c60;
-
 }
-
 
 .preset{
-
-  padding:
-    8px
-    11px;
-
+  padding:8px 11px;
   font-size:12px;
-
 }
-
 
 .preset.selected{
-
-  outline:
-    1px solid
-    #e2b66e;
-
+  outline:1px solid #e2b66e;
   background:#6a3f22;
-
 }
 
-
-/* =========================================================
-   QUOTE
-   ========================================================= */
-
 .quote-card{
-
-  margin:
-    35px
-    auto
-    0;
+  margin:35px auto 0;
 
   max-width:520px;
 
@@ -1370,33 +832,21 @@ input[type="range"]{
 
   text-align:center;
 
-  font-family:
-    "IM Fell English",
-    serif;
-
+  font-family:"IM Fell English",serif;
   font-style:italic;
-
   font-size:25px;
 
   color:#e0c794;
 
-  border-top:
-    1px solid
-    rgba(218,171,99,.45);
-
-  border-bottom:
-    1px solid
-    rgba(218,171,99,.45);
-
+  border-top:1px solid rgba(218,171,99,.45);
+  border-bottom:1px solid rgba(218,171,99,.45);
 }
-
 
 /* =========================================================
    TIMER
    ========================================================= */
 
 .timer-panel{
-
   margin-top:30px;
 
   padding:22px;
@@ -1404,56 +854,37 @@ input[type="range"]{
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
   gap:25px;
-
 }
-
 
 .timer-panel h3{
-
   font-size:30px;
-
   margin:0;
-
 }
 
-
 .timer-display{
-
   margin-top:8px;
 
-  font-family:
-    "IM Fell English",
-    serif;
+  font-family:"IM Fell English",serif;
 
   font-size:48px;
 
   color:#e2b66e;
-
 }
 
-
 .timer-buttons{
-
   display:flex;
 
   gap:8px;
-
   flex-wrap:wrap;
 
   justify-content:flex-end;
-
 }
 
-
 .paper-btn{
-
-  padding:
-    9px
-    12px;
+  padding:9px 12px;
 
   color:#382317;
 
@@ -1462,18 +893,14 @@ input[type="range"]{
   border-color:#8f6a3c;
 
   font-size:12px;
-
 }
-
 
 /* =========================================================
    EXPLORE
    ========================================================= */
 
 .search-paper{
-
   display:flex;
-
   gap:10px;
 
   padding:15px;
@@ -1481,223 +908,140 @@ input[type="range"]{
   background:#d6bf88;
 
   box-shadow:
-    0 8px 25px
-    rgba(0,0,0,.35);
+    0 8px 25px rgba(0,0,0,.35);
 
-  transform:
-    rotate(-.4deg);
-
+  transform:rotate(-.4deg);
 }
-
 
 .search-paper input,
 .search-paper select{
-
   min-width:0;
-
   flex:1;
 
   padding:12px;
 
   border:0;
-
   outline:0;
 
-  background:
-    rgba(255,255,255,.32);
+  background:rgba(255,255,255,.32);
 
   color:#2c1b10;
 
   font:inherit;
-
 }
-
 
 .search-paper select{
-
-  flex:
-    0 0
-    190px;
-
+  flex:0 0 190px;
 }
 
-
 .places{
-
   display:grid;
 
-  grid-template-columns:
-    1fr 1fr;
+  grid-template-columns:1fr 1fr;
 
   gap:14px;
 
   margin-top:25px;
-
 }
-
 
 .place-card{
-
   padding:23px;
-
   min-height:190px;
 
-  background:
-    rgba(38,23,15,.84);
+  background:rgba(38,23,15,.84);
 
-  border:
-    1px solid
-    rgba(214,165,94,.32);
+  border:1px solid rgba(214,165,94,.32);
 
   box-shadow:
-    0 10px 25px
-    rgba(0,0,0,.3);
-
+    0 10px 25px rgba(0,0,0,.3);
 }
-
 
 .place-card h3{
-
   font-size:28px;
-
-  margin:
-    20px
-    0
-    10px;
-
+  margin:20px 0 10px;
 }
-
 
 .place-card p{
-
   line-height:1.65;
-
   color:#cfbd95;
-
 }
-
 
 .place-card small{
-
   opacity:.58;
-
 }
-
 
 .stamp{
-
   font-size:9px;
-
   letter-spacing:2px;
 
-  padding:
-    4px
-    7px;
+  padding:4px 7px;
 
-  border:
-    1px solid
-    #b9884c;
-
+  border:1px solid #b9884c;
   color:#cfa96b;
-
 }
-
 
 /* =========================================================
    ORMA
    ========================================================= */
 
 .era-board{
-
   display:flex;
 
   max-width:620px;
 
-  border-bottom:
-    2px solid
-    #8b6135;
-
+  border-bottom:2px solid #8b6135;
 }
 
-
 .era{
-
   cursor:pointer;
 
   flex:1;
 
-  padding:
-    15px
-    8px;
+  padding:15px 8px;
 
   color:#d7c093;
 
-  background:
-    rgba(31,19,13,.86);
+  background:rgba(31,19,13,.86);
 
-  border:
-    1px solid
-    rgba(205,157,88,.22);
-
+  border:1px solid rgba(205,157,88,.22);
   border-bottom:0;
 
-  font:
-    20px
-    "IM Fell English",
-    serif;
+  font:20px "IM Fell English",serif;
 
-  transition:
-    transform .2s ease,
-    background .2s ease;
-
+  transition:.2s;
 }
-
 
 .era:hover{
-
-  transform:
-    translateY(-2px);
-
+  transform:translateY(-2px);
 }
-
 
 .era.active{
-
   background:#6b4325;
-
   color:#f1d59b;
-
 }
 
-
 .memory-room{
-
   margin-top:20px;
 
   min-height:300px;
 
   display:grid;
 
-  grid-template-columns:
-    1fr 1fr 1fr;
+  grid-template-columns:1fr 1fr 1fr;
 
   gap:18px;
 
   align-items:center;
-
 }
-
 
 .radio,
 .cassette,
 .old-note{
-
   min-height:230px;
 
   display:flex;
 
   align-items:center;
-
   justify-content:center;
 
   flex-direction:column;
@@ -1705,86 +1049,49 @@ input[type="range"]{
   text-align:center;
 
   box-shadow:
-    0 14px 30px
-    rgba(0,0,0,.42);
-
+    0 14px 30px rgba(0,0,0,.42);
 }
 
-
 .radio{
-
   background:
-
     linear-gradient(
       145deg,
       #573a27,
       #1b120e
     );
 
-  border:
-    8px solid
-    #2a1a12;
-
-  outline:
-    1px solid
-    #8d673e;
-
+  border:8px solid #2a1a12;
+  outline:1px solid #8d673e;
 }
-
 
 .radio span{
-
   font-size:11px;
-
   letter-spacing:3px;
-
 }
-
 
 .radio strong{
-
-  font:
-    62px
-    "IM Fell English",
-    serif;
-
+  font:62px "IM Fell English",serif;
   color:#d4aa67;
-
 }
-
 
 .radio small{
-
   font-size:9px;
-
   letter-spacing:2px;
-
 }
-
 
 .cassette{
-
   background:#2a211b;
-
-  border:
-    8px solid
-    #17110d;
-
+  border:8px solid #17110d;
   position:relative;
-
 }
 
-
-.cassette::before{
-
+.cassette:before{
   content:"ORMA • SIDE A";
 
   position:absolute;
 
   top:25px;
-
   left:20px;
-
   right:20px;
 
   padding:7px;
@@ -1793,24 +1100,16 @@ input[type="range"]{
 
   color:#302015;
 
-  font:
-    14px
-    "IM Fell English",
-    serif;
-
+  font:14px "IM Fell English",serif;
 }
 
-
 .reel{
-
   width:58px;
-
   height:58px;
 
   border-radius:50%;
 
   background:
-
     radial-gradient(
       circle,
       #1b130e 0 9px,
@@ -1820,109 +1119,71 @@ input[type="range"]{
 
   display:inline-block;
 
-  margin:
-    45px
-    10px
-    0;
-
+  margin:45px 10px 0;
 }
 
-
 .old-note{
-
   padding:25px;
 
   background:#d8bf82;
 
   color:#3b2616;
 
-  transform:
-    rotate(2deg);
-
+  transform:rotate(2deg);
 }
-
 
 .old-note p{
-
-  font:
-    italic
-    28px
-    "IM Fell English",
-    serif;
-
+  font:italic 28px "IM Fell English",serif;
   margin:0;
-
 }
-
 
 .old-note small{
-
   margin-top:20px;
-
 }
-
 
 /* =========================================================
    MEMORIES
    ========================================================= */
 
 .memory-form{
-
   display:grid;
-
   gap:10px;
 
   max-width:650px;
-
 }
-
 
 .memory-form input,
 .memory-form textarea{
-
   width:100%;
 
   padding:13px;
 
   resize:vertical;
 
-  border:
-    1px solid
-    rgba(214,165,94,.35);
+  border:1px solid rgba(214,165,94,.35);
 
-  background:
-    rgba(27,16,11,.86);
+  background:rgba(27,16,11,.86);
 
   color:#e0cc9f;
 
   font:inherit;
 
   outline:none;
-
 }
-
 
 .memory-form input:focus,
 .memory-form textarea:focus{
-
   border-color:#c99b59;
-
 }
 
-
 .memory-list{
-
   display:grid;
-
   gap:12px;
 
   margin-top:25px;
-
 }
 
-
 .memory{
-
   padding:18px;
 
   background:#d7c08b;
@@ -1930,340 +1191,240 @@ input[type="range"]{
   color:#352216;
 
   box-shadow:
-    4px 7px 15px
-    rgba(0,0,0,.3);
-
+    4px 7px 15px rgba(0,0,0,.3);
 }
-
 
 .memory p{
-
   line-height:1.55;
-
 }
-
 
 /* =========================================================
    OWNER
    ========================================================= */
 
 .owner-card{
-
   padding:35px;
-
   max-width:700px;
-
 }
-
 
 .owner-card h2{
-
   font-size:50px;
-
-  margin:
-    0
-    0
-    10px;
-
+  margin:0 0 10px;
 }
-
 
 .owner-card p{
-
   line-height:1.7;
-
 }
-
 
 .owner-card .paper-btn{
-
   margin-right:8px;
-
 }
-
 
 /* =========================================================
    FOOTER
    ========================================================= */
 
 footer{
-
-  padding:
-    45px
-    30px
-    70px;
+  padding:45px 30px 70px;
 
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
   gap:15px;
 
-  border-top:
-    1px solid
-    rgba(212,164,91,.22);
+  border-top:1px solid rgba(212,164,91,.22);
 
   color:#cbb78d;
-
 }
-
 
 footer strong{
-
-  font:
-    28px
-    "IM Fell English",
-    serif;
-
+  font:28px "IM Fell English",serif;
 }
-
 
 footer span{
-
   font-style:italic;
-
 }
-
 
 footer small{
-
   letter-spacing:2px;
-
   font-size:9px;
-
 }
 
+/* =========================================================
+   LIGHTNING
+   ========================================================= */
+
+#paalChayaLightning{
+  position:fixed;
+  inset:0;
+
+  z-index:14;
+
+  pointer-events:none;
+
+  opacity:0;
+
+  background:
+    radial-gradient(
+      ellipse at 68% 43%,
+      rgba(255,245,214,.38),
+      rgba(235,220,190,.10) 34%,
+      transparent 70%
+    );
+
+  mix-blend-mode:screen;
+
+  transition:opacity .05s linear;
+}
+
+#paalChayaLightning.flash{
+  opacity:.35;
+}
 
 /* =========================================================
-   MOBILE — 900px
+   MOBILE
    ========================================================= */
 
 @media(max-width:900px){
 
-  /* -----------------------------------------------
-     HEADER
-     ----------------------------------------------- */
-
   .topbar{
-
-    min-height:72px;
-
-    padding:
-      10px
-      14px;
-
+    padding:12px 16px;
   }
-
 
   .era-badge{
-
     display:none;
-
   }
-
 
   .menu-btn{
-
     display:block;
-
   }
 
-
-  /* -----------------------------------------------
-     MOBILE NAV
-     ----------------------------------------------- */
-
   .side-nav{
-
     display:none;
 
-    position:fixed;
-
-    top:72px;
-
-    left:10px;
-
-    right:10px;
+    top:76px;
+    left:12px;
+    right:12px;
 
     width:auto;
 
-    max-height:
-      calc(
-        100svh - 85px
-      );
-
-    overflow-y:auto;
+    background:rgba(12,8,6,.98);
 
     padding:8px;
-
-    background:
-      rgba(12,8,6,.97);
-
-    border:
-      1px solid
-      rgba(193,145,80,.35);
-
-    box-shadow:
-      0 18px 40px
-      rgba(0,0,0,.55);
-
   }
-
-
-  /*
-   * IMPORTANT:
-   * This matches the new script.js.
-   */
-
-  .side-nav.menu-open{
-
-    display:grid;
-
-  }
-
 
   .side-nav .nav-link{
-
-    padding:
-      11px;
-
+    padding:11px;
   }
-
-
-  /* -----------------------------------------------
-     MAIN
-     ----------------------------------------------- */
 
   main{
-
     width:100%;
-
     margin:0;
-
   }
 
-
-  /* -----------------------------------------------
-     BACKGROUND
-     ----------------------------------------------- */
-
-  .scene{
-
-    background-position:
-      58% center;
-
-    background-size:
-      cover;
-
-    filter:
-      saturate(.86)
-      sepia(.11)
-      contrast(1.03)
-      brightness(1.07);
-
-  }
-
-
-  /* -----------------------------------------------
-     HERO — IMPORTANT OVERLAP FIX
-     ----------------------------------------------- */
+  /* -----------------------------------------
+     MOBILE HERO
+     ----------------------------------------- */
 
   .hero{
-
-    /*
-     * Do NOT force everything to the bottom.
-     * Content is allowed to flow naturally.
-     */
-
     min-height:100svh;
 
-    height:auto;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:flex-start;
-
-    align-items:stretch;
-
     padding:
-      125px
+      120px
       20px
-      65px;
+      45px;
 
+    display:flex !important;
+
+    flex-direction:column !important;
+
+    justify-content:flex-end !important;
+
+    align-items:stretch !important;
+
+    position:relative;
   }
 
+  /* -----------------------------------------
+     MOBILE BACKGROUND
+     ----------------------------------------- */
+
+  .scene{
+    background-position:68% center;
+
+    background-size:cover;
+
+    filter:
+      saturate(.90)
+      sepia(.11)
+      contrast(1.03)
+      brightness(.96);
+
+    transform:scale(1.005);
+  }
+
+  /* -----------------------------------------
+     HERO COPY
+     ----------------------------------------- */
 
   .hero-copy{
+    width:100% !important;
+    max-width:none !important;
 
-    width:100%;
+    position:relative !important;
 
-    max-width:none;
+    display:flex !important;
 
-    position:relative;
+    flex-direction:column !important;
 
-    z-index:20;
+    align-items:flex-start !important;
 
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:flex-start;
-
+    z-index:20 !important;
   }
-
 
   .eyebrow{
-
     font-size:10px;
-
     letter-spacing:2.5px;
-
   }
 
-
+  h1,
   .hero-copy h1{
-
     width:100%;
 
-    max-width:100%;
+    font-size:50px !important;
+
+    line-height:.92 !important;
 
     position:relative;
 
     z-index:21;
-
   }
-
 
   .hero-text{
-
     width:100%;
 
-    position:relative;
-
-    z-index:21;
-
-    font-size:19px;
+    font-size:17px !important;
 
     line-height:1.55;
 
     margin:
-      24px
-      0;
+      22px
+      0
+      22px;
 
+    position:relative;
+
+    z-index:21;
   }
 
-
   .hero-actions{
-
     width:100%;
 
     display:flex;
 
-    gap:12px;
+    gap:10px;
 
     align-items:center;
 
@@ -2272,14 +1433,23 @@ footer small{
     position:relative;
 
     z-index:22;
-
   }
 
+  .wood-btn.primary{
+    padding:
+      12px
+      16px;
 
-  /* -----------------------------------------------
-     SHOP NOTE — COMPLETELY REMOVED FROM ABSOLUTE
-     POSITIONING ON MOBILE
-     ----------------------------------------------- */
+    font-size:15px;
+  }
+
+  .paper-link{
+    font-size:16px;
+  }
+
+  /* -----------------------------------------
+     SHOP NOTE — NORMAL FLOW
+     ----------------------------------------- */
 
   .shop-note,
   .hero .shop-note,
@@ -2289,487 +1459,162 @@ footer small{
 
     inset:auto !important;
 
-    top:auto !important;
-
-    right:auto !important;
-
-    bottom:auto !important;
-
-    left:auto !important;
-
     float:none !important;
 
     display:block !important;
 
     width:fit-content !important;
 
-    max-width:270px !important;
+    max-width:245px !important;
 
     margin:
-      36px
+      28px
       0
       0
       auto !important;
 
     align-self:flex-end !important;
 
-    transform:
-      rotate(-2deg) !important;
+    transform:rotate(-2deg) !important;
 
-    z-index:24 !important;
-
+    z-index:23 !important;
   }
-
 
   .shop-note span{
-
-    font-size:23px;
-
+    font-size:22px !important;
   }
-
 
   .shop-note b{
-
-    font-size:10px;
-
+    font-size:10px !important;
   }
-
 
   .shop-note small{
-
-    font-size:13px;
-
-    line-height:1.5;
-
+    font-size:12px !important;
+    line-height:1.5 !important;
   }
 
+  /* -----------------------------------------
+     RAIN MOBILE
+     ----------------------------------------- */
 
-  /* -----------------------------------------------
-     SECTIONS
-     ----------------------------------------------- */
+  .rain-a{
+    opacity:.055;
+  }
+
+  .rain-b{
+    opacity:.032;
+  }
+
+  .rain-c{
+    opacity:.018;
+  }
+
+  .vignette{
+    background:
+      radial-gradient(
+        ellipse at center,
+        transparent 40%,
+        rgba(0,0,0,.48) 100%
+      );
+  }
 
   .section{
-
     padding:
       75px
       20px;
-
   }
-
-
-  /* -----------------------------------------------
-     RAIN — MOBILE PERFORMANCE
-     ----------------------------------------------- */
-
-  .rain-a{
-
-    opacity:.042;
-
-  }
-
-
-  .rain-b{
-
-    opacity:.022;
-
-  }
-
-
-  .rain-c{
-
-    opacity:.014;
-
-  }
-
-
-  body::after{
-
-    opacity:.008;
-
-  }
-
-
-  /* -----------------------------------------------
-     VIGNETTE
-     ----------------------------------------------- */
-
-  .vignette{
-
-    background:
-
-      radial-gradient(
-        ellipse at center,
-        transparent 46%,
-        rgba(0,0,0,.40) 100%
-      );
-
-  }
-
-
-  /* -----------------------------------------------
-     SOUND GRID
-     ----------------------------------------------- */
-
-  .sound-grid{
-
-    grid-template-columns:1fr;
-
-  }
-
-
-  /* -----------------------------------------------
-     PLACES
-     ----------------------------------------------- */
-
-  .places{
-
-    grid-template-columns:1fr;
-
-  }
-
-
-  /* -----------------------------------------------
-     MEMORY ROOM
-     ----------------------------------------------- */
-
-  .memory-room{
-
-    grid-template-columns:1fr;
-
-  }
-
-
-  /* -----------------------------------------------
-     TIMER
-     ----------------------------------------------- */
-
-  .timer-panel{
-
-    flex-direction:column;
-
-    align-items:flex-start;
-
-  }
-
-
-  .timer-buttons{
-
-    justify-content:flex-start;
-
-  }
-
 }
 
-
 /* =========================================================
-   SMALL PHONES — 650px
+   SMALL PHONES
    ========================================================= */
 
 @media(max-width:650px){
 
-  .topbar{
-
-    padding:
-      10px
-      12px;
-
-  }
-
-
-  .brand{
-
-    gap:9px;
-
-  }
-
-
-  .brand-cup{
-
-    font-size:31px;
-
-  }
-
-
   .brand strong{
-
     font-size:25px;
-
-    letter-spacing:1.5px;
-
   }
-
 
   .brand small{
-
-    font-size:9px;
-
+    font-size:10px;
   }
 
+  .sound-grid,
+  .places,
+  .memory-room{
+    grid-template-columns:1fr;
+  }
 
-  /* -----------------------------------------------
-     HERO
-     ----------------------------------------------- */
+  .sound-row{
+    grid-template-columns:
+      85px
+      1fr
+      45px;
+  }
+
+  .search-paper{
+    flex-direction:column;
+  }
+
+  .search-paper select{
+    flex-basis:auto;
+  }
+
+  .timer-panel{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .timer-buttons{
+    justify-content:flex-start;
+  }
 
   .hero{
-
     padding:
-      120px
+      118px
       18px
-      50px;
-
+      42px;
   }
-
-
-  .hero-copy{
-
-    width:100%;
-
-  }
-
 
   h1,
   .hero-copy h1{
-
-    font-size:50px;
-
-    line-height:.92;
-
+    font-size:48px !important;
   }
-
-
-  .hero-text{
-
-    font-size:17px;
-
-    line-height:1.55;
-
-    margin:
-      22px
-      0;
-
-  }
-
-
-  .hero-actions{
-
-    gap:10px;
-
-  }
-
-
-  .wood-btn.primary{
-
-    padding:
-      12px
-      16px;
-
-    font-size:15px;
-
-  }
-
-
-  .paper-link{
-
-    font-size:16px;
-
-  }
-
-
-  /* -----------------------------------------------
-     SHOP NOTE
-     ----------------------------------------------- */
 
   .shop-note,
   .hero .shop-note,
   .hero-copy .shop-note{
-
     max-width:225px !important;
-
     margin:
-      30px
+      27px
       0
       0
       auto !important;
-
   }
-
-
-  .shop-note span{
-
-    font-size:21px;
-
-  }
-
-
-  .shop-note small{
-
-    font-size:12px;
-
-  }
-
-
-  /* -----------------------------------------------
-     SOUND ROW
-     ----------------------------------------------- */
-
-  .sound-row{
-
-    grid-template-columns:
-      82px
-      1fr
-      42px;
-
-    gap:8px;
-
-  }
-
-
-  /* -----------------------------------------------
-     SEARCH
-     ----------------------------------------------- */
-
-  .search-paper{
-
-    flex-direction:column;
-
-  }
-
-
-  .search-paper select{
-
-    flex-basis:auto;
-
-  }
-
-
-  /* -----------------------------------------------
-     TIMER
-     ----------------------------------------------- */
-
-  .timer-display{
-
-    font-size:43px;
-
-  }
-
-
-  /* -----------------------------------------------
-     FOOTER
-     ----------------------------------------------- */
 
   footer{
-
     flex-direction:column;
-
     align-items:flex-start;
-
   }
-
 }
 
-
 /* =========================================================
-   VERY SMALL PHONES — 400px
-   ========================================================= */
-
-@media(max-width:400px){
-
-  .brand strong{
-
-    font-size:23px;
-
-  }
-
-
-  .brand-cup{
-
-    font-size:28px;
-
-  }
-
-
-  .hero{
-
-    padding:
-      115px
-      16px
-      45px;
-
-  }
-
-
-  h1,
-  .hero-copy h1{
-
-    font-size:46px;
-
-  }
-
-
-  .hero-text{
-
-    font-size:16px;
-
-  }
-
-
-  .wood-btn.primary{
-
-    font-size:14px;
-
-    padding:
-      11px
-      14px;
-
-  }
-
-
-  .paper-link{
-
-    font-size:15px;
-
-  }
-
-
-  .shop-note{
-
-    max-width:210px !important;
-
-  }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
+   PERFORMANCE / REDUCED MOTION
    ========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
   html{
-
     scroll-behavior:auto;
-
   }
 
-
+  .scene,
+  .scene::before,
   .rain,
-  body::after,
+  .rain-a,
+  .rain-b,
+  .rain-c,
   .grain{
-
     animation:none !important;
-
   }
-
-
-  .nav-link,
-  .wood-btn,
-  .paper-btn,
-  .preset,
-  .era{
-
-    transition:none !important;
-
-  }
-
 }
