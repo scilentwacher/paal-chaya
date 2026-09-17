@@ -2261,3 +2261,219 @@ footer small{
   }
 
 }
+
+/* =========================================================
+   PAAL CHAYA — VINTAGE ATMOSPHERE V4
+   ========================================================= */
+
+/* Old photograph breathing effect */
+.scene{
+  animation:
+    filmExposure 11s ease-in-out infinite,
+    oldPhotoBreath 18s ease-in-out infinite;
+}
+
+@keyframes oldPhotoBreath{
+  0%,100%{
+    transform:scale(1.02);
+  }
+
+  50%{
+    transform:scale(1.028);
+  }
+}
+
+
+/* =========================================================
+   OLD KERALA LAMP FLICKER
+   ========================================================= */
+
+.scene::before{
+  animation:
+    chayaGlow 7s ease-in-out infinite alternate,
+    oldLampFlicker 5.5s ease-in-out infinite;
+}
+
+@keyframes oldLampFlicker{
+
+  0%,100%{
+    filter:brightness(1);
+  }
+
+  42%{
+    filter:brightness(1);
+  }
+
+  44%{
+    filter:brightness(.94);
+  }
+
+  45%{
+    filter:brightness(1.08);
+  }
+
+  47%{
+    filter:brightness(.98);
+  }
+
+  48%{
+    filter:brightness(1.04);
+  }
+
+  50%{
+    filter:brightness(1);
+  }
+}
+
+
+/* =========================================================
+   RAIN — NATURAL VARIATION
+   ========================================================= */
+
+.rain-a{
+  animation:
+    heavyRain .48s linear infinite,
+    rainBreathing 6s ease-in-out infinite;
+}
+
+.rain-b{
+  animation:
+    mediumRain .82s linear infinite,
+    rainBreathing 9s ease-in-out infinite;
+}
+
+.rain-c{
+  animation:
+    distantRain 1.25s linear infinite,
+    rainBreathing 12s ease-in-out infinite;
+}
+
+@keyframes rainBreathing{
+
+  0%,100%{
+    opacity:1;
+  }
+
+  50%{
+    opacity:.72;
+  }
+}
+
+
+/* =========================================================
+   LIGHTNING — OLD FILM STYLE
+   ========================================================= */
+
+body.lightning .scene::after{
+  animation:none;
+
+  opacity:.12;
+
+  background:
+    radial-gradient(
+      ellipse at 65% 45%,
+      rgba(245,242,225,.65),
+      rgba(220,220,210,.12) 35%,
+      transparent 70%
+    );
+
+  transition:opacity .08s ease;
+}
+
+body.lightning .vignette{
+  opacity:.72;
+}
+
+
+/* =========================================================
+   HERO — LET THE PHOTOGRAPH BREATHE
+   ========================================================= */
+
+@media(max-width:900px){
+
+  .hero{
+    padding-top:125px;
+    padding-bottom:65px;
+
+    /* slightly less artificial darkening */
+    background:
+      linear-gradient(
+        0deg,
+        rgba(4,2,1,.38),
+        transparent 58%
+      );
+  }
+
+  .hero-copy{
+    margin-top:auto;
+  }
+
+  .hero-copy h1{
+    text-shadow:
+      3px 4px 0 rgba(0,0,0,.58),
+      0 0 18px rgba(0,0,0,.30);
+  }
+
+  .hero-text{
+    text-shadow:
+      1px 2px 5px rgba(0,0,0,.75);
+  }
+
+  .hero-actions{
+    position:relative;
+    z-index:6;
+  }
+
+  .shop-note{
+    box-shadow:
+      0 12px 28px rgba(0,0,0,.58),
+      inset 0 0 20px rgba(190,125,57,.06);
+  }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media(max-width:650px){
+
+  .hero{
+    min-height:100svh;
+  }
+
+  .hero-copy{
+    padding-top:40px;
+  }
+
+  .eyebrow{
+    letter-spacing:2.5px;
+  }
+
+  h1{
+    letter-spacing:-.5px;
+  }
+
+  .shop-note{
+    margin-top:26px !important;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  .scene,
+  .scene::before,
+  .rain-a,
+  .rain-b,
+  .rain-c{
+    animation:none !important;
+  }
+
+}
