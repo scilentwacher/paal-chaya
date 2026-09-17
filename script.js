@@ -1,6 +1,6 @@
 /* =========================================================
-   PAAL CHAYA — Main JavaScript
-   V3 — Ambient Thunder + Lightning
+   PAAL CHAYA
+   MAIN JAVASCRIPT — V4 STABLE + OPTIMIZED
    ========================================================= */
 
 
@@ -11,37 +11,60 @@
 const menuBtn = document.getElementById("menuBtn");
 const nav = document.getElementById("nav");
 
-menuBtn?.addEventListener("click", () => {
+if (menuBtn && nav) {
 
-  const isOpen = nav?.style.display === "flex";
+  menuBtn.addEventListener("click", () => {
 
-  if (nav) {
-    nav.style.display = isOpen ? "" : "flex";
-  }
+    const isOpen =
+      nav.classList.contains("menu-open");
 
-  menuBtn.setAttribute(
-    "aria-expanded",
-    String(!isOpen)
-  );
+    if (isOpen) {
 
-});
+      nav.classList.remove("menu-open");
 
+      menuBtn.setAttribute(
+        "aria-expanded",
+        "false"
+      );
 
-nav?.querySelectorAll("a").forEach((link) => {
+    } else {
 
-  link.addEventListener("click", () => {
+      nav.classList.add("menu-open");
 
-    if (window.innerWidth <= 800 && nav) {
-      nav.style.display = "";
+      menuBtn.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
     }
 
   });
 
-});
+
+  nav.querySelectorAll("a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      if (window.innerWidth <= 900) {
+
+        nav.classList.remove("menu-open");
+
+        menuBtn.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+      }
+
+    });
+
+  });
+
+}
 
 
 /* =========================================================
-   PAAL CHAYA — AMBIENT SOUND MIXER
+   AUDIO SYSTEM
    ========================================================= */
 
 const audioNames = [
@@ -54,17 +77,24 @@ const audioNames = [
 
 
 const defaultVolumes = {
+
   rain: 55,
+
   thunder: 25,
+
   crickets: 40,
+
   fire: 15,
+
   train: 10
+
 };
 
 
 const sounds = {};
 
 let audioPlaying = false;
+
 let audioMuted = false;
 
 
@@ -72,14 +102,19 @@ let audioMuted = false;
    CREATE AUDIO OBJECTS
    ========================================================= */
 
-audioNames.forEach((name) => {
+audioNames.forEach(name => {
 
-  const audio = new Audio(
-    `audio/${name}.wav`
-  );
+  const audio =
+    new Audio(`audio/${name}.wav`);
 
   audio.loop = true;
-  audio.preload = "auto";
+
+  /*
+   * Do not force-load every large WAV immediately.
+   * Browser can load them when playback starts.
+   */
+
+  audio.preload = "metadata";
 
   audio.volume =
     (defaultVolumes[name] / 100) * 0.72;
@@ -90,7 +125,7 @@ audioNames.forEach((name) => {
 
 
 /* =========================================================
-   ELEMENTS
+   AUDIO ELEMENTS
    ========================================================= */
 
 const audioStatus =
@@ -106,50 +141,30 @@ const muteBtn =
   document.getElementById("muteBtn");
 
 
-/* =========================================================
-   AUDIO STATUS
-   ========================================================= */
-
 function setAudioStatus(message) {
 
   if (audioStatus) {
-    audioStatus.textContent = message;
+
+    audioStatus.textContent =
+      message;
+
   }
 
 }
 
 
 /* =========================================================
-   V3 — LIGHTNING SYSTEM
+   LIGHTNING SYSTEM
    ========================================================= */
 
-/*
- * Thunder is an ambient looping WAV.
- *
- * Because the browser cannot reliably know which exact
- * moment inside a normal WAV file contains a thunderclap,
- * PAAL CHAYA uses a natural randomized lightning cycle
- * while the thunder ambience is active.
- *
- * This gives the feeling of:
- *
- *       🌧 Rain
- *       ↓
- *       ⚡ distant flash
- *       ↓
- *       🌩 Thunder
- *       ↓
- *       🌧 Rain again
- */
-
-
 let lightningTimer = null;
-let lightningRunning = false;
+
+let lightningFlashTimers = [];
 
 
-/* -------------------------
-   CREATE LIGHTNING OVERLAY
-   ------------------------- */
+/*
+ * Create overlay only once.
+ */
 
 const lightningOverlay =
   document.createElement("div");
@@ -162,59 +177,76 @@ document.body.appendChild(
 );
 
 
-/* -------------------------
-   LIGHTNING STYLE
-   ------------------------- */
+/*
+ * Lightweight lightning CSS.
+ */
 
 const lightningStyle =
   document.createElement("style");
 
 lightningStyle.textContent = `
 
-  #paalChayaLightning{
-    position:fixed;
-    inset:0;
-    z-index:13;
-    pointer-events:none;
+  #paalChayaLightning {
 
-    opacity:0;
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 13;
+
+    pointer-events: none;
+
+    opacity: 0;
 
     background:
       radial-gradient(
-        ellipse at 62% 42%,
-        rgba(255,245,214,.55),
-        rgba(235,220,190,.16) 35%,
+        ellipse at 62% 45%,
+        rgba(255,245,220,.42),
+        rgba(235,220,190,.12) 38%,
         transparent 72%
       );
 
-    mix-blend-mode:screen;
+    mix-blend-mode: screen;
 
     transition:
-      opacity .04s linear;
+      opacity .035s linear;
+
   }
 
-  #paalChayaLightning.pc-flash-1{
-    opacity:.18;
+
+  #paalChayaLightning.pc-flash-1 {
+
+    opacity: .12;
+
   }
 
-  #paalChayaLightning.pc-flash-2{
-    opacity:.52;
+
+  #paalChayaLightning.pc-flash-2 {
+
+    opacity: .38;
+
   }
 
-  #paalChayaLightning.pc-flash-3{
-    opacity:.12;
+
+  #paalChayaLightning.pc-flash-3 {
+
+    opacity: .08;
+
   }
 
-  @media(max-width:650px){
 
-    #paalChayaLightning{
+  @media(max-width:650px) {
+
+    #paalChayaLightning {
+
       background:
         radial-gradient(
           ellipse at 58% 45%,
-          rgba(255,245,214,.48),
-          rgba(235,220,190,.12) 38%,
-          transparent 74%
+          rgba(255,245,220,.36),
+          rgba(235,220,190,.09) 40%,
+          transparent 75%
         );
+
     }
 
   }
@@ -226,125 +258,209 @@ document.head.appendChild(
 );
 
 
-/* -------------------------
-   SINGLE LIGHTNING EVENT
-   ------------------------- */
+/* =========================================================
+   CLEAR LIGHTNING
+   ========================================================= */
 
-function lightningFlash() {
+function clearLightningTimers() {
+
+  if (lightningTimer) {
+
+    clearTimeout(
+      lightningTimer
+    );
+
+    lightningTimer = null;
+
+  }
+
+
+  lightningFlashTimers.forEach(
+    timer => clearTimeout(timer)
+  );
+
+  lightningFlashTimers = [];
+
+
+  lightningOverlay.className = "";
+
+}
+
+
+/* =========================================================
+   SINGLE LIGHTNING FLASH
+   ========================================================= */
+
+function triggerLightning() {
+
+  /*
+   * Never flash when ambience is not active.
+   */
 
   if (!audioPlaying) return;
 
+  /*
+   * Never flash while muted.
+   */
+
   if (audioMuted) return;
+
+
+  /*
+   * Do not flash if thunder volume is
+   * essentially turned off.
+   */
 
   const thunder =
     sounds.thunder;
 
   if (!thunder) return;
 
-  /*
-   * If thunder volume is essentially zero,
-   * don't create visible lightning.
-   */
-
   if (thunder.volume <= 0.01) {
     return;
   }
 
 
+  /*
+   * First flash.
+   */
+
   lightningOverlay.className =
     "pc-flash-1";
 
 
-  setTimeout(() => {
+  const flash1 =
+    setTimeout(() => {
 
-    lightningOverlay.className =
-      "pc-flash-2";
+      lightningOverlay.className =
+        "pc-flash-2";
 
-  }, 55);
-
-
-  setTimeout(() => {
-
-    lightningOverlay.className =
-      "pc-flash-3";
-
-  }, 110);
+    }, 45);
 
 
-  setTimeout(() => {
+  const flash2 =
+    setTimeout(() => {
 
-    lightningOverlay.className =
-      "";
+      lightningOverlay.className =
+        "pc-flash-3";
 
-  }, 180);
+    }, 90);
+
+
+  const flash3 =
+    setTimeout(() => {
+
+      lightningOverlay.className =
+        "";
+
+    }, 155);
+
+
+  lightningFlashTimers.push(
+    flash1,
+    flash2,
+    flash3
+  );
 
 
   /*
-   * Occasionally create a tiny second flash,
-   * like distant lightning behind clouds.
+   * Sometimes a small secondary flash.
    */
 
-  if (Math.random() > 0.55) {
+  if (Math.random() > 0.60) {
 
-    setTimeout(() => {
+    const secondDelay =
+      220 +
+      Math.random() * 300;
 
-      if (!audioPlaying || audioMuted) {
-        return;
-      }
 
-      lightningOverlay.className =
-        "pc-flash-1";
-
+    const secondFlash =
       setTimeout(() => {
 
+        if (
+          !audioPlaying ||
+          audioMuted
+        ) {
+          return;
+        }
+
+
         lightningOverlay.className =
-          "";
+          "pc-flash-1";
 
-      }, 90);
 
-    }, 230 + Math.random() * 350);
+        const secondEnd =
+          setTimeout(() => {
+
+            lightningOverlay.className =
+              "";
+
+          }, 70);
+
+
+        lightningFlashTimers.push(
+          secondEnd
+        );
+
+      }, secondDelay);
+
+
+    lightningFlashTimers.push(
+      secondFlash
+    );
 
   }
 
 }
 
 
-/* -------------------------
-   NATURAL LIGHTNING SCHEDULER
-   ------------------------- */
+/* =========================================================
+   SCHEDULE LIGHTNING
+   ========================================================= */
 
 function scheduleLightning() {
 
-  clearTimeout(lightningTimer);
+  clearTimeout(
+    lightningTimer
+  );
+
+  lightningTimer = null;
+
 
   if (!audioPlaying) {
-    lightningRunning = false;
     return;
   }
 
-  lightningRunning = true;
+
+  if (audioMuted) {
+    return;
+  }
 
 
   /*
-   * Wait between roughly 14–32 seconds.
+   * 14–30 seconds between possible flashes.
    *
-   * This keeps lightning occasional rather than
-   * turning the page into a flashing screen.
+   * This is intentionally slow so the phone
+   * does not constantly animate.
    */
 
   const delay =
     14000 +
-    Math.random() * 18000;
+    Math.random() * 16000;
 
 
   lightningTimer =
     setTimeout(() => {
 
-      if (audioPlaying && !audioMuted) {
+      if (
+        audioPlaying &&
+        !audioMuted
+      ) {
 
-        lightningFlash();
+        triggerLightning();
 
       }
+
 
       scheduleLightning();
 
@@ -353,21 +469,13 @@ function scheduleLightning() {
 }
 
 
-/* -------------------------
+/* =========================================================
    STOP LIGHTNING
-   ------------------------- */
+   ========================================================= */
 
 function stopLightning() {
 
-  clearTimeout(lightningTimer);
-
-  lightningTimer = null;
-
-  lightningRunning = false;
-
-  lightningOverlay.className = "";
-
-  lightningOverlay.style.opacity = "0";
+  clearLightningTimers();
 
 }
 
@@ -378,42 +486,87 @@ function stopLightning() {
 
 async function startAudio() {
 
+  if (audioPlaying) {
+    return;
+  }
+
+
   try {
 
-    for (const name of audioNames) {
-
-      sounds[name].muted =
-        audioMuted;
-
-      /*
-       * Calling play() after the user's button click
-       * satisfies normal mobile browser interaction rules.
-       */
-
-      await sounds[name].play();
-
-    }
-
+    /*
+     * Set state BEFORE playback.
+     * This prevents double taps from starting
+     * multiple copies.
+     */
 
     audioPlaying = true;
 
 
     if (masterBtn) {
+
       masterBtn.textContent =
         "⏹ Stop";
+
     }
+
+
+    setAudioStatus(
+      "Starting Kerala ambience ☕"
+    );
+
+
+    /*
+     * Start all sounds together.
+     *
+     * IMPORTANT:
+     * We do NOT await each sound one by one.
+     */
+
+    const playPromises =
+      audioNames.map(name => {
+
+        const audio =
+          sounds[name];
+
+        if (!audio) {
+          return Promise.resolve();
+        }
+
+
+        audio.muted =
+          audioMuted;
+
+
+        return audio
+          .play()
+          .catch(error => {
+
+            console.warn(
+              `${name} audio could not start:`,
+              error
+            );
+
+          });
+
+      });
+
+
+    await Promise.all(
+      playPromises
+    );
+
+
+    /*
+     * Start lightning only after
+     * audio playback has been attempted.
+     */
+
+    scheduleLightning();
 
 
     setAudioStatus(
       "Playing — Kerala ambience is active ☕"
     );
-
-
-    /*
-     * Start the atmospheric lightning cycle.
-     */
-
-    scheduleLightning();
 
 
   } catch (error) {
@@ -423,9 +576,20 @@ async function startAudio() {
       error
     );
 
+
     audioPlaying = false;
 
+
     stopLightning();
+
+
+    if (masterBtn) {
+
+      masterBtn.textContent =
+        "▶ Start";
+
+    }
+
 
     setAudioStatus(
       "Could not start audio. Tap Start again."
@@ -442,19 +606,38 @@ async function startAudio() {
 
 function stopAudio() {
 
-  audioNames.forEach((name) => {
+  /*
+   * Stop lightning first.
+   */
 
-    sounds[name].pause();
+  stopLightning();
 
-    sounds[name].currentTime = 0;
+
+  audioNames.forEach(name => {
+
+    const audio =
+      sounds[name];
+
+    if (!audio) return;
+
+
+    audio.pause();
+
+
+    /*
+     * Reset playback position.
+     */
+
+    try {
+
+      audio.currentTime = 0;
+
+    } catch (_) {}
 
   });
 
 
   audioPlaying = false;
-
-
-  stopLightning();
 
 
   if (masterBtn) {
@@ -473,7 +656,7 @@ function stopAudio() {
 
 
 /* =========================================================
-   START / STOP BUTTON
+   MASTER AUDIO BUTTON
    ========================================================= */
 
 masterBtn?.addEventListener(
@@ -498,6 +681,9 @@ masterBtn?.addEventListener(
    TEST RAIN
    ========================================================= */
 
+let testRain = null;
+
+
 testBtn?.addEventListener(
   "click",
   async () => {
@@ -505,32 +691,48 @@ testBtn?.addEventListener(
     try {
 
       /*
-       * IMPORTANT:
-       * Audio files are inside /audio/
+       * Reuse the same audio object instead
+       * of creating a new object every tap.
        */
 
-      const test =
-        new Audio("audio/rain.wav");
+      if (!testRain) {
 
-      test.volume = 0.9;
-      test.loop = false;
+        testRain =
+          new Audio(
+            "audio/rain.wav"
+          );
 
-      await test.play();
+        testRain.volume = 0.9;
+
+        testRain.loop = false;
+
+        testRain.preload =
+          "metadata";
+
+      }
+
+
+      testRain.currentTime = 0;
+
+
+      await testRain.play();
 
 
       setAudioStatus(
         "Rain test playing 🌧️"
       );
 
+
     } catch (error) {
 
-      console.error(
+      console.warn(
         "Rain test error:",
         error
       );
 
+
       setAudioStatus(
-        "Rain could not play. Please tap the button again."
+        "Tap Test Rain again."
       );
 
     }
@@ -551,19 +753,19 @@ muteBtn?.addEventListener(
       !audioMuted;
 
 
-    audioNames.forEach((name) => {
+    audioNames.forEach(name => {
 
-      sounds[name].muted =
-        audioMuted;
+      if (sounds[name]) {
+
+        sounds[name].muted =
+          audioMuted;
+
+      }
 
     });
 
 
     if (audioMuted) {
-
-      /*
-       * Stop visual lightning immediately.
-       */
 
       stopLightning();
 
@@ -571,9 +773,11 @@ muteBtn?.addEventListener(
       muteBtn.textContent =
         "🔊 Unmute";
 
+
       setAudioStatus(
         "Audio muted 🔇"
       );
+
 
     } else {
 
@@ -587,9 +791,6 @@ muteBtn?.addEventListener(
           "Playing — Kerala ambience is active ☕"
         );
 
-        /*
-         * Restart atmospheric lightning.
-         */
 
         scheduleLightning();
 
@@ -613,7 +814,7 @@ muteBtn?.addEventListener(
 
 document
   .querySelectorAll(".sound-slider")
-  .forEach((slider) => {
+  .forEach(slider => {
 
     const soundName =
       slider.dataset.sound;
@@ -635,17 +836,15 @@ document
         }
 
 
-        /*
-         * Update percentage text.
-         */
-
         const valueDisplay =
-          slider.parentElement?.querySelector(
-            ".volume-value"
-          ) ||
-          slider.parentElement?.querySelector(
-            ".slider-value"
-          );
+          slider.parentElement
+            ?.querySelector(
+              ".volume-value"
+            ) ||
+          slider.parentElement
+            ?.querySelector(
+              ".slider-value"
+            );
 
 
         if (valueDisplay) {
@@ -656,56 +855,82 @@ document
         }
 
       }
-
     );
 
   });
 
 
 /* =========================================================
-   SOUND PRESETS
+   PRESETS
    ========================================================= */
 
 const presets = {
 
   monsoon: {
+
     rain: 80,
+
     thunder: 35,
+
     crickets: 25,
+
     fire: 5,
+
     train: 5
+
   },
+
 
   night: {
+
     rain: 20,
+
     thunder: 5,
+
     crickets: 75,
+
     fire: 20,
+
     train: 5
+
   },
+
 
   chaya: {
+
     rain: 15,
+
     thunder: 5,
+
     crickets: 20,
+
     fire: 55,
+
     train: 15
+
   },
 
+
   journey: {
+
     rain: 20,
+
     thunder: 5,
+
     crickets: 15,
+
     fire: 5,
+
     train: 75
+
   }
 
 };
 
 
-/* -------------------------
+/* =========================================================
    APPLY PRESET
-   ------------------------- */
+   ========================================================= */
 
 function applyPreset(presetName) {
 
@@ -715,8 +940,8 @@ function applyPreset(presetName) {
   if (!preset) return;
 
 
-  Object.entries(preset).forEach(
-    ([name, value]) => {
+  Object.entries(preset)
+    .forEach(([name, value]) => {
 
       if (sounds[name]) {
 
@@ -739,12 +964,14 @@ function applyPreset(presetName) {
 
 
         const valueDisplay =
-          slider.parentElement?.querySelector(
-            ".volume-value"
-          ) ||
-          slider.parentElement?.querySelector(
-            ".slider-value"
-          );
+          slider.parentElement
+            ?.querySelector(
+              ".volume-value"
+            ) ||
+          slider.parentElement
+            ?.querySelector(
+              ".slider-value"
+            );
 
 
         if (valueDisplay) {
@@ -756,13 +983,12 @@ function applyPreset(presetName) {
 
       }
 
-    }
-  );
+    });
 
 
   document
     .querySelectorAll(".preset")
-    .forEach((button) => {
+    .forEach(button => {
 
       button.classList.remove(
         "selected"
@@ -771,13 +997,13 @@ function applyPreset(presetName) {
     });
 
 
-  const selectedButton =
+  const selected =
     document.querySelector(
       `.preset[data-preset="${presetName}"]`
     );
 
 
-  selectedButton?.classList.add(
+  selected?.classList.add(
     "selected"
   );
 
@@ -788,11 +1014,14 @@ function applyPreset(presetName) {
 
 
   /*
-   * If the thunder amount changed while
-   * ambience is playing, keep lightning alive.
+   * Recalculate lightning schedule
+   * after thunder volume changes.
    */
 
-  if (audioPlaying && !audioMuted) {
+  if (
+    audioPlaying &&
+    !audioMuted
+  ) {
 
     scheduleLightning();
 
@@ -801,23 +1030,20 @@ function applyPreset(presetName) {
 }
 
 
-/* -------------------------
+/* =========================================================
    PRESET BUTTONS
-   ------------------------- */
+   ========================================================= */
 
 document
   .querySelectorAll(".preset")
-  .forEach((button) => {
+  .forEach(button => {
 
     button.addEventListener(
       "click",
       () => {
 
-        const presetName =
-          button.dataset.preset;
-
         applyPreset(
-          presetName
+          button.dataset.preset
         );
 
       }
@@ -827,7 +1053,7 @@ document
 
 
 /* =========================================================
-   EXPLORE — SEARCH & CATEGORY FILTER
+   EXPLORE
    ========================================================= */
 
 const searchInput =
@@ -856,7 +1082,7 @@ function filterPlaces() {
 
   document
     .querySelectorAll(".place-card")
-    .forEach((card) => {
+    .forEach(card => {
 
       const name =
         (card.dataset.name || "")
@@ -908,10 +1134,11 @@ categoryFilter?.addEventListener(
 
 
 /* =========================================================
-   FOCUS / POMODORO TIMER
+   POMODORO / FOCUS TIMER
    ========================================================= */
 
 let timerId = null;
+
 let remaining = 0;
 
 
@@ -923,17 +1150,26 @@ const timerDisplay =
 
 function renderTimer() {
 
-  if (!timerDisplay) return;
+  if (!timerDisplay) {
+    return;
+  }
+
+
+  const safeRemaining =
+    Math.max(
+      0,
+      Math.floor(remaining)
+    );
 
 
   const minutes =
     Math.floor(
-      Math.max(remaining, 0) / 60
+      safeRemaining / 60
     );
 
 
   const seconds =
-    Math.max(remaining, 0) % 60;
+    safeRemaining % 60;
 
 
   timerDisplay.textContent =
@@ -942,33 +1178,79 @@ function renderTimer() {
 }
 
 
-/* -------------------------
+/* =========================================================
    START TIMER
-   ------------------------- */
+   ========================================================= */
 
 function startTimer(minutes) {
 
-  clearInterval(timerId);
+  const duration =
+    Number(minutes);
+
+
+  if (
+    !Number.isFinite(duration) ||
+    duration <= 0
+  ) {
+
+    return;
+
+  }
+
+
+  /*
+   * Stop previous timer.
+   */
+
+  if (timerId !== null) {
+
+    clearInterval(timerId);
+
+  }
 
 
   remaining =
-    Number(minutes) * 60;
+    Math.floor(
+      duration * 60
+    );
 
 
   renderTimer();
 
 
+  /*
+   * Use timestamp-based timing.
+   *
+   * This is more accurate when the phone
+   * temporarily lags.
+   */
+
+  const endTime =
+    Date.now() +
+    remaining * 1000;
+
+
   timerId =
     setInterval(() => {
 
-      remaining--;
+      remaining =
+        Math.max(
+          0,
+          Math.ceil(
+            (endTime - Date.now()) /
+            1000
+          )
+        );
+
 
       renderTimer();
 
 
       if (remaining <= 0) {
 
-        clearInterval(timerId);
+        clearInterval(
+          timerId
+        );
 
         timerId = null;
 
@@ -977,24 +1259,39 @@ function startTimer(minutes) {
         renderTimer();
 
 
+        /*
+         * Small vibration if supported.
+         */
+
+        if (
+          "vibrate" in navigator
+        ) {
+
+          navigator.vibrate(
+            [200, 100, 200]
+          );
+
+        }
+
+
         alert(
           "Focus session complete ☕"
         );
 
       }
 
-    }, 1000);
+    }, 500);
 
 }
 
 
-/* -------------------------
+/* =========================================================
    TIMER BUTTONS
-   ------------------------- */
+   ========================================================= */
 
 document
   .querySelectorAll(".timer")
-  .forEach((button) => {
+  .forEach(button => {
 
     button.addEventListener(
       "click",
@@ -1020,9 +1317,9 @@ document
   });
 
 
-/* -------------------------
+/* =========================================================
    TIMER RESET
-   ------------------------- */
+   ========================================================= */
 
 const resetTimerBtn =
   document.getElementById(
@@ -1034,7 +1331,14 @@ resetTimerBtn?.addEventListener(
   "click",
   () => {
 
-    clearInterval(timerId);
+    if (timerId !== null) {
+
+      clearInterval(
+        timerId
+      );
+
+    }
+
 
     timerId = null;
 
@@ -1047,12 +1351,12 @@ resetTimerBtn?.addEventListener(
 
 
 /* =========================================================
-   ORMA — TIME MACHINE / ERA BUTTONS
+   ORMA
    ========================================================= */
 
 document
   .querySelectorAll(".era")
-  .forEach((button) => {
+  .forEach(button => {
 
     button.addEventListener(
       "click",
@@ -1060,7 +1364,7 @@ document
 
         document
           .querySelectorAll(".era")
-          .forEach((item) => {
+          .forEach(item => {
 
             item.classList.remove(
               "active"
@@ -1115,7 +1419,7 @@ try {
 
 } catch (error) {
 
-  console.error(
+  console.warn(
     "Memory loading error:",
     error
   );
@@ -1126,21 +1430,25 @@ try {
 
 
 /* =========================================================
-   HTML ESCAPE
+   ESCAPE HTML
    ========================================================= */
 
 function escapeHtml(value) {
 
   return String(value).replace(
     /[&<>"']/g,
-    (character) => {
+    character => {
 
       const entities = {
 
         "&": "&amp;",
+
         "<": "&lt;",
+
         ">": "&gt;",
+
         '"': "&quot;",
+
         "'": "&#039;"
 
       };
@@ -1162,7 +1470,9 @@ function escapeHtml(value) {
 
 function renderMemories() {
 
-  if (!memoryList) return;
+  if (!memoryList) {
+    return;
+  }
 
 
   if (!memories.length) {
@@ -1179,7 +1489,7 @@ function renderMemories() {
 
   memoryList.innerHTML =
     memories
-      .map((memory) => {
+      .map(memory => {
 
         const title =
           escapeHtml(
@@ -1198,7 +1508,8 @@ function renderMemories() {
 
         const text =
           escapeHtml(
-            memory.text || ""
+            memory.text ||
+            ""
           );
 
 
@@ -1221,42 +1532,36 @@ function renderMemories() {
 
 memoryForm?.addEventListener(
   "submit",
-  (event) => {
+  event => {
 
     event.preventDefault();
 
 
-    const titleInput =
-      document.getElementById(
-        "memoryTitle"
-      );
-
-
-    const yearInput =
-      document.getElementById(
-        "memoryYear"
-      );
-
-
-    const textInput =
-      document.getElementById(
-        "memoryText"
-      );
-
-
     const title =
-      titleInput?.value.trim() ||
-      "";
+      document
+        .getElementById(
+          "memoryTitle"
+        )
+        ?.value
+        .trim() || "";
 
 
     const year =
-      yearInput?.value.trim() ||
-      "";
+      document
+        .getElementById(
+          "memoryYear"
+        )
+        ?.value
+        .trim() || "";
 
 
     const text =
-      textInput?.value.trim() ||
-      "";
+      document
+        .getElementById(
+          "memoryText"
+        )
+        ?.value
+        .trim() || "";
 
 
     if (!title && !text) {
@@ -1267,25 +1572,71 @@ memoryForm?.addEventListener(
     memories.unshift({
 
       title,
+
       year,
+
       text,
-      createdAt: Date.now()
+
+      createdAt:
+        Date.now()
 
     });
 
 
-    localStorage.setItem(
-      "paalChayaMemories",
-      JSON.stringify(
-        memories
-      )
-    );
+    try {
+
+      localStorage.setItem(
+        "paalChayaMemories",
+        JSON.stringify(
+          memories
+        )
+      );
+
+    } catch (error) {
+
+      console.warn(
+        "Could not save memory:",
+        error
+      );
+
+    }
 
 
     memoryForm.reset();
 
-
     renderMemories();
+
+  }
+);
+
+
+/* =========================================================
+   PAGE VISIBILITY
+   ========================================================= */
+
+/*
+ * When the user leaves the page, stop the lightning
+ * scheduler. This saves battery and CPU.
+ */
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+
+    if (
+      document.hidden
+    ) {
+
+      stopLightning();
+
+    } else if (
+      audioPlaying &&
+      !audioMuted
+    ) {
+
+      scheduleLightning();
+
+    }
 
   }
 );
@@ -1301,101 +1652,22 @@ renderTimer();
 
 
 console.log(
-  "PAAL CHAYA loaded successfully ☕"
+  "PAAL CHAYA V4 loaded successfully ☕"
 );
 
-
 console.log(
-  "V3 atmosphere: thunder + lightning enabled ⚡"
+  "Audio folder: audio/"
 );
 
-
 console.log(
-  "Audio folder:",
-  "audio/"
-);
-
-
-console.log(
-  "Available sounds:",
+  "Sounds:",
   audioNames
 );
 
-/* =========================================================
-   PAAL CHAYA — NATURAL LIGHTNING
-   ========================================================= */
+console.log(
+  "Timer: timestamp based"
+);
 
-let lightningTimer = null;
-
-function triggerLightning(){
-
-  document.body.classList.add("lightning");
-
-  setTimeout(() => {
-    document.body.classList.remove("lightning");
-  }, 90);
-
-  /* occasional second flash */
-  if (Math.random() > 0.55) {
-
-    setTimeout(() => {
-
-      document.body.classList.add("lightning");
-
-      setTimeout(() => {
-        document.body.classList.remove("lightning");
-      }, 65);
-
-    }, 130);
-
-  }
-}
-
-
-function scheduleLightning(){
-
-  clearTimeout(lightningTimer);
-
-  if (!audioPlaying) return;
-
-  const delay =
-    9000 +
-    Math.random() * 18000;
-
-  lightningTimer = setTimeout(() => {
-
-    triggerLightning();
-
-    scheduleLightning();
-
-  }, delay);
-}
-
-
-/* Start lightning when ambience starts */
-const originalStartAudio = startAudio;
-
-startAudio = async function(){
-
-  await originalStartAudio();
-
-  if (audioPlaying){
-    scheduleLightning();
-  }
-
-};
-
-
-/* Stop lightning when ambience stops */
-const originalStopAudio = stopAudio;
-
-stopAudio = function(){
-
-  originalStopAudio();
-
-  clearTimeout(lightningTimer);
-  lightningTimer = null;
-
-  document.body.classList.remove("lightning");
-
-};
+console.log(
+  "Lightning: single optimized system ⚡"
+);
