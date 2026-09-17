@@ -1,6 +1,8 @@
 /* =========================================================
-   PAAL CHAYA
-   MAIN JAVASCRIPT — V4 STABLE + OPTIMIZED
+   PAAL CHAYA — MAIN JAVASCRIPT
+   CLEAN V4
+   Audio + Timer + Explore + Orma + Memories
+   Lightweight Lightning
    ========================================================= */
 
 
@@ -15,39 +17,28 @@ if (menuBtn && nav) {
 
   menuBtn.addEventListener("click", () => {
 
-    const isOpen =
-      nav.classList.contains("menu-open");
+    const open =
+      nav.classList.toggle("menu-open");
 
-    if (isOpen) {
+    menuBtn.setAttribute(
+      "aria-expanded",
+      String(open)
+    );
 
-      nav.classList.remove("menu-open");
-
-      menuBtn.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-
-    } else {
-
-      nav.classList.add("menu-open");
-
-      menuBtn.setAttribute(
-        "aria-expanded",
-        "true"
-      );
-
-    }
+    nav.style.display =
+      open ? "grid" : "";
 
   });
 
-
-  nav.querySelectorAll("a").forEach(link => {
+  nav.querySelectorAll("a").forEach((link) => {
 
     link.addEventListener("click", () => {
 
       if (window.innerWidth <= 900) {
 
         nav.classList.remove("menu-open");
+
+        nav.style.display = "";
 
         menuBtn.setAttribute(
           "aria-expanded",
@@ -64,7 +55,7 @@ if (menuBtn && nav) {
 
 
 /* =========================================================
-   AUDIO SYSTEM
+   AUDIO ENGINE
    ========================================================= */
 
 const audioNames = [
@@ -77,42 +68,30 @@ const audioNames = [
 
 
 const defaultVolumes = {
-
   rain: 55,
-
   thunder: 25,
-
   crickets: 40,
-
   fire: 15,
-
   train: 10
-
 };
 
 
 const sounds = {};
 
 let audioPlaying = false;
-
 let audioMuted = false;
 
 
 /* =========================================================
-   CREATE AUDIO OBJECTS
+   CREATE AUDIO
    ========================================================= */
 
-audioNames.forEach(name => {
+audioNames.forEach((name) => {
 
   const audio =
     new Audio(`audio/${name}.wav`);
 
   audio.loop = true;
-
-  /*
-   * Do not force-load every large WAV immediately.
-   * Browser can load them when playback starts.
-   */
 
   audio.preload = "metadata";
 
@@ -144,27 +123,17 @@ const muteBtn =
 function setAudioStatus(message) {
 
   if (audioStatus) {
-
-    audioStatus.textContent =
-      message;
-
+    audioStatus.textContent = message;
   }
 
 }
 
 
 /* =========================================================
-   LIGHTNING SYSTEM
+   LIGHTNING
    ========================================================= */
 
 let lightningTimer = null;
-
-let lightningFlashTimers = [];
-
-
-/*
- * Create overlay only once.
- */
 
 const lightningOverlay =
   document.createElement("div");
@@ -177,279 +146,35 @@ document.body.appendChild(
 );
 
 
-/*
- * Lightweight lightning CSS.
- */
+function flashLightning() {
 
-const lightningStyle =
-  document.createElement("style");
-
-lightningStyle.textContent = `
-
-  #paalChayaLightning {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 13;
-
-    pointer-events: none;
-
-    opacity: 0;
-
-    background:
-      radial-gradient(
-        ellipse at 62% 45%,
-        rgba(255,245,220,.42),
-        rgba(235,220,190,.12) 38%,
-        transparent 72%
-      );
-
-    mix-blend-mode: screen;
-
-    transition:
-      opacity .035s linear;
-
+  if (!audioPlaying || audioMuted) {
+    return;
   }
-
-
-  #paalChayaLightning.pc-flash-1 {
-
-    opacity: .12;
-
-  }
-
-
-  #paalChayaLightning.pc-flash-2 {
-
-    opacity: .38;
-
-  }
-
-
-  #paalChayaLightning.pc-flash-3 {
-
-    opacity: .08;
-
-  }
-
-
-  @media(max-width:650px) {
-
-    #paalChayaLightning {
-
-      background:
-        radial-gradient(
-          ellipse at 58% 45%,
-          rgba(255,245,220,.36),
-          rgba(235,220,190,.09) 40%,
-          transparent 75%
-        );
-
-    }
-
-  }
-
-`;
-
-document.head.appendChild(
-  lightningStyle
-);
-
-
-/* =========================================================
-   CLEAR LIGHTNING
-   ========================================================= */
-
-function clearLightningTimers() {
-
-  if (lightningTimer) {
-
-    clearTimeout(
-      lightningTimer
-    );
-
-    lightningTimer = null;
-
-  }
-
-
-  lightningFlashTimers.forEach(
-    timer => clearTimeout(timer)
-  );
-
-  lightningFlashTimers = [];
-
-
-  lightningOverlay.className = "";
-
-}
-
-
-/* =========================================================
-   SINGLE LIGHTNING FLASH
-   ========================================================= */
-
-function triggerLightning() {
-
-  /*
-   * Never flash when ambience is not active.
-   */
-
-  if (!audioPlaying) return;
-
-  /*
-   * Never flash while muted.
-   */
-
-  if (audioMuted) return;
-
-
-  /*
-   * Do not flash if thunder volume is
-   * essentially turned off.
-   */
 
   const thunder =
     sounds.thunder;
 
-  if (!thunder) return;
-
-  if (thunder.volume <= 0.01) {
+  if (!thunder || thunder.volume < 0.01) {
     return;
   }
 
-
-  /*
-   * First flash.
-   */
-
-  lightningOverlay.className =
-    "pc-flash-1";
-
-
-  const flash1 =
-    setTimeout(() => {
-
-      lightningOverlay.className =
-        "pc-flash-2";
-
-    }, 45);
-
-
-  const flash2 =
-    setTimeout(() => {
-
-      lightningOverlay.className =
-        "pc-flash-3";
-
-    }, 90);
-
-
-  const flash3 =
-    setTimeout(() => {
-
-      lightningOverlay.className =
-        "";
-
-    }, 155);
-
-
-  lightningFlashTimers.push(
-    flash1,
-    flash2,
-    flash3
+  lightningOverlay.classList.add(
+    "flash"
   );
 
+  setTimeout(() => {
 
-  /*
-   * Sometimes a small secondary flash.
-   */
-
-  if (Math.random() > 0.60) {
-
-    const secondDelay =
-      220 +
-      Math.random() * 300;
-
-
-    const secondFlash =
-      setTimeout(() => {
-
-        if (
-          !audioPlaying ||
-          audioMuted
-        ) {
-          return;
-        }
-
-
-        lightningOverlay.className =
-          "pc-flash-1";
-
-
-        const secondEnd =
-          setTimeout(() => {
-
-            lightningOverlay.className =
-              "";
-
-          }, 70);
-
-
-        lightningFlashTimers.push(
-          secondEnd
-        );
-
-      }, secondDelay);
-
-
-    lightningFlashTimers.push(
-      secondFlash
+    lightningOverlay.classList.remove(
+      "flash"
     );
 
-  }
+  }, 90);
 
-}
+  /* occasional second flash */
 
+  if (Math.random() > 0.65) {
 
-/* =========================================================
-   SCHEDULE LIGHTNING
-   ========================================================= */
-
-function scheduleLightning() {
-
-  clearTimeout(
-    lightningTimer
-  );
-
-  lightningTimer = null;
-
-
-  if (!audioPlaying) {
-    return;
-  }
-
-
-  if (audioMuted) {
-    return;
-  }
-
-
-  /*
-   * 14–30 seconds between possible flashes.
-   *
-   * This is intentionally slow so the phone
-   * does not constantly animate.
-   */
-
-  const delay =
-    14000 +
-    Math.random() * 16000;
-
-
-  lightningTimer =
     setTimeout(() => {
 
       if (
@@ -457,10 +182,43 @@ function scheduleLightning() {
         !audioMuted
       ) {
 
-        triggerLightning();
+        lightningOverlay.classList.add(
+          "flash"
+        );
+
+        setTimeout(() => {
+
+          lightningOverlay.classList.remove(
+            "flash"
+          );
+
+        }, 60);
 
       }
 
+    }, 140);
+
+  }
+
+}
+
+
+function scheduleLightning() {
+
+  clearTimeout(lightningTimer);
+
+  if (!audioPlaying) {
+    return;
+  }
+
+  const delay =
+    12000 +
+    Math.random() * 18000;
+
+  lightningTimer =
+    setTimeout(() => {
+
+      flashLightning();
 
       scheduleLightning();
 
@@ -469,13 +227,15 @@ function scheduleLightning() {
 }
 
 
-/* =========================================================
-   STOP LIGHTNING
-   ========================================================= */
-
 function stopLightning() {
 
-  clearLightningTimers();
+  clearTimeout(lightningTimer);
+
+  lightningTimer = null;
+
+  lightningOverlay.classList.remove(
+    "flash"
+  );
 
 }
 
@@ -490,14 +250,37 @@ async function startAudio() {
     return;
   }
 
-
   try {
 
+    setAudioStatus(
+      "Starting Kerala ambience… ☕"
+    );
+
     /*
-     * Set state BEFORE playback.
-     * This prevents double taps from starting
-     * multiple copies.
+     * Start all audio together.
+     *
+     * This is smoother than waiting for
+     * each WAV file separately.
      */
+
+    const playPromises =
+      audioNames.map((name) => {
+
+        const audio =
+          sounds[name];
+
+        audio.muted =
+          audioMuted;
+
+        return audio.play();
+
+      });
+
+
+    await Promise.all(
+      playPromises
+    );
+
 
     audioPlaying = true;
 
@@ -511,88 +294,27 @@ async function startAudio() {
 
 
     setAudioStatus(
-      "Starting Kerala ambience ☕"
-    );
-
-
-    /*
-     * Start all sounds together.
-     *
-     * IMPORTANT:
-     * We do NOT await each sound one by one.
-     */
-
-    const playPromises =
-      audioNames.map(name => {
-
-        const audio =
-          sounds[name];
-
-        if (!audio) {
-          return Promise.resolve();
-        }
-
-
-        audio.muted =
-          audioMuted;
-
-
-        return audio
-          .play()
-          .catch(error => {
-
-            console.warn(
-              `${name} audio could not start:`,
-              error
-            );
-
-          });
-
-      });
-
-
-    await Promise.all(
-      playPromises
-    );
-
-
-    /*
-     * Start lightning only after
-     * audio playback has been attempted.
-     */
-
-    scheduleLightning();
-
-
-    setAudioStatus(
       "Playing — Kerala ambience is active ☕"
     );
 
 
-  } catch (error) {
+    scheduleLightning();
+
+  }
+
+  catch (error) {
 
     console.error(
-      "Audio start error:",
+      "PAAL CHAYA audio error:",
       error
     );
 
-
     audioPlaying = false;
-
 
     stopLightning();
 
-
-    if (masterBtn) {
-
-      masterBtn.textContent =
-        "▶ Start";
-
-    }
-
-
     setAudioStatus(
-      "Could not start audio. Tap Start again."
+      "Tap Start Experience again to enable audio."
     );
 
   }
@@ -606,38 +328,28 @@ async function startAudio() {
 
 function stopAudio() {
 
-  /*
-   * Stop lightning first.
-   */
-
-  stopLightning();
-
-
-  audioNames.forEach(name => {
+  audioNames.forEach((name) => {
 
     const audio =
       sounds[name];
 
-    if (!audio) return;
-
+    if (!audio) {
+      return;
+    }
 
     audio.pause();
 
-
-    /*
-     * Reset playback position.
-     */
-
     try {
-
       audio.currentTime = 0;
-
-    } catch (_) {}
+    }
+    catch (_) {}
 
   });
 
 
   audioPlaying = false;
+
+  stopLightning();
 
 
   if (masterBtn) {
@@ -656,156 +368,163 @@ function stopAudio() {
 
 
 /* =========================================================
-   MASTER AUDIO BUTTON
+   MASTER BUTTON
    ========================================================= */
 
-masterBtn?.addEventListener(
-  "click",
-  () => {
+if (masterBtn) {
 
-    if (audioPlaying) {
+  masterBtn.addEventListener(
+    "click",
+    () => {
 
-      stopAudio();
+      if (audioPlaying) {
 
-    } else {
+        stopAudio();
 
-      startAudio();
+      }
+
+      else {
+
+        startAudio();
+
+      }
 
     }
+  );
 
-  }
-);
+}
 
 
 /* =========================================================
    TEST RAIN
    ========================================================= */
 
-let testRain = null;
+if (testBtn) {
 
+  testBtn.addEventListener(
+    "click",
+    async () => {
 
-testBtn?.addEventListener(
-  "click",
-  async () => {
+      try {
 
-    try {
-
-      /*
-       * Reuse the same audio object instead
-       * of creating a new object every tap.
-       */
-
-      if (!testRain) {
-
-        testRain =
+        const test =
           new Audio(
             "audio/rain.wav"
           );
 
-        testRain.volume = 0.9;
+        test.volume = .9;
 
-        testRain.loop = false;
+        test.loop = false;
 
-        testRain.preload =
-          "metadata";
+        await test.play();
+
+        setAudioStatus(
+          "Rain test playing 🌧️"
+        );
+
+        /*
+         * Release audio object after playback.
+         */
+
+        test.addEventListener(
+          "ended",
+          () => {
+
+            test.src = "";
+
+          },
+          { once:true }
+        );
 
       }
 
+      catch (error) {
 
-      testRain.currentTime = 0;
+        console.error(
+          "Rain test error:",
+          error
+        );
 
+        setAudioStatus(
+          "Rain could not play. Tap again."
+        );
 
-      await testRain.play();
-
-
-      setAudioStatus(
-        "Rain test playing 🌧️"
-      );
-
-
-    } catch (error) {
-
-      console.warn(
-        "Rain test error:",
-        error
-      );
-
-
-      setAudioStatus(
-        "Tap Test Rain again."
-      );
+      }
 
     }
+  );
 
-  }
-);
+}
 
 
 /* =========================================================
    MUTE / UNMUTE
    ========================================================= */
 
-muteBtn?.addEventListener(
-  "click",
-  () => {
+if (muteBtn) {
 
-    audioMuted =
-      !audioMuted;
+  muteBtn.addEventListener(
+    "click",
+    () => {
+
+      audioMuted =
+        !audioMuted;
 
 
-    audioNames.forEach(name => {
+      audioNames.forEach((name) => {
 
-      if (sounds[name]) {
+        if (sounds[name]) {
 
-        sounds[name].muted =
-          audioMuted;
+          sounds[name].muted =
+            audioMuted;
+
+        }
+
+      });
+
+
+      if (audioMuted) {
+
+        stopLightning();
+
+        muteBtn.textContent =
+          "🔊 Unmute";
+
+        setAudioStatus(
+          "Audio muted 🔇"
+        );
 
       }
 
-    });
+      else {
 
+        muteBtn.textContent =
+          "🔇 Mute";
 
-    if (audioMuted) {
+        if (audioPlaying) {
 
-      stopLightning();
+          setAudioStatus(
+            "Playing — Kerala ambience is active ☕"
+          );
 
+          scheduleLightning();
 
-      muteBtn.textContent =
-        "🔊 Unmute";
+        }
 
+        else {
 
-      setAudioStatus(
-        "Audio muted 🔇"
-      );
+          setAudioStatus(
+            "Ready — tap Start Experience"
+          );
 
-
-    } else {
-
-      muteBtn.textContent =
-        "🔇 Mute";
-
-
-      if (audioPlaying) {
-
-        setAudioStatus(
-          "Playing — Kerala ambience is active ☕"
-        );
-
-
-        scheduleLightning();
-
-      } else {
-
-        setAudioStatus(
-          "Ready — tap Start Experience"
-        );
+        }
 
       }
 
     }
+  );
 
-  }
-);
+}
 
 
 /* =========================================================
@@ -814,48 +533,56 @@ muteBtn?.addEventListener(
 
 document
   .querySelectorAll(".sound-slider")
-  .forEach(slider => {
+  .forEach((slider) => {
 
     const soundName =
       slider.dataset.sound;
 
 
-    slider.addEventListener(
-      "input",
-      () => {
+    const updateVolume = () => {
 
-        const value =
-          Number(slider.value);
+      const value =
+        Number(slider.value);
 
 
-        if (sounds[soundName]) {
+      if (sounds[soundName]) {
 
-          sounds[soundName].volume =
-            (value / 100) * 0.72;
-
-        }
-
-
-        const valueDisplay =
-          slider.parentElement
-            ?.querySelector(
-              ".volume-value"
-            ) ||
-          slider.parentElement
-            ?.querySelector(
-              ".slider-value"
-            );
-
-
-        if (valueDisplay) {
-
-          valueDisplay.textContent =
-            `${value}%`;
-
-        }
+        sounds[soundName].volume =
+          (value / 100) * 0.72;
 
       }
+
+
+      const display =
+        slider.parentElement?.querySelector(
+          ".volume-value"
+        ) ||
+        slider.parentElement?.querySelector(
+          ".slider-value"
+        );
+
+
+      if (display) {
+
+        display.textContent =
+          `${value}%`;
+
+      }
+
+    };
+
+
+    slider.addEventListener(
+      "input",
+      updateVolume
     );
+
+
+    /*
+     * Set correct value on page load.
+     */
+
+    updateVolume();
 
   });
 
@@ -866,86 +593,57 @@ document
 
 const presets = {
 
-  monsoon: {
-
-    rain: 80,
-
-    thunder: 35,
-
-    crickets: 25,
-
-    fire: 5,
-
-    train: 5
-
+  monsoon:{
+    rain:80,
+    thunder:35,
+    crickets:25,
+    fire:5,
+    train:5
   },
 
-
-  night: {
-
-    rain: 20,
-
-    thunder: 5,
-
-    crickets: 75,
-
-    fire: 20,
-
-    train: 5
-
+  night:{
+    rain:20,
+    thunder:5,
+    crickets:75,
+    fire:20,
+    train:5
   },
 
-
-  chaya: {
-
-    rain: 15,
-
-    thunder: 5,
-
-    crickets: 20,
-
-    fire: 55,
-
-    train: 15
-
+  chaya:{
+    rain:15,
+    thunder:5,
+    crickets:20,
+    fire:55,
+    train:15
   },
 
-
-  journey: {
-
-    rain: 20,
-
-    thunder: 5,
-
-    crickets: 15,
-
-    fire: 5,
-
-    train: 75
-
+  journey:{
+    rain:20,
+    thunder:5,
+    crickets:15,
+    fire:5,
+    train:75
   }
 
 };
 
 
-/* =========================================================
-   APPLY PRESET
-   ========================================================= */
-
-function applyPreset(presetName) {
+function applyPreset(name) {
 
   const preset =
-    presets[presetName];
+    presets[name];
 
-  if (!preset) return;
+  if (!preset) {
+    return;
+  }
 
 
   Object.entries(preset)
-    .forEach(([name, value]) => {
+    .forEach(([soundName,value]) => {
 
-      if (sounds[name]) {
+      if (sounds[soundName]) {
 
-        sounds[name].volume =
+        sounds[soundName].volume =
           (value / 100) * 0.72;
 
       }
@@ -953,7 +651,7 @@ function applyPreset(presetName) {
 
       const slider =
         document.querySelector(
-          `.sound-slider[data-sound="${name}"]`
+          `.sound-slider[data-sound="${soundName}"]`
         );
 
 
@@ -963,20 +661,18 @@ function applyPreset(presetName) {
           value;
 
 
-        const valueDisplay =
-          slider.parentElement
-            ?.querySelector(
-              ".volume-value"
-            ) ||
-          slider.parentElement
-            ?.querySelector(
-              ".slider-value"
-            );
+        const display =
+          slider.parentElement?.querySelector(
+            ".volume-value"
+          ) ||
+          slider.parentElement?.querySelector(
+            ".slider-value"
+          );
 
 
-        if (valueDisplay) {
+        if (display) {
 
-          valueDisplay.textContent =
+          display.textContent =
             `${value}%`;
 
         }
@@ -988,7 +684,7 @@ function applyPreset(presetName) {
 
   document
     .querySelectorAll(".preset")
-    .forEach(button => {
+    .forEach((button) => {
 
       button.classList.remove(
         "selected"
@@ -999,7 +695,7 @@ function applyPreset(presetName) {
 
   const selected =
     document.querySelector(
-      `.preset[data-preset="${presetName}"]`
+      `.preset[data-preset="${name}"]`
     );
 
 
@@ -1009,14 +705,9 @@ function applyPreset(presetName) {
 
 
   setAudioStatus(
-    `Preset applied: ${presetName}`
+    `Preset applied: ${name}`
   );
 
-
-  /*
-   * Recalculate lightning schedule
-   * after thunder volume changes.
-   */
 
   if (
     audioPlaying &&
@@ -1036,7 +727,7 @@ function applyPreset(presetName) {
 
 document
   .querySelectorAll(".preset")
-  .forEach(button => {
+  .forEach((button) => {
 
     button.addEventListener(
       "click",
@@ -1053,7 +744,7 @@ document
 
 
 /* =========================================================
-   EXPLORE
+   EXPLORE SEARCH
    ========================================================= */
 
 const searchInput =
@@ -1082,16 +773,20 @@ function filterPlaces() {
 
   document
     .querySelectorAll(".place-card")
-    .forEach(card => {
+    .forEach((card) => {
 
       const name =
-        (card.dataset.name || "")
-          .toLowerCase();
+        (
+          card.dataset.name ||
+          ""
+        ).toLowerCase();
 
 
       const text =
-        (card.textContent || "")
-          .toLowerCase();
+        (
+          card.textContent ||
+          ""
+        ).toLowerCase();
 
 
       const cardCategory =
@@ -1099,20 +794,20 @@ function filterPlaces() {
         "";
 
 
-      const matchesSearch =
+      const searchMatch =
         !query ||
         name.includes(query) ||
         text.includes(query);
 
 
-      const matchesCategory =
+      const categoryMatch =
         category === "all" ||
         cardCategory === category;
 
 
       card.style.display =
-        matchesSearch &&
-        matchesCategory
+        searchMatch &&
+        categoryMatch
           ? ""
           : "none";
 
@@ -1134,11 +829,10 @@ categoryFilter?.addEventListener(
 
 
 /* =========================================================
-   POMODORO / FOCUS TIMER
+   FOCUS TIMER
    ========================================================= */
 
 let timerId = null;
-
 let remaining = 0;
 
 
@@ -1155,7 +849,7 @@ function renderTimer() {
   }
 
 
-  const safeRemaining =
+  const safe =
     Math.max(
       0,
       Math.floor(remaining)
@@ -1164,16 +858,16 @@ function renderTimer() {
 
   const minutes =
     Math.floor(
-      safeRemaining / 60
+      safe / 60
     );
 
 
   const seconds =
-    safeRemaining % 60;
+    safe % 60;
 
 
   timerDisplay.textContent =
-    `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
 
 }
 
@@ -1198,19 +892,11 @@ function startTimer(minutes) {
   }
 
 
-  /*
-   * Stop previous timer.
-   */
-
-  if (timerId !== null) {
-
-    clearInterval(timerId);
-
-  }
+  clearInterval(timerId);
 
 
   remaining =
-    Math.floor(
+    Math.round(
       duration * 60
     );
 
@@ -1218,28 +904,29 @@ function startTimer(minutes) {
   renderTimer();
 
 
-  /*
-   * Use timestamp-based timing.
-   *
-   * This is more accurate when the phone
-   * temporarily lags.
-   */
-
-  const endTime =
-    Date.now() +
-    remaining * 1000;
+  const startedAt =
+    Date.now();
 
 
   timerId =
     setInterval(() => {
 
+      /*
+       * Date.now() prevents timer drift
+       * when the phone slows down or
+       * the browser throttles JavaScript.
+       */
+
+      const elapsed =
+        Math.floor(
+          (Date.now() - startedAt) / 1000
+        );
+
+
       remaining =
         Math.max(
           0,
-          Math.ceil(
-            (endTime - Date.now()) /
-            1000
-          )
+          Math.round(duration * 60) - elapsed
         );
 
 
@@ -1254,33 +941,13 @@ function startTimer(minutes) {
 
         timerId = null;
 
-        remaining = 0;
-
-        renderTimer();
-
-
-        /*
-         * Small vibration if supported.
-         */
-
-        if (
-          "vibrate" in navigator
-        ) {
-
-          navigator.vibrate(
-            [200, 100, 200]
-          );
-
-        }
-
-
         alert(
           "Focus session complete ☕"
         );
 
       }
 
-    }, 500);
+    },1000);
 
 }
 
@@ -1291,7 +958,7 @@ function startTimer(minutes) {
 
 document
   .querySelectorAll(".timer")
-  .forEach(button => {
+  .forEach((button) => {
 
     button.addEventListener(
       "click",
@@ -1303,15 +970,12 @@ document
           );
 
 
-        if (minutes > 0) {
-
-          startTimer(
-            minutes
-          );
-
-        }
+        startTimer(
+          minutes
+        );
 
       }
+
     );
 
   });
@@ -1331,14 +995,9 @@ resetTimerBtn?.addEventListener(
   "click",
   () => {
 
-    if (timerId !== null) {
-
-      clearInterval(
-        timerId
-      );
-
-    }
-
+    clearInterval(
+      timerId
+    );
 
     timerId = null;
 
@@ -1356,7 +1015,7 @@ resetTimerBtn?.addEventListener(
 
 document
   .querySelectorAll(".era")
-  .forEach(button => {
+  .forEach((button) => {
 
     button.addEventListener(
       "click",
@@ -1364,7 +1023,7 @@ document
 
         document
           .querySelectorAll(".era")
-          .forEach(item => {
+          .forEach((item) => {
 
             item.classList.remove(
               "active"
@@ -1417,9 +1076,11 @@ try {
 
   }
 
-} catch (error) {
+}
 
-  console.warn(
+catch (error) {
+
+  console.error(
     "Memory loading error:",
     error
   );
@@ -1435,31 +1096,28 @@ try {
 
 function escapeHtml(value) {
 
-  return String(value).replace(
-    /[&<>"']/g,
-    character => {
+  return String(value)
+    .replace(
+      /[&<>"']/g,
+      (character) => {
 
-      const entities = {
+        const entities = {
 
-        "&": "&amp;",
+          "&":"&amp;",
+          "<":"&lt;",
+          ">":"&gt;",
+          '"':"&quot;",
+          "'":"&#039;"
 
-        "<": "&lt;",
-
-        ">": "&gt;",
-
-        '"': "&quot;",
-
-        "'": "&#039;"
-
-      };
+        };
 
 
-      return entities[
-        character
-      ];
+        return entities[
+          character
+        ];
 
-    }
-  );
+      }
+    );
 
 }
 
@@ -1477,10 +1135,11 @@ function renderMemories() {
 
   if (!memories.length) {
 
-    memoryList.innerHTML =
-      `<p class="empty-memory">
+    memoryList.innerHTML = `
+      <p class="empty-memory">
         No memories yet. Add your first Kerala memory ☕
-      </p>`;
+      </p>
+    `;
 
     return;
 
@@ -1489,7 +1148,7 @@ function renderMemories() {
 
   memoryList.innerHTML =
     memories
-      .map(memory => {
+      .map((memory) => {
 
         const title =
           escapeHtml(
@@ -1532,36 +1191,42 @@ function renderMemories() {
 
 memoryForm?.addEventListener(
   "submit",
-  event => {
+  (event) => {
 
     event.preventDefault();
 
 
+    const titleInput =
+      document.getElementById(
+        "memoryTitle"
+      );
+
+
+    const yearInput =
+      document.getElementById(
+        "memoryYear"
+      );
+
+
+    const textInput =
+      document.getElementById(
+        "memoryText"
+      );
+
+
     const title =
-      document
-        .getElementById(
-          "memoryTitle"
-        )
-        ?.value
-        .trim() || "";
+      titleInput?.value.trim() ||
+      "";
 
 
     const year =
-      document
-        .getElementById(
-          "memoryYear"
-        )
-        ?.value
-        .trim() || "";
+      yearInput?.value.trim() ||
+      "";
 
 
     const text =
-      document
-        .getElementById(
-          "memoryText"
-        )
-        ?.value
-        .trim() || "";
+      textInput?.value.trim() ||
+      "";
 
 
     if (!title && !text) {
@@ -1572,9 +1237,7 @@ memoryForm?.addEventListener(
     memories.unshift({
 
       title,
-
       year,
-
       text,
 
       createdAt:
@@ -1592,10 +1255,12 @@ memoryForm?.addEventListener(
         )
       );
 
-    } catch (error) {
+    }
 
-      console.warn(
-        "Could not save memory:",
+    catch (error) {
+
+      console.error(
+        "Memory save error:",
         error
       );
 
@@ -1611,38 +1276,6 @@ memoryForm?.addEventListener(
 
 
 /* =========================================================
-   PAGE VISIBILITY
-   ========================================================= */
-
-/*
- * When the user leaves the page, stop the lightning
- * scheduler. This saves battery and CPU.
- */
-
-document.addEventListener(
-  "visibilitychange",
-  () => {
-
-    if (
-      document.hidden
-    ) {
-
-      stopLightning();
-
-    } else if (
-      audioPlaying &&
-      !audioMuted
-    ) {
-
-      scheduleLightning();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
    INITIALIZE
    ========================================================= */
 
@@ -1650,24 +1283,23 @@ renderMemories();
 
 renderTimer();
 
+setAudioStatus(
+  "Ready — tap Start Experience"
+);
+
 
 console.log(
-  "PAAL CHAYA V4 loaded successfully ☕"
+  "PAAL CHAYA V4 loaded ☕"
 );
 
 console.log(
-  "Audio folder: audio/"
+  "Audio system ready"
 );
 
 console.log(
-  "Sounds:",
-  audioNames
+  "Timer system ready"
 );
 
 console.log(
-  "Timer: timestamp based"
-);
-
-console.log(
-  "Lightning: single optimized system ⚡"
+  "Vintage rain atmosphere ready 🌧️"
 );
