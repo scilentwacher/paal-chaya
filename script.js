@@ -1320,3 +1320,82 @@ console.log(
   "Available sounds:",
   audioNames
 );
+
+/* =========================================================
+   PAAL CHAYA — NATURAL LIGHTNING
+   ========================================================= */
+
+let lightningTimer = null;
+
+function triggerLightning(){
+
+  document.body.classList.add("lightning");
+
+  setTimeout(() => {
+    document.body.classList.remove("lightning");
+  }, 90);
+
+  /* occasional second flash */
+  if (Math.random() > 0.55) {
+
+    setTimeout(() => {
+
+      document.body.classList.add("lightning");
+
+      setTimeout(() => {
+        document.body.classList.remove("lightning");
+      }, 65);
+
+    }, 130);
+
+  }
+}
+
+
+function scheduleLightning(){
+
+  clearTimeout(lightningTimer);
+
+  if (!audioPlaying) return;
+
+  const delay =
+    9000 +
+    Math.random() * 18000;
+
+  lightningTimer = setTimeout(() => {
+
+    triggerLightning();
+
+    scheduleLightning();
+
+  }, delay);
+}
+
+
+/* Start lightning when ambience starts */
+const originalStartAudio = startAudio;
+
+startAudio = async function(){
+
+  await originalStartAudio();
+
+  if (audioPlaying){
+    scheduleLightning();
+  }
+
+};
+
+
+/* Stop lightning when ambience stops */
+const originalStopAudio = stopAudio;
+
+stopAudio = function(){
+
+  originalStopAudio();
+
+  clearTimeout(lightningTimer);
+  lightningTimer = null;
+
+  document.body.classList.remove("lightning");
+
+};
