@@ -26,7 +26,7 @@ body{
 
 
 /* =========================================================
-   VINTAGE KERALA SCENE
+   VINTAGE KERALA BACKGROUND
    ========================================================= */
 
 .scene{
@@ -35,58 +35,64 @@ body{
   z-index:-5;
 
   background:
+    /* warm central tea-shop light */
     radial-gradient(
-      circle at 58% 45%,
-      rgba(170,115,60,.18),
-      rgba(35,20,10,.08) 32%,
-      rgba(0,0,0,.42) 78%,
-      rgba(0,0,0,.68) 100%
+      ellipse at 60% 52%,
+      rgba(205,137,61,.20) 0%,
+      rgba(120,75,34,.10) 24%,
+      transparent 55%
     ),
 
+    /* side darkness */
     linear-gradient(
       90deg,
-      rgba(0,0,0,.50),
-      rgba(25,15,8,.08) 48%,
-      rgba(0,0,0,.36)
+      rgba(0,0,0,.34),
+      rgba(18,10,6,.05) 48%,
+      rgba(0,0,0,.28)
     ),
 
+    /* bottom cinematic shade */
     linear-gradient(
       0deg,
-      rgba(0,0,0,.42),
-      transparent 50%,
-      rgba(0,0,0,.18)
+      rgba(0,0,0,.36),
+      rgba(0,0,0,.02) 48%,
+      rgba(0,0,0,.14)
     ),
 
-    url("vintage-kerala.jpg") center/cover no-repeat;
+    url("vintage-kerala.jpg") center center / cover no-repeat;
 
   filter:
-    saturate(.88)
-    sepia(.13)
-    contrast(1.04)
-    brightness(1.10);
+    saturate(.92)
+    sepia(.10)
+    contrast(1.02)
+    brightness(1.12);
 
-  transform:scale(1.02);
+  transform:scale(1.025);
 
-  animation:filmExposure 11s ease-in-out infinite;
+  animation:filmExposure 12s ease-in-out infinite;
+
+  will-change:filter,transform;
 }
 
 
 /* =========================================================
-   WARM TEA SHOP LIGHT
+   WARM TEA SHOP GLOW
    ========================================================= */
 
 .scene::before{
   content:"";
+
   position:absolute;
-  inset:-10%;
+  inset:-12%;
+
   pointer-events:none;
 
   background:
     radial-gradient(
-      ellipse at 62% 48%,
-      rgba(220,153,76,.19) 0%,
-      rgba(170,101,43,.08) 25%,
-      transparent 55%
+      ellipse at 61% 52%,
+      rgba(238,164,81,.22) 0%,
+      rgba(190,115,49,.10) 22%,
+      transparent 54%
     );
 
   mix-blend-mode:screen;
@@ -96,22 +102,29 @@ body{
 
 
 /* =========================================================
-   DISTANT LIGHTNING
+   SOFT DISTANT LIGHTNING
    ========================================================= */
 
 .scene::after{
   content:"";
+
   position:absolute;
   inset:0;
+
   pointer-events:none;
 
-  background:rgba(235,232,216,.92);
+  background:
+    radial-gradient(
+      ellipse at 60% 40%,
+      rgba(255,248,220,.65),
+      transparent 65%
+    );
 
   opacity:0;
 
   mix-blend-mode:screen;
 
-  animation:distantLightning 17s linear infinite;
+  animation:distantLightning 18s linear infinite;
 }
 
 
@@ -123,122 +136,148 @@ body{
 
   0%,100%{
     filter:
-      saturate(.88)
-      sepia(.13)
-      contrast(1.04)
+      saturate(.92)
+      sepia(.10)
+      contrast(1.02)
+      brightness(1.10);
+  }
+
+  45%{
+    filter:
+      saturate(.94)
+      sepia(.11)
+      contrast(1.03)
+      brightness(1.14);
+  }
+
+  50%{
+    filter:
+      saturate(.90)
+      sepia(.09)
+      contrast(1.02)
       brightness(1.08);
   }
 
-  48%{
+  55%{
     filter:
-      saturate(.90)
-      sepia(.14)
+      saturate(.93)
+      sepia(.11)
       contrast(1.03)
       brightness(1.12);
   }
-
-  52%{
-    filter:
-      saturate(.87)
-      sepia(.12)
-      contrast(1.05)
-      brightness(1.06);
-  }
 }
 
+
+/* =========================================================
+   TEA SHOP LAMP BREATHING
+   ========================================================= */
 
 @keyframes chayaGlow{
 
   0%{
-    opacity:.48;
+    opacity:.38;
     transform:scale(1);
   }
 
-  48%{
-    opacity:.72;
-    transform:scale(1.025);
+  50%{
+    opacity:.68;
+    transform:scale(1.035);
   }
 
   100%{
-    opacity:.56;
-    transform:scale(1.01);
+    opacity:.46;
+    transform:scale(1.015);
   }
 }
 
 
+/* =========================================================
+   DISTANT LIGHTNING
+   ========================================================= */
+
 @keyframes distantLightning{
 
-  0%,89%,100%{
+  0%,88%,100%{
     opacity:0;
   }
 
-  90%{
+  89.2%{
     opacity:.025;
   }
 
-  90.25%{
-    opacity:.13;
+  89.45%{
+    opacity:.11;
+  }
+
+  89.7%{
+    opacity:.018;
+  }
+
+  90.1%{
+    opacity:.065;
   }
 
   90.5%{
-    opacity:.025;
-  }
-
-  90.8%{
-    opacity:.07;
-  }
-
-  91.15%{
     opacity:0;
   }
 }
 
 
 /* =========================================================
-   ATMOSPHERIC GLOW
+   ATMOSPHERIC WARMTH
    ========================================================= */
 
 body::before{
   content:"";
+
   position:fixed;
   inset:0;
+
   z-index:-2;
+
   pointer-events:none;
 
   background:
     radial-gradient(
-      circle at 76% 47%,
-      rgba(245,155,79,.18),
-      transparent 22%
+      ellipse at 72% 50%,
+      rgba(244,157,76,.14),
+      transparent 25%
     ),
 
     radial-gradient(
-      circle at 22% 65%,
-      rgba(104,74,40,.10),
-      transparent 25%
+      ellipse at 24% 70%,
+      rgba(110,74,39,.09),
+      transparent 30%
     );
 
   mix-blend-mode:screen;
+
+  animation:ambientWarmth 9s ease-in-out infinite alternate;
+}
+
+@keyframes ambientWarmth{
+
+  from{
+    opacity:.65;
+  }
+
+  to{
+    opacity:.95;
+  }
 }
 
 
 /* =========================================================
-   RAIN — V3 REALISTIC DEPTH
+   RAIN SYSTEM
    ========================================================= */
-
-/*
-   The three existing rain elements now represent:
-
-   rain-a = foreground / heavy drops
-   rain-b = middle distance
-   rain-c = background mist/fine rain
-*/
-
 
 .rain{
   position:fixed;
+
   inset:-30%;
+
   z-index:12;
+
   pointer-events:none;
 
   transform:rotate(8deg);
@@ -247,7 +286,7 @@ body::before{
 
   mix-blend-mode:screen;
 
-  will-change:background-position,transform;
+  will-change:background-position;
 }
 
 
@@ -257,33 +296,31 @@ body::before{
 
 .rain-a{
 
-  opacity:.27;
+  opacity:.23;
 
   background-image:
 
-    /* long bright drops */
     repeating-linear-gradient(
       105deg,
-      transparent 0 17px,
-      rgba(224,231,231,.38) 18px,
-      rgba(224,231,231,.20) 19px,
-      transparent 20px 42px
+      transparent 0 16px,
+      rgba(235,239,236,.38) 17px,
+      rgba(235,239,236,.18) 19px,
+      transparent 20px 43px
     ),
 
-    /* secondary thin drops */
     repeating-linear-gradient(
       105deg,
-      transparent 0 31px,
-      rgba(193,210,214,.20) 32px,
-      transparent 34px 67px
+      transparent 0 30px,
+      rgba(204,220,222,.19) 31px,
+      transparent 33px 69px
     );
 
   background-size:
-    44px 48px,
-    71px 79px;
+    43px 49px,
+    73px 81px;
 
   animation:
-    heavyRain .48s linear infinite;
+    heavyRain .52s linear infinite;
 }
 
 
@@ -297,43 +334,43 @@ body::before{
 
   to{
     background-position:
-      -38px 145px,
-      -22px 105px;
+      -40px 150px,
+      -24px 110px;
   }
 }
 
 
 /* =========================================================
-   MID-DISTANCE RAIN
+   MID RAIN
    ========================================================= */
 
 .rain-b{
 
-  opacity:.15;
+  opacity:.13;
 
   background-image:
 
     repeating-linear-gradient(
       104deg,
       transparent 0 22px,
-      rgba(207,221,223,.30) 23px,
-      rgba(207,221,223,.12) 24px,
-      transparent 25px 56px
+      rgba(213,225,225,.27) 23px,
+      rgba(213,225,225,.10) 24px,
+      transparent 25px 58px
     ),
 
     repeating-linear-gradient(
       104deg,
-      transparent 0 41px,
-      rgba(218,225,222,.18) 42px,
-      transparent 44px 89px
+      transparent 0 43px,
+      rgba(225,230,225,.15) 44px,
+      transparent 46px 92px
     );
 
   background-size:
-    59px 68px,
-    91px 104px;
+    60px 70px,
+    94px 107px;
 
   animation:
-    mediumRain .82s linear infinite;
+    mediumRain .86s linear infinite;
 }
 
 
@@ -347,44 +384,44 @@ body::before{
 
   to{
     background-position:
-      -30px 105px,
-      -17px 78px;
+      -31px 110px,
+      -18px 80px;
   }
 }
 
 
 /* =========================================================
-   BACKGROUND / FINE RAIN
+   DISTANT RAIN
    ========================================================= */
 
 .rain-c{
 
-  opacity:.09;
+  opacity:.075;
 
   background-image:
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 28px,
-      rgba(200,216,218,.22) 29px,
-      transparent 30px 73px
+      transparent 0 29px,
+      rgba(207,220,221,.20) 30px,
+      transparent 31px 75px
     ),
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 52px,
-      rgba(218,224,221,.13) 53px,
-      transparent 54px 112px
+      transparent 0 53px,
+      rgba(220,226,223,.12) 54px,
+      transparent 55px 115px
     );
 
   background-size:
-    82px 92px,
-    127px 139px;
+    84px 94px,
+    130px 142px;
 
-  filter:blur(.65px);
+  filter:blur(.7px);
 
   animation:
-    distantRain 1.25s linear infinite;
+    distantRain 1.3s linear infinite;
 }
 
 
@@ -398,8 +435,8 @@ body::before{
 
   to{
     background-position:
-      -22px 72px,
-      -13px 53px;
+      -23px 74px,
+      -14px 55px;
   }
 }
 
@@ -410,35 +447,39 @@ body::before{
 
 body::after{
   content:"";
+
   position:fixed;
+
   inset:-25%;
+
   z-index:11;
+
   pointer-events:none;
 
-  opacity:.085;
+  opacity:.065;
 
   background-image:
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 34px,
-      rgba(226,220,202,.18) 35px,
-      transparent 36px 72px
+      transparent 0 35px,
+      rgba(230,225,207,.17) 36px,
+      transparent 37px 74px
     ),
 
     repeating-linear-gradient(
       103deg,
-      transparent 0 75px,
-      rgba(226,220,202,.10) 76px,
-      transparent 77px 150px
+      transparent 0 77px,
+      rgba(230,225,207,.09) 78px,
+      transparent 79px 154px
     );
 
   background-size:
-    72px 72px,
-    151px 151px;
+    74px 74px,
+    154px 154px;
 
   animation:
-    rainDepth 1.4s linear infinite;
+    rainDepth 1.45s linear infinite;
 
   mix-blend-mode:screen;
 }
@@ -447,11 +488,11 @@ body::after{
 @keyframes rainDepth{
 
   from{
-    transform:translate3d(-24px,-35px,0);
+    transform:translate3d(-25px,-38px,0);
   }
 
   to{
-    transform:translate3d(25px,38px,0);
+    transform:translate3d(26px,40px,0);
   }
 }
 
@@ -462,35 +503,43 @@ body::after{
 
 .vignette{
   position:fixed;
+
   inset:0;
+
   z-index:10;
+
   pointer-events:none;
 
   background:
     radial-gradient(
       ellipse at center,
-      transparent 38%,
-      rgba(0,0,0,.48) 100%
+      transparent 34%,
+      rgba(0,0,0,.25) 72%,
+      rgba(0,0,0,.55) 100%
     );
 }
 
 
 /* =========================================================
-   OLD PHOTOGRAPHIC GRAIN
+   OLD FILM GRAIN
    ========================================================= */
 
 .grain{
   position:fixed;
+
   inset:-50%;
+
   z-index:15;
+
   pointer-events:none;
 
-  opacity:.065;
+  opacity:.055;
 
   background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
 
-  animation:grain .18s steps(2) infinite;
+  animation:
+    grain .18s steps(2) infinite;
 }
 
 
@@ -524,6 +573,7 @@ body::after{
 
 .topbar{
   position:fixed;
+
   top:0;
   left:0;
   right:0;
@@ -533,7 +583,9 @@ body::after{
   min-height:86px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
   padding:14px 28px;
@@ -541,8 +593,8 @@ body::after{
   background:
     linear-gradient(
       180deg,
-      rgba(8,5,4,.86),
-      rgba(8,5,4,.28),
+      rgba(8,5,4,.78),
+      rgba(8,5,4,.20),
       transparent
     );
 }
@@ -550,7 +602,9 @@ body::after{
 
 .brand{
   display:flex;
+
   align-items:center;
+
   gap:12px;
 
   color:var(--cream);
@@ -564,7 +618,7 @@ body::after{
 
   filter:
     drop-shadow(
-      0 0 8px rgba(231,165,91,.45)
+      0 0 9px rgba(231,165,91,.48)
     );
 }
 
@@ -585,6 +639,7 @@ body::after{
 
 .brand small{
   font-style:italic;
+
   opacity:.82;
 }
 
@@ -617,19 +672,23 @@ body::after{
 
 .era-badge span{
   font-size:10px;
+
   letter-spacing:2px;
 }
 
 
 .era-badge b{
   font-family:"IM Fell English";
+
   font-size:23px;
+
   color:#d7ae6d;
 }
 
 
 .era-badge em{
   font-size:11px;
+
   opacity:.72;
 }
 
@@ -642,7 +701,7 @@ body::after{
   color:#ead19b;
 
   background:
-    rgba(48,28,17,.9);
+    rgba(48,28,17,.90);
 
   border:
     1px solid rgba(205,157,88,.55);
@@ -661,6 +720,7 @@ body::after{
   position:fixed;
 
   left:20px;
+
   top:120px;
 
   width:185px;
@@ -675,7 +735,9 @@ body::after{
 
 .nav-link{
   display:flex;
+
   align-items:center;
+
   gap:13px;
 
   padding:12px 14px;
@@ -720,7 +782,7 @@ body::after{
 
 
 /* =========================================================
-   MAIN / HERO
+   MAIN
    ========================================================= */
 
 main{
@@ -729,6 +791,10 @@ main{
   margin-left:260px;
 }
 
+
+/* =========================================================
+   HERO
+   ========================================================= */
 
 .hero{
   min-height:100vh;
@@ -745,6 +811,10 @@ main{
 
 .hero-copy{
   max-width:620px;
+
+  position:relative;
+
+  z-index:2;
 }
 
 
@@ -763,6 +833,7 @@ h1,
 h2,
 h3{
   font-family:"IM Fell English",Georgia,serif;
+
   font-weight:400;
 }
 
@@ -876,6 +947,7 @@ h1 i{
   position:absolute;
 
   right:30px;
+
   bottom:85px;
 
   max-width:280px;
@@ -883,15 +955,19 @@ h1 i{
   padding:17px;
 
   background:
-    rgba(33,20,12,.76);
+    rgba(33,20,12,.70);
 
   border:
-    1px solid rgba(214,162,91,.5);
+    1px solid rgba(214,162,91,.50);
 
   transform:rotate(-2deg);
 
   box-shadow:
-    0 12px 25px rgba(0,0,0,.4);
+    0 12px 25px rgba(0,0,0,.40);
+
+  backdrop-filter:blur(1px);
+
+  z-index:4;
 }
 
 
@@ -1693,13 +1769,12 @@ footer small{
      ===================================================== */
 
   .hero{
+    min-height:100svh;
+
     padding:
       125px
       20px
-      55px
-      20px;
-
-    min-height:100vh;
+      55px;
 
     display:flex !important;
 
@@ -1711,37 +1786,51 @@ footer small{
   }
 
 
-  /* Reveal actual Kerala scene */
+  /* =====================================================
+     MOBILE IMAGE POSITION
+     ===================================================== */
 
   .scene{
+
+    /*
+     * THIS controls where vintage-kerala.jpg
+     * appears on mobile.
+     *
+     * Increase first value → image moves LEFT
+     * Decrease first value → image moves RIGHT
+     */
+
     background-position:58% center;
 
     background-size:cover;
 
     filter:
-      saturate(.86)
-      sepia(.11)
-      contrast(1.03)
-      brightness(1.08);
+      saturate(.90)
+      sepia(.09)
+      contrast(1.02)
+      brightness(1.15);
 
-    transform:scale(1.015);
+    transform:scale(1.02);
   }
 
 
-  /* Mobile warm light */
+  /* stronger warm area */
 
   .scene::before{
+
     background:
       radial-gradient(
-        ellipse at 60% 45%,
-        rgba(211,150,76,.20),
-        rgba(167,101,43,.06) 30%,
-        transparent 58%
+        ellipse at 61% 52%,
+        rgba(220,150,72,.22),
+        rgba(164,96,40,.07) 30%,
+        transparent 60%
       );
   }
 
 
-  /* Readability layer */
+  /* =====================================================
+     MOBILE READABILITY
+     ===================================================== */
 
   .hero::after{
     content:"";
@@ -1752,7 +1841,7 @@ footer small{
     right:0;
     bottom:0;
 
-    height:48%;
+    height:44%;
 
     z-index:-1;
 
@@ -1761,15 +1850,12 @@ footer small{
     background:
       linear-gradient(
         0deg,
-        rgba(5,3,2,.68),
+        rgba(4,2,1,.62),
+        rgba(4,2,1,.18) 58%,
         transparent
       );
   }
 
-
-  /* =====================================================
-     HERO COPY
-     ===================================================== */
 
   .hero-copy{
     width:100% !important;
@@ -1816,7 +1902,7 @@ footer small{
 
 
   /* =====================================================
-     SHOP NOTE — MOBILE
+     MOBILE SHOP NOTE
      ===================================================== */
 
   .hero-copy .shop-note{
@@ -1824,8 +1910,11 @@ footer small{
     position:relative !important;
 
     top:auto !important;
+
     right:auto !important;
+
     bottom:auto !important;
+
     left:auto !important;
 
     width:fit-content !important;
@@ -1848,7 +1937,7 @@ footer small{
 
 
   /* =====================================================
-     SECTION
+     MOBILE SECTIONS
      ===================================================== */
 
   .section{
@@ -1856,25 +1945,23 @@ footer small{
   }
 
 
-  /* Fine rain slightly softer on phones */
-
   body::after{
-    opacity:.07;
+    opacity:.065;
   }
 
 
   .rain-a{
-    opacity:.22;
+    opacity:.20;
   }
 
 
   .rain-b{
-    opacity:.12;
+    opacity:.115;
   }
 
 
   .rain-c{
-    opacity:.075;
+    opacity:.07;
   }
 
 }
@@ -1931,6 +2018,8 @@ footer small{
 
 
   .hero{
+    min-height:100svh;
+
     padding:
       125px
       20px
@@ -1985,6 +2074,40 @@ footer small{
 
 
 /* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media(max-width:380px){
+
+  .brand strong{
+    font-size:22px;
+  }
+
+  .brand-cup{
+    font-size:30px;
+  }
+
+  h1{
+    font-size:47px !important;
+  }
+
+  .hero{
+    padding-left:16px;
+    padding-right:16px;
+  }
+
+  .hero-text{
+    font-size:17px;
+  }
+
+  .shop-note{
+    max-width:230px !important;
+  }
+
+}
+
+
+/* =========================================================
    REDUCED MOTION
    ========================================================= */
 
@@ -1993,9 +2116,11 @@ footer small{
   .scene,
   .scene::before,
   .scene::after,
+  body::before,
   body::after,
   .grain,
   .rain,
+  .rain-a,
   .rain-b,
   .rain-c{
     animation:none !important;
